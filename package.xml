@@ -1,0 +1,13 @@
+<package>
+  <name>hpp_tutorial</name>
+  <version>0.1.0</version>
+  <description>
+    Tutorial for Humanoid path planner platform
+  </description>
+  <author>Florent Lamiraux</author>
+  <maintainer email="hpp@laas.fr">Florent Lamiraux</maintainer>
+  <license>LGPL v2</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>hpp_ros</build_depend>
+  <build_depend>hpp-corbaserver</build_depend>
+</package>
