@@ -13,7 +13,6 @@
 	name="kitchen_link_broadcaster"
 	args="0 0 0 0 0 0 /map /iai_kitchen/kitchen_link 200">
   </node>
-
   <node pkg="robot_state_chain_publisher" type="state_chain_publisher"
     name="kitchen_state_publisher" output="screen">
     <param name="tf_prefix" value="/iai_kitchen"/>

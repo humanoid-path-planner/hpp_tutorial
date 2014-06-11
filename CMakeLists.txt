@@ -68,4 +68,17 @@ install (FILES
   src/hpp/corbaserver/pr2/__init__.py
   DESTINATION ${PYTHON_SITELIB}/hpp/corbaserver/pr2)
 
+# Installation for documentation
+install(FILES launch/tutorial.launch
+  DESTINATION
+  ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/launch
+  )
+install(FILES urdf/pr2.urdf
+  DESTINATION
+  ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/urdf
+  )
+install(FILES script/tutorial.py
+  DESTINATION
+  ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/script
+  )
 SETUP_PROJECT_FINALIZE()

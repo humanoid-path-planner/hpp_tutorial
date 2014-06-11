@@ -54,18 +54,6 @@
   <material name="White">
     <color rgba="1.0 1.0 1.0 1.0"/>
   </material>
-  <material name="Caster">
-    <texture filename="package://pr2_ogre/Media/materials/textures/pr2_caster_texture.png"/>
-  </material>
-  <material name="Wheel_l">
-    <texture filename="package://pr2_ogre/Media/materials/textures/pr2_wheel_left.png"/>
-  </material>
-  <material name="Wheel_r">
-    <texture filename="package://pr2_ogre/Media/materials/textures/pr2_wheel_right.png"/>
-  </material>
-  <material name="RollLinks">
-    <texture filename="package://pr2_ogre/Media/materials/textures/pr2_wheel_left.png"/>
-  </material>
   <!-- Now we can start using the macros included above to define the actual PR2 -->
   <!-- The first use of a macro.  This one was defined in base.urdf.xacro above.
        A macro like this will expand to a set of link and joint definitions, and to additional
