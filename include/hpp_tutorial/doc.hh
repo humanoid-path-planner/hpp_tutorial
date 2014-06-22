@@ -75,8 +75,8 @@
 /// >>> 
 /// \endcode
 /// Copy-paste the content of file
-/// <code><a href="script/tutorial.py">script/tutorial.py</a></code> in the
+/// <code><a href="script/tutorial_1.py">script/tutorial_1.py</a></code> in the
 /// python terminal.
 ///
 /// See \link hpp_tutorial_script this page \endlink for details about the
-/// instructions of <code>script/tutorial.py</code>.
+/// instructions of <code>script/tutorial_1.py</code>.

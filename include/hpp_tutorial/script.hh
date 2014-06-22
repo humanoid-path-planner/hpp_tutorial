@@ -17,7 +17,7 @@
 // hpp_tutorial  If not, see
 // <http://www.gnu.org/licenses/>.
 
-/// \page hpp_tutorial_script Explanation of script <code>script/tutorial.py
+/// \page hpp_tutorial_script Explanation of script <code>script/tutorial_1.py
 /// </code>
 ///
 /// \code

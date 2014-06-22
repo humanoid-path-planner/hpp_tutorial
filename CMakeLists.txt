@@ -77,7 +77,7 @@ install(FILES urdf/pr2.urdf
   DESTINATION
   ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/urdf
   )
-install(FILES script/tutorial.py
+install(FILES script/tutorial_1.py
   DESTINATION
   ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/script
   )
