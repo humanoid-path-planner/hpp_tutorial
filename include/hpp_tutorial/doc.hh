@@ -21,8 +21,9 @@
 ///
 /// \section hpp_tutorial_intro Introduction
 ///
-/// This tutorial explains how to define and solve a path planning problem
-/// and how to display the resulting paths in rviz.
+/// These tutorials explain how to define and solve a path planning problem,
+/// how to display the resulting paths in rviz, and how to implement a new
+/// path planning algorithm.
 ///
 /// \subsection hpp_tutorial_setting_up_environment Setting up your environment
 /// 
@@ -33,50 +34,9 @@
 /// <a href="https://github.com/humanoid-path-planner/hpp-doc/tree/ros-hydro">
 /// installation instructions</a>.
 ///
-/// To launch the tutorial, open a terminal and open 3 tabs by typing
-/// \c CTRL+SHIFT+T twice. When the terminal is selected, you can select a tab
-/// by typing \c ALT-[1|2|3].
+/// \section hpp_tutorial_tutorials Tutorials
 ///
-/// \section hpp_tutorial_starting_rviz Starting rviz
-///
-/// In the first tab, type
-/// \code
-/// roslaunch hpp_tutorial tutorial.launch
-/// \endcode
-/// Rviz should open a new window as below.
-///
-/// \image html rviz-start.png
-///
-/// See \link hpp_tutorial_ros_displaying this page \endlink for
-/// details about the nodes started by this command.
-///
-/// \section hpp_tutorial_starting_hppcorbaserver Starting hppcorbaserver
-///
-/// In the second tab, type
-/// \code
-/// hppcorbaserver
-/// \endcode
-/// See package \c hpp-corbaserver for details.
-///
-/// Note that ros nodes and hppcorbaserver executables are for now completely
-/// independent.
-///
-/// \section hpp_tutorial_python Connecting hpp and ros via a python terminal
-///
-/// In the third tab, type
-/// \code
-/// python
-/// \endcode
-/// to open an interactive python terminal.
-/// \code
-/// Python 2.7.3 (default, Feb 27 2014, 20:00:17) 
-/// [GCC 4.6.3] on linux2
-/// Type "help", "copyright", "credits" or "license" for more information.
-/// >>> 
-/// \endcode
-/// Copy-paste the content of file
-/// <code><a href="script/tutorial_1.py">script/tutorial_1.py</a></code> in the
-/// python terminal.
-///
-/// See \link hpp_tutorial_script this page \endlink for details about the
-/// instructions of <code>script/tutorial_1.py</code>.
+/// \li \link hpp_tutorial_tutorial_1 Tutorial 1 \endlink : how to define and
+///     slove a path planning problem
+/// \li \link hpp_tutorial_tutorial_2 Tutorial 2 \endlink : how to implement
+///     a new path planning algorithm in C++.

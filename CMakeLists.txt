@@ -48,6 +48,16 @@ ADD_DOC_DEPENDENCY("hpp-core >= 3")
 ADD_REQUIRED_DEPENDENCY("hpp-corbaserver >= 3")
 ADD_REQUIRED_DEPENDENCY("hpp_ros")
 
+# Create and install executable running the corba server
+ADD_EXECUTABLE (hpp-tutorial-server
+  src/tutorial.cc
+)
+# Link executable with hpp-corbaserver library
+PKG_CONFIG_USE_DEPENDENCY (hpp-tutorial-server hpp-corbaserver)
+# Install executable
+INSTALL (TARGETS hpp-tutorial-server DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+
 SET(CATKIN_PACKAGE_SHARE_DESTINATION
   ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME})
 
@@ -77,7 +87,9 @@ install(FILES urdf/pr2.urdf
   DESTINATION
   ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/urdf
   )
-install(FILES script/tutorial_1.py
+install(FILES
+  script/tutorial_1.py
+  script/tutorial_2.py
   DESTINATION
   ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/script
   )
