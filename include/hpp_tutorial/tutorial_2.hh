@@ -150,11 +150,11 @@
 /// \code
 /// echo "Implementation of a new path planning algorithm embedded in a CORBA server" > my-hpp-project/README.md
 /// \endcode
-/// \li create and empty \c Doxygen.extra.in file
+/// \li create an empty \c Doxyfile.extra.in file
 /// \code
 /// mkdir my-hpp-project/doc; touch my-hpp-project/doc/Doxyfile.extra.in
 /// \endcode
-/// \li copy the above \c cmake code into \c my-hpp-project/CMakeLists.txt, after replacing names by the names you will choose,
+/// \li copy the above \c cmake code into \c my-hpp-project/CMakeLists.txt, after replacing names by the names you have chosen,
 /// \li copy file \c src/tutorial.cc into \c my-hpp-project/src
 /// \code
 /// mkdir my-hpp-project/src
