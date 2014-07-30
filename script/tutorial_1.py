@@ -15,7 +15,7 @@ r (q_init)
 q_goal = [-3.2, -4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.5, 0, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 r (q_goal)
 
-ps.loadObstacleFromUrdf ("iai_maps", "kitchen_area")
+ps.loadObstacleFromUrdf ("iai_maps", "kitchen_area", "")
 
 ps.setInitialConfig (q_init)
 ps.addGoalConfig (q_goal)
