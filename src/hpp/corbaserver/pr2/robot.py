@@ -39,6 +39,6 @@ class Robot (Parent):
     urdfSuffix = ""
     srdfSuffix = ""
 
-    def __init__ (self, robotName):
-        Parent.__init__ (self, robotName, "planar")
+    def __init__ (self, robotName, load = True):
+        Parent.__init__ (self, robotName, "planar", load)
         self.tf_root = "base_footprint"
