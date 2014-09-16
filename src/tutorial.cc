@@ -19,6 +19,7 @@
 #include <hpp/util/pointer.hh>
 
 #include <hpp/core/basic-configuration-shooter.hh>
+#include <hpp/core/config-validations.hh>
 #include <hpp/core/connected-component.hh>
 #include <hpp/core/constraint-set.hh>
 #include <hpp/core/path-planner.hh>
@@ -62,6 +63,9 @@ namespace hpp {
 	model::DevicePtr_t robot (problem ().robot ());
 	// Retrieve the path validation algorithm associated to the problem
 	core::PathValidationPtr_t pathValidation (problem ().pathValidation ());
+	// Retrieve configuration validation methods associated to the problem
+	core::ConfigValidationsPtr_t configValidations
+	  (problem ().configValidations ());
 	// Retrieve the steering method
 	core::SteeringMethodPtr_t sm (problem ().steeringMethod ());
 	// Retrieve the constraints the robot is subject to
@@ -72,9 +76,7 @@ namespace hpp {
 	core::ConfigurationPtr_t qrand;
 	do {
 	  qrand = shooter_.shoot ();
-	  robot->currentConfiguration (*qrand);
-	  robot->computeForwardKinematics ();
-	} while (robot->collisionTest ());
+	} while (!configValidations->validate (*qrand));
 	// Add qrand as a new node
 	core::NodePtr_t newNode = r->addNode (qrand);
 	// try to connect the random configuration to each connected component
