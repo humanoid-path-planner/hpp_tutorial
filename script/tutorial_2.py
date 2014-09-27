@@ -1,7 +1,6 @@
 from hpp.corbaserver.pr2 import Robot
 robot = Robot ('pr2')
-robot.setJointBounds ("base_joint_x", [-4, -3])
-robot.setJointBounds ("base_joint_y", [-5, -3])
+robot.setJointBounds ("base_joint_xy", [-4, -3, -5, -3])
 
 from hpp_ros import ScenePublisher
 r = ScenePublisher (robot)
