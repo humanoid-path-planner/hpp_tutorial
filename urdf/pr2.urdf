@@ -169,12 +169,6 @@
       </geometry>
       <material name="Caster"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://pr2_description/meshes/base_v0/caster_L.stl"/>
-      </geometry>
-    </collision>
   </link>
   <transmission name="fl_caster_rotation_trans" type="SimpleTransmission">
     <actuator name="fl_caster_rotation_motor"/>
@@ -204,13 +198,6 @@
       </geometry>
       <material name="Wheel_l"/>
     </visual>
-    <collision>
-      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
-      <!-- rotation because cyl. geom primitive has symmetry axis in +x direction -->
-      <geometry>
-        <cylinder length="0.034" radius="0.074792"/>
-      </geometry>
-    </collision>
   </link>
   <gazebo reference="fl_caster_l_wheel_link">
     <mu1 value="100.0"/>
@@ -247,13 +234,6 @@
       </geometry>
       <material name="Wheel_r"/>
     </visual>
-    <collision>
-      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
-      <!-- rotation because cyl. geom primitive has symmetry axis in +x direction -->
-      <geometry>
-        <cylinder length="0.034" radius="0.074792"/>
-      </geometry>
-    </collision>
   </link>
   <gazebo reference="fl_caster_r_wheel_link">
     <mu1 value="100.0"/>
@@ -295,12 +275,6 @@
       </geometry>
       <material name="Caster"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://pr2_description/meshes/base_v0/caster_L.stl"/>
-      </geometry>
-    </collision>
   </link>
   <transmission name="fr_caster_rotation_trans" type="SimpleTransmission">
     <actuator name="fr_caster_rotation_motor"/>
@@ -330,13 +304,6 @@
       </geometry>
       <material name="Wheel_l"/>
     </visual>
-    <collision>
-      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
-      <!-- rotation because cyl. geom primitive has symmetry axis in +x direction -->
-      <geometry>
-        <cylinder length="0.034" radius="0.074792"/>
-      </geometry>
-    </collision>
   </link>
   <gazebo reference="fr_caster_l_wheel_link">
     <mu1 value="100.0"/>
@@ -373,13 +340,6 @@
       </geometry>
       <material name="Wheel_r"/>
     </visual>
-    <collision>
-      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
-      <!-- rotation because cyl. geom primitive has symmetry axis in +x direction -->
-      <geometry>
-        <cylinder length="0.034" radius="0.074792"/>
-      </geometry>
-    </collision>
   </link>
   <gazebo reference="fr_caster_r_wheel_link">
     <mu1 value="100.0"/>
@@ -421,12 +381,6 @@
       </geometry>
       <material name="Caster"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://pr2_description/meshes/base_v0/caster_L.stl"/>
-      </geometry>
-    </collision>
   </link>
   <transmission name="bl_caster_rotation_trans" type="SimpleTransmission">
     <actuator name="bl_caster_rotation_motor"/>
@@ -456,13 +410,6 @@
       </geometry>
       <material name="Wheel_l"/>
     </visual>
-    <collision>
-      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
-      <!-- rotation because cyl. geom primitive has symmetry axis in +x direction -->
-      <geometry>
-        <cylinder length="0.034" radius="0.074792"/>
-      </geometry>
-    </collision>
   </link>
   <gazebo reference="bl_caster_l_wheel_link">
     <mu1 value="100.0"/>
@@ -499,13 +446,6 @@
       </geometry>
       <material name="Wheel_r"/>
     </visual>
-    <collision>
-      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
-      <!-- rotation because cyl. geom primitive has symmetry axis in +x direction -->
-      <geometry>
-        <cylinder length="0.034" radius="0.074792"/>
-      </geometry>
-    </collision>
   </link>
   <gazebo reference="bl_caster_r_wheel_link">
     <mu1 value="100.0"/>
@@ -547,12 +487,6 @@
       </geometry>
       <material name="Caster"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://pr2_description/meshes/base_v0/caster_L.stl"/>
-      </geometry>
-    </collision>
   </link>
   <transmission name="br_caster_rotation_trans" type="SimpleTransmission">
     <actuator name="br_caster_rotation_motor"/>
@@ -582,13 +516,6 @@
       </geometry>
       <material name="Wheel_l"/>
     </visual>
-    <collision>
-      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
-      <!-- rotation because cyl. geom primitive has symmetry axis in +x direction -->
-      <geometry>
-        <cylinder length="0.034" radius="0.074792"/>
-      </geometry>
-    </collision>
   </link>
   <gazebo reference="br_caster_l_wheel_link">
     <mu1 value="100.0"/>
@@ -625,13 +552,6 @@
       </geometry>
       <material name="Wheel_r"/>
     </visual>
-    <collision>
-      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
-      <!-- rotation because cyl. geom primitive has symmetry axis in +x direction -->
-      <geometry>
-        <cylinder length="0.034" radius="0.074792"/>
-      </geometry>
-    </collision>
   </link>
   <gazebo reference="br_caster_r_wheel_link">
     <mu1 value="100.0"/>
