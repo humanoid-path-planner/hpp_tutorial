@@ -120,12 +120,6 @@
       </geometry>
       <material name="Red"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size=".001 .001 .001"/>
-      </geometry>
-    </collision>
   </link>
   <gazebo reference="base_laser_link">
     <sensor:ray name="base_laser">
@@ -753,12 +747,6 @@
       </geometry>
       <material name="Red"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size=".001 .001 .001"/>
-      </geometry>
-    </collision>
   </link>
   <gazebo>
     <controller:gazebo_ros_imu name="imu_controller" plugin="libgazebo_ros_imu.so">
@@ -872,12 +860,6 @@
       </geometry>
       <material name="Blue"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.01 0.01 0.01"/>
-      </geometry>
-    </collision>
   </link>
   <gazebo reference="head_plate_frame">
     <material value="Gazebo/Grey"/>
@@ -903,12 +885,6 @@
       </geometry>
       <material name="Blue"/>
     </visual>
-    <collision name="sensor_mount_sensor_collision">
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.01 0.01 0.01"/>
-      </geometry>
-    </collision>
   </link>
   <joint name="high_def_frame_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 -0.109 0.035"/>
@@ -929,12 +905,6 @@
       </geometry>
       <material name="Blue"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.01 0.01 0.01"/>
-      </geometry>
-    </collision>
   </link>
   <joint name="high_def_optical_frame_joint" type="fixed">
     <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0.0            0.0         0.0"/>
@@ -955,12 +925,6 @@
       </geometry>
       <material name="Blue"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.01 0.01 0.01"/>
-      </geometry>
-    </collision>
   </link>
   <gazebo reference="high_def_frame">
     <sensor:camera name="high_def_sensor">
@@ -1038,12 +1002,6 @@
       </geometry>
       <material name="Blue"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.001 0.001 0.001"/>
-      </geometry>
-    </collision>
   </link>
   <joint name="wide_stereo_optical_frame_joint" type="fixed">
     <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
@@ -1069,12 +1027,6 @@
         <box size="0.01 0.01 0.01"/>
       </geometry>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.01 0.01 0.01"/>
-      </geometry>
-    </collision>
   </link>
   <joint name="wide_stereo_gazebo_l_stereo_camera_optical_frame_joint" type="fixed">
     <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
@@ -1131,12 +1083,6 @@
         <box size="0.01 0.01 0.01"/>
       </geometry>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.01 0.01 0.01"/>
-      </geometry>
-    </collision>
   </link>
   <joint name="wide_stereo_gazebo_r_stereo_camera_optical_frame_joint" type="fixed">
     <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
@@ -1203,12 +1149,6 @@
       </geometry>
       <material name="Blue"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.001 0.001 0.001"/>
-      </geometry>
-    </collision>
   </link>
   <joint name="narrow_stereo_optical_frame_joint" type="fixed">
     <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
@@ -1234,12 +1174,6 @@
         <box size="0.01 0.01 0.01"/>
       </geometry>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.01 0.01 0.01"/>
-      </geometry>
-    </collision>
   </link>
   <joint name="narrow_stereo_gazebo_l_stereo_camera_optical_frame_joint" type="fixed">
     <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
@@ -1296,12 +1230,6 @@
         <box size="0.01 0.01 0.01"/>
       </geometry>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.01 0.01 0.01"/>
-      </geometry>
-    </collision>
   </link>
   <joint name="narrow_stereo_gazebo_r_stereo_camera_optical_frame_joint" type="fixed">
     <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
@@ -1406,12 +1334,6 @@
       </geometry>
       <material name="Red"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size=".001 .001 .001"/>
-      </geometry>
-    </collision>
   </link>
   <gazebo reference="laser_tilt_link">
     <sensor:ray name="laser_tilt">
@@ -1834,13 +1756,6 @@
       </geometry>
       <material name="RollLinks"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://pr2_description/meshes/forearm_v0/wrist_roll_L.stl"/>
-      </geometry>
-      <verbose value="Yes"/>
-    </collision>
   </link>
   <gazebo reference="r_forearm_link">
     <turnGravityOff>true</turnGravityOff>
@@ -1946,12 +1861,6 @@
         <box size="0.001 0.001 0.001"/>
       </geometry>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.001 0.001 0.001"/>
-      </geometry>
-    </collision>
   </link>
   <joint name="r_gripper_tool_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.18 0 0"/>
@@ -2728,13 +2637,6 @@
       </geometry>
       <material name="RollLinks"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://pr2_description/meshes/forearm_v0/wrist_roll_L.stl"/>
-      </geometry>
-      <verbose value="Yes"/>
-    </collision>
   </link>
   <gazebo reference="l_forearm_link">
     <turnGravityOff>true</turnGravityOff>
@@ -2840,12 +2742,6 @@
         <box size="0.001 0.001 0.001"/>
       </geometry>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.001 0.001 0.001"/>
-      </geometry>
-    </collision>
   </link>
   <joint name="l_gripper_tool_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.18 0 0"/>
@@ -3252,12 +3148,6 @@
         <box size="0.01 0.01 0.01"/>
       </geometry>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.01 0.01 0.01"/>
-      </geometry>
-    </collision>
   </link>
   <joint name="l_forearm_cam_optical_frame_joint" type="fixed">
     <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
@@ -3314,12 +3204,6 @@
         <box size="0.01 0.01 0.01"/>
       </geometry>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.01 0.01 0.01"/>
-      </geometry>
-    </collision>
   </link>
   <joint name="r_forearm_cam_optical_frame_joint" type="fixed">
     <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
