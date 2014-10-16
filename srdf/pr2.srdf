@@ -1238,4 +1238,14 @@
   <disable_collisions link1="r_forearm_cam_frame" link2="r_forearm_link"/>
   <disable_collisions link1="r_gripper_l_finger_tip_link" link2="r_gripper_l_parallel_link"/>
   <disable_collisions link1="r_gripper_r_finger_tip_link" link2="r_gripper_r_parallel_link"/>
+  <disable_collisions link1="head_tilt_link" link2="narrow_stereo_gazebo_l_stereo_camera_frame" />
+  <disable_collisions link1="head_tilt_link" link2="narrow_stereo_gazebo_r_stereo_camera_frame" />
+  <disable_collisions link1="head_tilt_link" link2="wide_stereo_gazebo_l_stereo_camera_frame" />
+  <disable_collisions link1="head_tilt_link" link2="wide_stereo_gazebo_r_stereo_camera_frame" />
+  <disable_collisions link1="narrow_stereo_gazebo_l_stereo_camera_frame" link2="wide_stereo_gazebo_l_stereo_camera_frame" />
+  <disable_collisions link1="narrow_stereo_gazebo_r_stereo_camera_frame" link2="wide_stereo_gazebo_r_stereo_camera_frame" />
+  <disable_collisions link1="narrow_stereo_gazebo_l_stereo_camera_frame" link2="wide_stereo_gazebo_r_stereo_camera_frame" />
+  <disable_collisions link1="narrow_stereo_gazebo_r_stereo_camera_frame" link2="wide_stereo_gazebo_l_stereo_camera_frame" />
+  <disable_collisions link1="narrow_stereo_gazebo_l_stereo_camera_frame" link2="wide_stereo_gazebo_r_stereo_camera_frame" />
+  <disable_collisions link1="narrow_stereo_gazebo_r_stereo_camera_frame" link2="wide_stereo_gazebo_l_stereo_camera_frame" />
 </robot>
