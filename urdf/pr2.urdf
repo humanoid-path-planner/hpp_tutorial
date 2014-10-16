@@ -144,7 +144,7 @@
       </controller:gazebo_ros_laser>
     </sensor:ray>
   </gazebo>
-  <joint name="fl_caster_rotation_joint" type="continuous">
+  <joint name="fl_caster_rotation_joint" type="fixed">
     <axis xyz="0 0 1"/>
     <limit effort="100" velocity="100"/>
     <!-- alpha tested velocity and effort limits -->
@@ -181,7 +181,7 @@
     <joint name="fl_caster_rotation_joint"/>
     <mechanicalReduction>-79.2380952381</mechanicalReduction>
   </transmission>
-  <joint name="fl_caster_l_wheel_joint" type="continuous">
+  <joint name="fl_caster_l_wheel_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
     <!-- alpha tested effort and velocity limits -->
@@ -224,7 +224,7 @@
     <joint name="fl_caster_l_wheel_joint"/>
     <mechanicalReduction>79.2380952381</mechanicalReduction>
   </transmission>
-  <joint name="fl_caster_r_wheel_joint" type="continuous">
+  <joint name="fl_caster_r_wheel_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
     <!-- alpha tested effort and velocity limits -->
@@ -270,7 +270,7 @@
   <gazebo reference="fl_caster_rotation_link">
     <material value="PR2/caster_texture"/>
   </gazebo>
-  <joint name="fr_caster_rotation_joint" type="continuous">
+  <joint name="fr_caster_rotation_joint" type="fixed">
     <axis xyz="0 0 1"/>
     <limit effort="100" velocity="100"/>
     <!-- alpha tested velocity and effort limits -->
@@ -307,7 +307,7 @@
     <joint name="fr_caster_rotation_joint"/>
     <mechanicalReduction>-79.2380952381</mechanicalReduction>
   </transmission>
-  <joint name="fr_caster_l_wheel_joint" type="continuous">
+  <joint name="fr_caster_l_wheel_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
     <!-- alpha tested effort and velocity limits -->
@@ -350,7 +350,7 @@
     <joint name="fr_caster_l_wheel_joint"/>
     <mechanicalReduction>79.2380952381</mechanicalReduction>
   </transmission>
-  <joint name="fr_caster_r_wheel_joint" type="continuous">
+  <joint name="fr_caster_r_wheel_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
     <!-- alpha tested effort and velocity limits -->
@@ -396,7 +396,7 @@
   <gazebo reference="fr_caster_rotation_link">
     <material value="PR2/caster_texture"/>
   </gazebo>
-  <joint name="bl_caster_rotation_joint" type="continuous">
+  <joint name="bl_caster_rotation_joint" type="fixed">
     <axis xyz="0 0 1"/>
     <limit effort="100" velocity="100"/>
     <!-- alpha tested velocity and effort limits -->
@@ -433,7 +433,7 @@
     <joint name="bl_caster_rotation_joint"/>
     <mechanicalReduction>-79.2380952381</mechanicalReduction>
   </transmission>
-  <joint name="bl_caster_l_wheel_joint" type="continuous">
+  <joint name="bl_caster_l_wheel_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
     <!-- alpha tested effort and velocity limits -->
@@ -476,7 +476,7 @@
     <joint name="bl_caster_l_wheel_joint"/>
     <mechanicalReduction>79.2380952381</mechanicalReduction>
   </transmission>
-  <joint name="bl_caster_r_wheel_joint" type="continuous">
+  <joint name="bl_caster_r_wheel_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
     <!-- alpha tested effort and velocity limits -->
@@ -522,7 +522,7 @@
   <gazebo reference="bl_caster_rotation_link">
     <material value="PR2/caster_texture"/>
   </gazebo>
-  <joint name="br_caster_rotation_joint" type="continuous">
+  <joint name="br_caster_rotation_joint" type="fixed">
     <axis xyz="0 0 1"/>
     <limit effort="100" velocity="100"/>
     <!-- alpha tested velocity and effort limits -->
@@ -559,7 +559,7 @@
     <joint name="br_caster_rotation_joint"/>
     <mechanicalReduction>-79.2380952381</mechanicalReduction>
   </transmission>
-  <joint name="br_caster_l_wheel_joint" type="continuous">
+  <joint name="br_caster_l_wheel_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
     <!-- alpha tested effort and velocity limits -->
@@ -602,7 +602,7 @@
     <joint name="br_caster_l_wheel_joint"/>
     <mechanicalReduction>79.2380952381</mechanicalReduction>
   </transmission>
-  <joint name="br_caster_r_wheel_joint" type="continuous">
+  <joint name="br_caster_r_wheel_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
     <!-- alpha tested effort and velocity limits -->
