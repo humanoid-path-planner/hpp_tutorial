@@ -1960,13 +1960,6 @@
         <material name="Green" />
       </visual>
 -->
-    <collision>
-      <origin rpy="0 0 0.0541224233" xyz="0.04574712395 0 0"/>
-      <geometry>
-        <box size="0.0914942479 0.005 0.005"/>
-      </geometry>
-      <verbose value="Yes"/>
-    </collision>
   </link>
   <link name="r_gripper_r_parallel_link">
     <inertial>
@@ -1983,13 +1976,6 @@
         <material name="Green" />
       </visual>
 -->
-    <collision>
-      <origin rpy="0 0 -0.0541224233" xyz="0.04574712395 0 0"/>
-      <geometry>
-        <box size="0.0914942479 0.005 0.005"/>
-      </geometry>
-      <verbose value="Yes"/>
-    </collision>
   </link>
   <joint name="r_gripper_l_finger_tip_joint" type="revolute">
     <axis xyz="0 0 -1"/>
@@ -2841,13 +2827,6 @@
         <material name="Green" />
       </visual>
 -->
-    <collision>
-      <origin rpy="0 0 0.0541224233" xyz="0.04574712395 0 0"/>
-      <geometry>
-        <box size="0.0914942479 0.005 0.005"/>
-      </geometry>
-      <verbose value="Yes"/>
-    </collision>
   </link>
   <link name="l_gripper_r_parallel_link">
     <inertial>
@@ -2864,13 +2843,6 @@
         <material name="Green" />
       </visual>
 -->
-    <collision>
-      <origin rpy="0 0 -0.0541224233" xyz="0.04574712395 0 0"/>
-      <geometry>
-        <box size="0.0914942479 0.005 0.005"/>
-      </geometry>
-      <verbose value="Yes"/>
-    </collision>
   </link>
   <joint name="l_gripper_l_finger_tip_joint" type="revolute">
     <axis xyz="0 0 -1"/>
