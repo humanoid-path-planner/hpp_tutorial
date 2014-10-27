@@ -39,6 +39,6 @@ class Robot (Parent):
     urdfSuffix = ""
     srdfSuffix = "_manipulation"
 
-    def __init__ (self, robotName, load = True):
-        Parent.__init__ (self, robotName, "planar")
+    def __init__ (self, robotName, load = True, rootJointType = "planar"):
+        Parent.__init__ (self, robotName, rootJointType, load)
         self.tf_root = "base_footprint"
