@@ -4,4 +4,9 @@
     <local_position> 0 0 0 1 0 0 0 </local_position>
     <link name="base_link"/>
   </handle>
+  <handle name="handle2">
+    <local_position> 0 0 0
+      0 0 0.7071067811865476 0.7071067811865476 </local_position>
+    <link name="base_link"/>
+  </handle>
 </robot>
