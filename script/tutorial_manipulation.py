@@ -1,7 +1,6 @@
 from hpp.corbaserver.manipulation.pr2 import Robot
 
 robot = Robot ('pr2')
-robot.client.basic.problem.selectPathPlanner ("M-RRT")
 robot.loadObjectModel ('box', 'freeflyer', 'hpp_tutorial', 'box', '', '')
 robot.buildCompositeRobot ('pr2-box', ['pr2', 'box'])
 robot.client.basic.obstacle.loadObstacleModel ("iai_maps", "kitchen_area", "")
