@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <robot name="box">
   <handle name="handle">
-    <local_position> 0 0 0 1 0 0 0 </local_position>
+    <position> 0 0 0 1 0 0 0 </position>
     <link name="base_link"/>
   </handle>
   <handle name="handle2">
-    <local_position> 0 0 0
-      0 0 0.7071067811865476 0.7071067811865476 </local_position>
+    <position> 0 0 0
+      0 0 0.7071067811865476 0.7071067811865476 </position>
     <link name="base_link"/>
   </handle>
 </robot>
