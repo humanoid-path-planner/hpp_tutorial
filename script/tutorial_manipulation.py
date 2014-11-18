@@ -3,7 +3,7 @@ from hpp.corbaserver.manipulation.pr2 import Robot
 robot = Robot ('pr2')
 robot.loadObjectModel ('box', 'freeflyer', 'hpp_tutorial', 'box', '', '')
 robot.buildCompositeRobot ('pr2-box', ['pr2', 'box'])
-robot.client.basic.obstacle.loadObstacleModel ("iai_maps", "kitchen_area", "")
+robot.client.manipulation.robot.loadEnvironmentModel ("iai_maps", "kitchen_area", "", '', '')
 
 robot.setJointBounds ("pr2/base_joint_xy" , [-5,-2,-5.2,-2.7]     )
 robot.setJointBounds ("box/base_joint_xyz", [-5.1,-2,-5.2,-2.7,0,1.5])
