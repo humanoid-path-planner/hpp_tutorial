@@ -1,4 +1,6 @@
 from hpp.corbaserver.manipulation.pr2 import Robot
+from hpp.corbaserver.manipulation import ProblemSolver, ConstraintGraph
+from hpp_ros.manipulation import ScenePublisher
 
 robot = Robot ('pr2')
 robot.loadObjectModel ('box', 'freeflyer', 'hpp_tutorial', 'box', '', '')
@@ -8,8 +10,25 @@ robot.client.manipulation.robot.loadEnvironmentModel ("iai_maps", "kitchen_area"
 robot.setJointBounds ("pr2/base_joint_xy" , [-5,-2,-5.2,-2.7]     )
 robot.setJointBounds ("box/base_joint_xyz", [-5.1,-2,-5.2,-2.7,0,1.5])
 
-from hpp_ros.manipulation import ScenePublisher
+p = ProblemSolver (robot)
+graph = ConstraintGraph (robot, 'graph')
+
 r = ScenePublisher (robot)
+
+robot.client.basic.problem.resetRoadmap ()
+robot.client.basic.problem.selectPathOptimizer ('None')
+robot.client.basic.problem.setErrorThreshold (1e-3)
+robot.client.basic.problem.setMaxIterations (40)
+
+jointNames = dict ()
+jointNames['all'] = robot.getJointNames ()
+jointNames['pr2'] = list ()
+jointNames['allButPR2LeftArm'] = list ()
+for n in jointNames['all']:
+  if n.startswith ("pr2"):
+    jointNames['pr2'].append (n)
+  if not n.startswith ("pr2/l_gripper"):
+    jointNames['allButPR2LeftArm'].append (n)
 
 q_init = robot.getCurrentConfig ()
 rank = robot.rankInConfiguration ['pr2/l_gripper_l_finger_joint']
@@ -39,75 +58,39 @@ rank = robot.rankInConfiguration ['box/base_joint_SO3']
 q_goal [rank:rank+4] = [0, 0, 0, 1]
 r (q_goal)
 
-robot.client.basic.problem.resetRoadmap ()
-robot.client.basic.problem.selectPathOptimizer ('None')
-robot.client.basic.problem.setErrorThreshold (1e-3)
-robot.client.basic.problem.setMaxIterations (40)
+graph.createGrasp ('l_grasp', 'pr2/l_gripper', 'box/handle', passiveJoints = jointNames['pr2'])
+graph.createPreGrasp ('l_pregrasp', 'pr2/l_gripper', 'box/handle')
 
-from hpp.corbaserver.manipulation import ProblemSolver
-p = ProblemSolver (robot)
-
-p.createGrasp ('l_grasp', 'pr2/l_gripper', 'box/handle')
-p.createGrasp ('l_grasp_passive', 'pr2/l_gripper', 'box/handle')
-
-p.createPreGrasp ('l_pregrasp', 'pr2/l_gripper', 'box/handle')
-
-rankcfg = 0; rankvel = 0; lockbox = list ();
-for axis in ['x','y','z']:
-  p.createLockedDofConstraint ('box_lock_'  + axis, 'box/base_joint_xyz', 0, rankcfg, rankvel)
-  p.createLockedDofConstraint ('box_lock_r' + axis, 'box/base_joint_SO3', 0, rankcfg + 1, rankvel)
-  p.isLockedDofParametric ('box_lock_'  + axis ,True)
-  p.isLockedDofParametric ('box_lock_r' + axis ,True)
-  lockbox.append ('box_lock_'  + axis)
-  lockbox.append ('box_lock_r' + axis)
-  rankcfg = rankcfg + 1
-  rankvel = rankvel + 1
+lockbox = p.lockFreeFlyerJoint ('box/base_joint', 'box_lock', parametric = True)
+lockpr2 = p.lockPlanarJoint ('pr2/base_joint', 'pr2_lock', parametric = True)
+lockboth = lockpr2[:]; lockboth.extend (lockbox)
 
 locklhand = ['l_l_finger','l_r_finger'];
-p.createLockedDofConstraint ('l_l_finger' , 'pr2/l_gripper_l_finger_joint', 0.5, 0, 0)
+p.createLockedDofConstraint ('l_l_finger', 'pr2/l_gripper_l_finger_joint', 0.5, 0, 0)
 p.createLockedDofConstraint ('l_r_finger', 'pr2/l_gripper_r_finger_joint', 0.5, 0, 0)
 
-jointNames = dict ()
-jointNames['all'] = robot.getJointNames ()
-jointNames['pr2'] = list ()
-jointNames['allButPR2LeftArm'] = list ()
-for n in jointNames['all']:
-  if n.startswith ("pr2"):
-    jointNames['pr2'].append (n)
-  if not n.startswith ("pr2/l_gripper"):
-    jointNames['allButPR2LeftArm'].append (n)
-robot.client.basic.problem.setPassiveDofs ('l_grasp_passive', jointNames['pr2'])
 
-graph = robot.client.manipulation.graph
-id = dict()
-id["graph"   ] = graph.createGraph ('pr2-box')
-id["subgraph"] = graph.createSubGraph ('lefthand')
+graph.createNode (['box', 'free'])
 
-id["box" ] = graph.createNode (id["subgraph"], 'box')
-id["free"] = graph.createNode (id["subgraph"], 'free')
+we = dict ()
+we["ungrasp"] = graph.createWaypointEdge ('box', 'free', "ungrasp", nb=1, weight=1)
+we[  "grasp"] = graph.createWaypointEdge ('free', 'box',   "grasp", nb=1, weight=10)
 
-id["ungrasp"] = graph.createWaypointEdge (id["box"], id["free"], "ungrasp", 1, False)
-id["ungrasp_w"], id["ungrasp_w_node"] = graph.getWaypoint (id["ungrasp"])
+graph.createEdge ('free', 'free', 'move_free', 1)
+graph.createEdge ('box', 'box', 'keep_grasp', 5)
+graph.createLevelSetEdge ('box', 'box', 'keep_grasp_ls', 10)
 
-id[  "grasp"] = graph.createWaypointEdge (id["free"], id["box"],   "grasp", 10, True)
-id["grasp_w"], id["grasp_w_node"] = graph.getWaypoint (id["grasp"])
+graph.setConstraints (node='box', grasp='l_grasp')
+graph.setConstraints (edge='move_free', lockDof = lockbox)
+graph.setConstraints (edge="ungrasp_e1", lockDof = lockbox)
+graph.setConstraints (node="ungrasp_n0", pregrasp = 'l_pregrasp')
+graph.setConstraints (edge="ungrasp_e0", lockDof = lockboth)
+graph.setConstraints (edge="grasp_e1", lockDof = lockboth)
+graph.setConstraints (node="grasp_n0", pregrasp = 'l_pregrasp')
+graph.setConstraints (edge="grasp_e0", lockDof = lockbox)
+graph.client.graph.setLevelSetConstraints  (graph.edges["keep_grasp_ls"], [], lockbox)
+graph.setConstraints (graph = True, lockDof = locklhand)
 
-id["move_free" ] = graph.createEdge (id["free"    ], id["free"    ], "move_free" , 1 , False)
-
-id["keep_grasp"] = graph.createEdge (id["box"], id["box"], "keep_grasp", 5, False)
-id["keep_grasp_ls"] = graph.createLevelSetEdge (id["box"], id["box"], "keep_grasp_ls", 10, False)
-
-graph.setNumericalConstraints (id["box"], ['l_grasp'])
-graph.setNumericalConstraintsForPath (id["box"], ['l_grasp_passive'])
-graph.setLockedDofConstraints (id["move_free"], lockbox)
-graph.setLockedDofConstraints (id["ungrasp"], lockbox)
-graph.setNumericalConstraints (id["ungrasp_w_node"], ['l_pregrasp', 'l_pregrasp/ineq_0', 'l_pregrasp/ineq_0.1'])
-graph.setLockedDofConstraints (id["ungrasp_w"], lockbox)
-graph.setLockedDofConstraints (id["grasp"], lockbox)
-graph.setNumericalConstraints (id["grasp_w_node"], ['l_pregrasp', 'l_pregrasp/ineq_0', 'l_pregrasp/ineq_0.1'])
-graph.setLockedDofConstraints (id["grasp_w"], lockbox)
-graph.setLevelSetConstraints  (id["keep_grasp_ls"], [], lockbox)
-graph.setLockedDofConstraints (id["graph"], locklhand)
 
 p.setInitialConfig (q_init)
 p.addGoalConfig (q_goal)
