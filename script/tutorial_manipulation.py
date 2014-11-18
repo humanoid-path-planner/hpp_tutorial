@@ -1,7 +1,11 @@
+# Import libraries and load robots.
+
+# Import.
 from hpp.corbaserver.manipulation.pr2 import Robot
 from hpp.corbaserver.manipulation import ProblemSolver, ConstraintGraph
 from hpp_ros.manipulation import ScenePublisher
 
+# Load PR2 and a box to be manipulated.
 robot = Robot ('pr2')
 robot.loadObjectModel ('box', 'freeflyer', 'hpp_tutorial', 'box', '', '')
 robot.buildCompositeRobot ('pr2-box', ['pr2', 'box'])
@@ -10,16 +14,23 @@ robot.client.manipulation.robot.loadEnvironmentModel ("iai_maps", "kitchen_area"
 robot.setJointBounds ("pr2/base_joint_xy" , [-5,-2,-5.2,-2.7]     )
 robot.setJointBounds ("box/base_joint_xyz", [-5.1,-2,-5.2,-2.7,0,1.5])
 
+# Load the Python class ProblemSolver and ConstraintGraph.
 p = ProblemSolver (robot)
 graph = ConstraintGraph (robot, 'graph')
 
+# Load the ScenePublisher.
 r = ScenePublisher (robot)
 
+
+# Initialization.
+
+# Set parameters.
 robot.client.basic.problem.resetRoadmap ()
 robot.client.basic.problem.selectPathOptimizer ('None')
 robot.client.basic.problem.setErrorThreshold (1e-3)
 robot.client.basic.problem.setMaxIterations (40)
 
+# Create lists of joint names - useful to define passive joints.
 jointNames = dict ()
 jointNames['all'] = robot.getJointNames ()
 jointNames['pr2'] = list ()
@@ -30,6 +41,7 @@ for n in jointNames['all']:
   if not n.startswith ("pr2/l_gripper"):
     jointNames['allButPR2LeftArm'].append (n)
 
+# Generate initial and goal configuration.
 q_init = robot.getCurrentConfig ()
 rank = robot.rankInConfiguration ['pr2/l_gripper_l_finger_joint']
 q_init [rank] = 0.5
@@ -58,6 +70,7 @@ rank = robot.rankInConfiguration ['box/base_joint_SO3']
 q_goal [rank:rank+4] = [0, 0, 0, 1]
 r (q_goal)
 
+# Create the constraints.
 graph.createGrasp ('l_grasp', 'pr2/l_gripper', 'box/handle', passiveJoints = jointNames['pr2'])
 graph.createPreGrasp ('l_pregrasp', 'pr2/l_gripper', 'box/handle')
 
@@ -69,7 +82,9 @@ locklhand = ['l_l_finger','l_r_finger'];
 p.createLockedDofConstraint ('l_l_finger', 'pr2/l_gripper_l_finger_joint', 0.5, 0, 0)
 p.createLockedDofConstraint ('l_r_finger', 'pr2/l_gripper_r_finger_joint', 0.5, 0, 0)
 
+# Create the constraint graph.
 
+# Create nodes and edges.
 graph.createNode (['box', 'free'])
 
 we = dict ()
@@ -80,6 +95,7 @@ graph.createEdge ('free', 'free', 'move_free', 1)
 graph.createEdge ('box', 'box', 'keep_grasp', 5)
 graph.createLevelSetEdge ('box', 'box', 'keep_grasp_ls', 10)
 
+# Set the constraints of the component of the graph.
 graph.setConstraints (node='box', grasp='l_grasp')
 graph.setConstraints (edge='move_free', lockDof = lockbox)
 graph.setConstraints (edge="ungrasp_e1", lockDof = lockbox)
