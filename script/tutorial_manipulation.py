@@ -82,13 +82,15 @@ r (q_goal)
 graph.createGrasp ('l_grasp', 'pr2/l_gripper', 'box/handle', passiveJoints = jointNames['pr2'])
 graph.createPreGrasp ('l_pregrasp', 'pr2/l_gripper', 'box/handle')
 
-lockbox = p.lockFreeFlyerJoint ('box/base_joint', 'box_lock', parametric = True)
-lockpr2 = p.lockPlanarJoint ('pr2/base_joint', 'pr2_lock', parametric = True)
+lockbox = p.lockFreeFlyerJoint ('box/base_joint', 'box_lock')
+lockpr2 = p.lockPlanarJoint ('pr2/base_joint', 'pr2_lock')
 lockboth = lockpr2[:]; lockboth.extend (lockbox)
 
 locklhand = ['l_l_finger','l_r_finger'];
-p.createLockedDofConstraint ('l_l_finger', 'pr2/l_gripper_l_finger_joint', 0.5, 0, 0)
-p.createLockedDofConstraint ('l_r_finger', 'pr2/l_gripper_r_finger_joint', 0.5, 0, 0)
+p.createLockedJointConstraint ('l_l_finger', 'pr2/l_gripper_l_finger_joint',
+                               [0.5,])
+p.createLockedJointConstraint ('l_r_finger', 'pr2/l_gripper_r_finger_joint',
+                               [0.5,])
 # 2}}}
 
 # Create the constraint graph. {{{2
