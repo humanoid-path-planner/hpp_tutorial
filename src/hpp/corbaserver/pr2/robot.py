@@ -33,12 +33,14 @@ class Robot (Parent):
     ##
     #  Information to retrieve urdf and srdf files.
     packageName = "hpp_tutorial"
+    meshPackageName = "pr2_description"
+    rootJointType = "planar"
     ##
     #  Information to retrieve urdf and srdf files.
     urdfName = "pr2"
     urdfSuffix = ""
     srdfSuffix = ""
 
-    def __init__ (self, robotName, load = True, rootJointType = "planar"):
-        Parent.__init__ (self, robotName, rootJointType, load)
+    def __init__ (self, robotName, load = True):
+        Parent.__init__ (self, robotName, self.rootJointType, load)
         self.tf_root = "base_footprint"

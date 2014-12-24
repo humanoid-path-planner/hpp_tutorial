@@ -2,8 +2,8 @@ from hpp.corbaserver.pr2 import Robot
 robot = Robot ('pr2')
 robot.setJointBounds ("base_joint_xy", [-4, -3, -5, -3])
 
-from hpp_ros import ScenePublisher
-r = ScenePublisher (robot)
+from hpp.gepetto import Viewer
+r = Viewer (robot)
 
 from hpp.corbaserver import ProblemSolver
 ps = ProblemSolver (robot)
@@ -32,7 +32,7 @@ ps.setInitialConfig (q_init)
 ps.addGoalConfig (q_goal)
 ps.solve ()
 
-from hpp_ros import PathPlayer
+from hpp.gepetto import PathPlayer
 pp = PathPlayer (robot.client, r)
 
 pp (0)

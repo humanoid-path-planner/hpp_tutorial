@@ -33,12 +33,23 @@ class Robot (Parent):
     ##
     #  Information to retrieve urdf and srdf files.
     packageName = "hpp_tutorial"
+    meshPackageName = "pr2_description"
+    rootJointType = "planar"
     ##
     #  Information to retrieve urdf and srdf files.
     urdfName = "pr2"
     urdfSuffix = ""
     srdfSuffix = "_manipulation"
 
-    def __init__ (self, robotName, load = True, rootJointType = "planar"):
-        Parent.__init__ (self, robotName, rootJointType, load)
+    ## Constructor
+    # \param compositeName name of the composite robot that will be built later,
+    # \param robotName name of the first robot that is loaded now,
+    # \param load whether to actually load urdf files. Set to no if you only
+    #        want to initialize a corba client to an already initialized
+    #        problem.
+    # \param rootJointType type of root joint among ("freeflyer", "planar",
+    #        "anchor"),
+    def __init__ (self, compositeName, robotName, load = True,
+                  rootJointType = self.rootJointType):
+        Parent.__init__ (self, compositeName, robotName, rootJointType, load)
         self.tf_root = "base_footprint"
