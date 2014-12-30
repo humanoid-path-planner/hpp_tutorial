@@ -16,7 +16,7 @@
 # hpp-corbaserver.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-from hpp.corbaserver.robot import Robot as Parent
+from hpp.corbaserver.manipulation.robot import Robot as Parent
 
 ##
 #  Control of robot PR2 in hpp
@@ -39,8 +39,17 @@ class Robot (Parent):
     #  Information to retrieve urdf and srdf files.
     urdfName = "pr2"
     urdfSuffix = ""
-    srdfSuffix = ""
+    srdfSuffix = "_manipulation"
 
-    def __init__ (self, robotName, load = True):
-        Parent.__init__ (self, robotName, self.rootJointType, load)
+    ## Constructor
+    # \param compositeName name of the composite robot that will be built later,
+    # \param robotName name of the first robot that is loaded now,
+    # \param load whether to actually load urdf files. Set to no if you only
+    #        want to initialize a corba client to an already initialized
+    #        problem.
+    # \param rootJointType type of root joint among ("freeflyer", "planar",
+    #        "anchor"),
+    def __init__ (self, compositeName, robotName, load = True,
+                  rootJointType = self.rootJointType):
+        Parent.__init__ (self, compositeName, robotName, rootJointType, load)
         self.tf_root = "base_footprint"
