@@ -34,7 +34,6 @@ class Robot (Parent):
     #  Information to retrieve urdf and srdf files.
     packageName = "hpp_tutorial"
     meshPackageName = "pr2_description"
-    rootJointType = "planar"
     ##
     #  Information to retrieve urdf and srdf files.
     urdfName = "pr2"
@@ -50,6 +49,6 @@ class Robot (Parent):
     # \param rootJointType type of root joint among ("freeflyer", "planar",
     #        "anchor"),
     def __init__ (self, compositeName, robotName, load = True,
-                  rootJointType = self.rootJointType):
+                  rootJointType = "planar"):
         Parent.__init__ (self, compositeName, robotName, rootJointType, load)
         self.tf_root = "base_footprint"
