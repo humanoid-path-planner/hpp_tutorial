@@ -17,24 +17,20 @@
 // hpp_tutorial  If not, see
 // <http://www.gnu.org/licenses/>.
 
-/// \page hpp_tutorial_tutorial_1
+/// \page hpp_tutorial_tutorial_1 Tutorial 1
 ///
-/// To launch the tutorial, open a terminal and open 3 tabs by typing
+/// To run the tutorial, open a terminal and open 3 tabs by typing
 /// \c CTRL+SHIFT+T twice. When the terminal is selected, you can select a tab
 /// by typing \c ALT-[1|2|3].
 ///
-/// \section hpp_tutorial_starting_rviz Starting rviz
+/// \section hpp_tutorial_starting_gui Starting \c gepetto-viewer-server
 ///
 /// In the first tab, type
 /// \code
-/// roslaunch hpp_tutorial tutorial.launch
+/// gepetto-viewer-server
 /// \endcode
-/// Rviz should open a new window as below.
-///
-/// \image html rviz-start.png
-///
-/// See \link hpp_tutorial_ros_displaying this page \endlink for
-/// details about the nodes started by this command.
+/// Nothing apparently happens, but the graphical user interface is ready to
+/// create a new window and to display a scene.
 ///
 /// \section hpp_tutorial_starting_hppcorbaserver Starting hppcorbaserver
 ///
@@ -44,10 +40,11 @@
 /// \endcode
 /// See package \c hpp-corbaserver for details.
 ///
-/// Note that ros nodes and hppcorbaserver executables are for now completely
-/// independent.
+/// Note that \c gepetto-viewer-server and \c hppcorbaserver executables are
+/// completely independent.
 ///
-/// \section hpp_tutorial_python Connecting hpp and ros via a python terminal
+/// \section hpp_tutorial_python Connecting hpp and \c gepetto-viewer-server via a
+/// python terminal
 ///
 /// In the third tab, type
 /// \code
@@ -63,6 +60,9 @@
 /// Copy-paste the content of file
 /// <code><a href="script/tutorial_1.py">script/tutorial_1.py</a></code> in the
 /// python terminal.
+///
+/// A window should pop-up, displaying a scene containing a PR2 robot in a
+/// kitchen environment.
 ///
 /// See \link hpp_tutorial_script this page \endlink for details about the
 /// instructions of <code>script/tutorial_1.py</code>.
