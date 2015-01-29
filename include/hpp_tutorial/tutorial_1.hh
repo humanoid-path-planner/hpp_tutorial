@@ -43,8 +43,7 @@
 /// Note that \c gepetto-viewer-server and \c hppcorbaserver executables are
 /// completely independent.
 ///
-/// \section hpp_tutorial_python Connecting hpp and \c gepetto-viewer-server via a
-/// python terminal
+/// \section hpp_tutorial_python Connecting hppcorbaserver and gepetto-viewer-server via a python terminal
 ///
 /// In the third tab, type
 /// \code
