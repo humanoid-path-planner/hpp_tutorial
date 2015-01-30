@@ -34,8 +34,7 @@ FINDPYTHON()
 SETUP_PROJECT()
 
 # Catkin stuff
-FIND_PACKAGE(catkin REQUIRED COMPONENTS
-  hpp_ros)
+FIND_PACKAGE(catkin)
 CATKIN_PACKAGE()
 
 # Activate hpp-util logging if requested
@@ -46,7 +45,6 @@ ENDIF()
 
 ADD_DOC_DEPENDENCY("hpp-core >= 3")
 ADD_REQUIRED_DEPENDENCY("hpp-corbaserver >= 3")
-ADD_REQUIRED_DEPENDENCY("hpp_ros")
 
 # Create and install executable running the corba server
 ADD_EXECUTABLE (hpp-tutorial-server
