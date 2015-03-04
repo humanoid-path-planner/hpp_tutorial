@@ -3,7 +3,7 @@
 # Import. {{{2
 from hpp.corbaserver.manipulation.pr2 import Robot
 from hpp.corbaserver.manipulation import ProblemSolver, ConstraintGraph
-from hpp.gepetto.manipulation import Viewer, FakeViewer
+from hpp.gepetto.manipulation import Viewer, ViewerFactory
 # 2}}}
 
 # Load PR2 and a box to be manipulated. {{{2
@@ -24,10 +24,13 @@ class Environment (object):
 
 robot = Robot ('pr2-box', 'pr2')
 ps = ProblemSolver (robot)
-fk = FakeViewer (ps)
+## ViewerFactory is a class that generates Viewer on the go. It means you can
+## restart the server and regenerate a new windows.
+## To generate a window:
+## fk.createRealClient ()
+fk = ViewerFactory (ps)
 
 fk.loadObjectModel (Box, 'box')
-fk.buildCompositeRobot (['pr2', 'box'])
 fk.loadEnvironmentModel (Environment, "kitchen_area")
 
 robot.setJointBounds ("pr2/base_joint_xy" , [-5,-2,-5.2,-2.7]     )
@@ -123,10 +126,13 @@ graph.setConstraints (node='box', grasp='l_grasp')
 graph.setConstraints (edge='move_free', lockDof = lockbox)
 graph.setConstraints (edge="ungrasp_e1", lockDof = lockbox)
 graph.setConstraints (node="ungrasp_n0", pregrasp = 'l_pregrasp')
+#graph.setConstraints (edge="ungrasp_e0", lockDof = lockboth)
 graph.setConstraints (edge="ungrasp_e0", lockDof = lockbox)
+#graph.setConstraints (edge="grasp_e1", lockDof = lockboth)
 graph.setConstraints (edge="grasp_e1", lockDof = lockbox)
 graph.setConstraints (node="grasp_n0", pregrasp = 'l_pregrasp')
 graph.setConstraints (edge="grasp_e0", lockDof = lockbox)
+#graph.client.graph.setLevelSetConstraints  (graph.edges["keep_grasp_ls"], [], lockbox)
 graph.setLevelSetConstraints ("keep_grasp_ls", lockDof = lockbox)
 graph.setConstraints (graph = True, lockDof = locklhand)
 # 3}}}
