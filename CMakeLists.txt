@@ -60,11 +60,6 @@ SET(CATKIN_PACKAGE_SHARE_DESTINATION
   ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME})
 
 install(FILES
-  launch/tutorial.launch
-  launch/tutorial_manipulation.launch
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
-  )
-install(FILES
   urdf/pr2.urdf
   urdf/box.urdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf
@@ -74,11 +69,6 @@ install(FILES
   srdf/pr2_manipulation.srdf
   srdf/box.srdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/srdf
-  )
-install(FILES
-  rviz/config.rviz
-  rviz/config_manipulation.rviz
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/rviz
   )
 install (FILES
   src/hpp/corbaserver/pr2/robot.py
@@ -90,12 +80,6 @@ install (FILES
   DESTINATION ${PYTHON_SITELIB}/hpp/corbaserver/manipulation/pr2)
 
 # Installation for documentation
-install(FILES
-  launch/tutorial.launch
-  launch/tutorial_manipulation.launch
-  DESTINATION
-  ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/launch
-  )
 install(FILES
   urdf/pr2.urdf
   urdf/box.urdf
