@@ -33,12 +33,17 @@ FINDPYTHON()
 
 SETUP_PROJECT()
 
+# Catkin stuff
+FIND_PACKAGE(catkin)
+CATKIN_PACKAGE()
+
 # Activate hpp-util logging if requested
 SET (HPP_DEBUG FALSE CACHE BOOL "trigger hpp-util debug output")
 IF (HPP_DEBUG)
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DHPP_DEBUG")
 ENDIF()
 
+ADD_DOC_DEPENDENCY("hpp-core >= 3")
 ADD_REQUIRED_DEPENDENCY("hpp-corbaserver >= 3")
 
 # Create and install executable running the corba server
@@ -49,4 +54,42 @@ ADD_EXECUTABLE (hpp-tutorial-server
 PKG_CONFIG_USE_DEPENDENCY (hpp-tutorial-server hpp-corbaserver)
 # Install executable
 INSTALL (TARGETS hpp-tutorial-server DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+
+SET(CATKIN_PACKAGE_SHARE_DESTINATION
+  ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME})
+
+install(FILES
+  urdf/pr2.urdf
+  urdf/box.urdf
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf
+  )
+install(FILES
+  srdf/pr2.srdf
+  srdf/pr2_manipulation.srdf
+  srdf/box.srdf
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/srdf
+  )
+install (FILES
+  src/hpp/corbaserver/pr2/robot.py
+  src/hpp/corbaserver/pr2/__init__.py
+  DESTINATION ${PYTHON_SITELIB}/hpp/corbaserver/pr2)
+install (FILES
+  src/hpp/corbaserver/manipulation/pr2/robot.py
+  src/hpp/corbaserver/manipulation/pr2/__init__.py
+  DESTINATION ${PYTHON_SITELIB}/hpp/corbaserver/manipulation/pr2)
+
+# Installation for documentation
+install(FILES
+  urdf/pr2.urdf
+  urdf/box.urdf
+  DESTINATION
+  ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/urdf
+  )
+install(FILES
+  script/tutorial_1.py
+  script/tutorial_2.py
+  DESTINATION
+  ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/script
+  )
 SETUP_PROJECT_FINALIZE()
