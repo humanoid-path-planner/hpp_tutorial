@@ -30,6 +30,9 @@ r.loadObstacleModel ("iai_maps", "kitchen_area", "kitchen")
 
 ps.setInitialConfig (q_init)
 ps.addGoalConfig (q_goal)
+
+ps.addPathOptimizer ("RandomShortcut")
+
 ps.solve ()
 
 from hpp.gepetto import PathPlayer

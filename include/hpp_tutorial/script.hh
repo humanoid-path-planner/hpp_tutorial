@@ -88,6 +88,11 @@
 /// Define initial and goal configurations.
 ///
 /// \code
+/// ps.addPathOptimizer ("RandomShortcut")
+/// \endcode
+/// Add a path optimizer (hpp::core::RandomShortcut).
+///
+/// \code
 /// ps.solve ()
 /// \endcode
 /// Solve problem.
