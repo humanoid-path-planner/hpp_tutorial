@@ -75,7 +75,8 @@
 /// \endcode
 /// This executable creates an instance of hpp::core::ProblemSolver,
 /// \code
-/// hpp::core::ProblemSolverPtr_t problemSolver = new hpp::core::ProblemSolver;
+/// hpp::core::ProblemSolverPtr_t problemSolver =
+///   hpp::core::ProblemSolver::create ();
 /// \endcode
 /// adds the constructor of class hpp::tutorial::Planner in the map of the
 /// ProblemSolver instance with key "PRM",

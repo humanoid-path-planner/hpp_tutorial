@@ -132,7 +132,8 @@ int main (int argc, const char* argv[])
   // create a ProblemSolver instance.
   // This class is a container that does the interface between hpp-core library
   // and component to be running in a middleware like CORBA or ROS.
-  hpp::core::ProblemSolverPtr_t problemSolver = new hpp::core::ProblemSolver;
+  hpp::core::ProblemSolverPtr_t problemSolver =
+    hpp::core::ProblemSolver::create ();
   // Add the new planner type in order to be able to select it from python
   // client.
   problemSolver->addPathPlannerType ("PRM", hpp::tutorial::Planner::create);
