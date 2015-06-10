@@ -62,18 +62,24 @@ install(FILES
 install(FILES
   urdf/pr2.urdf
   urdf/box.urdf
+  urdf/rod.urdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf
   )
 install(FILES
   srdf/pr2.srdf
   srdf/pr2_manipulation.srdf
   srdf/box.srdf
+  srdf/rod.srdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/srdf
   )
 install (FILES
   src/hpp/corbaserver/pr2/robot.py
   src/hpp/corbaserver/pr2/__init__.py
   DESTINATION ${PYTHON_SITELIB}/hpp/corbaserver/pr2)
+install (FILES
+  src/hpp/corbaserver/rod/robot.py
+  src/hpp/corbaserver/rod/__init__.py
+  DESTINATION ${PYTHON_SITELIB}/hpp/corbaserver/rod)
 install (FILES
   src/hpp/corbaserver/manipulation/pr2/robot.py
   src/hpp/corbaserver/manipulation/pr2/__init__.py
