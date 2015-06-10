@@ -33,10 +33,6 @@ FINDPYTHON()
 
 SETUP_PROJECT()
 
-# Catkin stuff
-FIND_PACKAGE(catkin)
-CATKIN_PACKAGE()
-
 # Activate hpp-util logging if requested
 SET (HPP_DEBUG FALSE CACHE BOOL "trigger hpp-util debug output")
 IF (HPP_DEBUG)
