@@ -75,7 +75,7 @@ namespace hpp {
 	// shoot a valid random configuration
 	core::ConfigurationPtr_t qrand;
 	do {
-	  qrand = shooter_.shoot ();
+	  qrand = shooter_->shoot ();
 	} while (!configValidations->validate (*qrand));
 	// Add qrand as a new node
 	core::NodePtr_t newNode = r->addNode (qrand);
@@ -108,7 +108,8 @@ namespace hpp {
       /// Users need to call Planner::create in order to create instances.
       Planner (const core::Problem& problem,
 	       const core::RoadmapPtr_t& roadmap) :
-	core::PathPlanner (problem, roadmap), shooter_ (problem.robot ())
+	core::PathPlanner (problem, roadmap),
+	shooter_ (core::BasicConfigurationShooter::create (problem.robot ()))
       {
       }
       /// Store weak pointer to itself
@@ -119,7 +120,7 @@ namespace hpp {
       }
     private:
       /// Configuration shooter to uniformly shoot random configurations
-      core::BasicConfigurationShooter shooter_;
+      core::BasicConfigurationShooterPtr_t shooter_;
       /// weak pointer to itself
       PlannerWkPtr_t weakPtr_;
     }; // class Planner
