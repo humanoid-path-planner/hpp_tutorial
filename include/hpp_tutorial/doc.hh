@@ -21,9 +21,11 @@
 ///
 /// \section hpp_tutorial_intro Introduction
 ///
-/// These tutorials explain how to define and solve a path planning
-/// problem, how to display the resulting paths in gepetto-viewer, and
-/// how to implement a new path planning algorithm.
+/// These tutorials explain
+/// \li how to define and solve a path planning problem, how to display the
+///     resulting paths in gepetto-viewer,
+/// \li how to implement a new path planning algorithm,
+/// \li how to define and solve a manipulation planning problem.
 ///
 /// \subsection hpp_tutorial_setting_up_environment Setting up your environment
 /// 
@@ -31,7 +33,7 @@
 /// \li \c bash is you default shell script language,
 /// \li the line \code source $DEVEL_DIR/config.sh \endcode is in your .bashrc
 /// file, where \c DEVEL_DIR is the environment variable defined in the
-/// <a href="https://github.com/humanoid-path-planner/hpp-doc/tree/ros-hydro">
+/// <a href="https://github.com/humanoid-path-planner/hpp-doc/tree/devel">
 /// installation instructions</a>.
 ///
 /// \section hpp_tutorial_tutorials Tutorials
@@ -40,3 +42,5 @@
 ///     solve a path planning problem
 /// \li \link hpp_tutorial_tutorial_2 Tutorial 2 \endlink : how to implement
 ///     a new path planning algorithm in C++.
+/// \li \link hpp_tutorial_tutorial_3 Tutorial 3 \endlink : how to define and
+///     solve a manipulation planning problem

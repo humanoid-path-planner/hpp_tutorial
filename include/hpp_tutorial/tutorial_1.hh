@@ -23,7 +23,7 @@
 /// \c CTRL+SHIFT+T twice. When the terminal is selected, you can select a tab
 /// by typing \c ALT-[1|2|3].
 ///
-/// \section hpp_tutorial_starting_gui Starting \c gepetto-viewer-server
+/// \section hpp_tutorial_starting_gui Starting gepetto-viewer-server
 ///
 /// In the first tab, type
 /// \code
@@ -51,8 +51,8 @@
 /// \endcode
 /// to open an interactive python terminal.
 /// \code
-/// Python 2.7.3 (default, Feb 27 2014, 20:00:17) 
-/// [GCC 4.6.3] on linux2
+/// Python 2.7.6 (default, Jun 22 2015, 17:58:13) 
+/// [GCC 4.8.2] on linux2
 /// Type "help", "copyright", "credits" or "license" for more information.
 /// >>> 
 /// \endcode
@@ -60,8 +60,8 @@
 /// <code><a href="script/tutorial_1.py">script/tutorial_1.py</a></code> in the
 /// python terminal.
 ///
-/// A window should pop-up, displaying a scene containing a PR2 robot in a
-/// kitchen environment.
+/// A window should pop-up, displaying a scene containing the DLR-miiwa robot
+/// in a kitchen environment.
 ///
 /// See \link hpp_tutorial_script this page \endlink for details about the
 /// instructions of <code>script/tutorial_1.py</code>.

@@ -1,16 +1,16 @@
-from hpp.corbaserver.pr2 import Robot
-robot = Robot ('pr2', False)
+from hpp import Transform
+gripperInJoint = Transform (0, 0, 0.2, 0.5, 0.5, 0.5, 0.5)
 
-from hpp.corbaserver import ProblemSolver
-ps = ProblemSolver (robot)
+j = 'dlr/schunk_wsg50_fixed_base_joint'
+robot.getLinkName (j)
+linkPosition = Transform (robot.getLinkPosition (j))
 
-from gepetto.corbaserver import Client as GuiClient
-guiClient = GuiClient ()
+gripperPosition = linkPosition * gripperInJoint
 
-from hpp.gepetto import Viewer
-Viewer.sceneName = '0_scene_hpp_'
-r = Viewer (ps, guiClient)
+handlePosition = Transform (robot.getLinkPosition ('box/base_joint_SO3'))
 
-from hpp.gepetto import PathPlayer
-pp = PathPlayer (robot.client, r)
-
+r.client.gui.createGroup ('gripper')
+r.client.gui.addToGroup ('gripper', '0_scene_hpp_')
+r.client.gui.removeFromGroup ('gripper', '0_scene_hpp_')
+r.client.gui.addLandmark ('gripper', .2)
+r.client.gui.applyConfiguration ('gripper', tuple (gripperPosition))

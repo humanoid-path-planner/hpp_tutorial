@@ -20,15 +20,16 @@
 /// \page hpp_tutorial_script Explanation about script/tutorial_1.py
 ///
 /// \code
-/// from hpp.corbaserver.pr2 import Robot
-/// robot = Robot ('pr2')
-/// robot.setJointBounds ("base_joint_xy", [-4, -3, -5, -3])
+/// from hpp.corbaserver.dlr_miiwa import Robot
+/// robot = Robot ('dlr')
+/// robot.setJointBounds ("miiwa_joint_x", [-4, -3,])
+/// robot.setJointBounds ("miiwa_joint_y", [-6.5, -3,])
 /// \endcode
-/// Import class pr2.robot.Robot and create an instance and set bounds of
+/// Import class \c Robot, create an instance and set bounds of
 /// translation degrees of freedom of the base.
 /// Note that the constructor of the instance calls idl method
 /// hpp::corbaserver::Robot::loadRobotModel. This triggers the loading of the
-/// urdf/srdf model of the PR2 robot in \c hppcorbaserver executable.
+/// urdf/srdf model of the dlr_miiwa robot in \c hppcorbaserver executable.
 ///
 /// \code
 /// from hpp.corbaserver import ProblemSolver
