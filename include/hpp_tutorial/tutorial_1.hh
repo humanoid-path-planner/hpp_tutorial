@@ -63,5 +63,5 @@
 /// A window should pop-up, displaying a scene containing the DLR-miiwa robot
 /// in a kitchen environment.
 ///
-/// See \link hpp_tutorial_script this page \endlink for details about the
+/// See \link hpp_tutorial_script_1 this page \endlink for details about the
 /// instructions of <code>script/tutorial_1.py</code>.

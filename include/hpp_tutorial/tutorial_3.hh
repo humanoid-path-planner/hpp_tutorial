@@ -18,3 +18,17 @@
 // <http://www.gnu.org/licenses/>.
 
 /// \page hpp_tutorial_tutorial_3 Tutorial 3
+///
+/// This tutorial explains how to define and solve a manipulation planning
+/// problem.
+///
+/// \section Starting the software
+///
+/// To start the software, follow the same steps as in \link
+/// hpp_tutorial_tutorial_1 tutorial 1\endlink replacing \c hppcorbaserver
+/// by \c hpp-manipulation-server.
+///
+/// \section understanding the script
+///
+/// See \link hpp_tutorial_script_3 this page \endlink for details about the
+/// instructions of <code>script/tutorial_3.py</code>.

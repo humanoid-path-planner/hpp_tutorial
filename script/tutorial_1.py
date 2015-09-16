@@ -15,7 +15,6 @@ r.loadObstacleModel ("iai_maps", "kitchen_area", "kitchen")
 # Move box on the table
 q_box = (-2.5, -4.0, 0.7555686333723849, 0.7071067811865475, 0.,
          0.7071067811865475, 0.)
-
 r.moveObstacle ("box/base_link_0", q_box)
 
 q_init = robot.getCurrentConfig ()
@@ -38,7 +37,7 @@ ps.addGoalConfig (q_goal)
 ps.selectPathValidation ("Dichotomy", 0.)
 ps.addPathOptimizer ("RandomShortcut")
 
-#ps.solve ()
+ps.solve ()
 
 from hpp.gepetto import PathPlayer
 pp = PathPlayer (robot.client, r)
