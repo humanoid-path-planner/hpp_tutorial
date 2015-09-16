@@ -1,7 +1,7 @@
 TAGFILES = @HPP_CORE_DOXYGENDOCDIR@/hpp-core.doxytag=@HPP_CORE_DOXYGENDOCDIR@ \
 @HPP_CORBASERVER_DOXYGENDOCDIR@/hpp-corbaserver.doxytag=@HPP_CORBASERVER_DOXYGENDOCDIR@ \
 @HPP_MANIPULATION_DOXYGENDOCDIR@/hpp-manipulation.doxytag=@HPP_MANIPULATION_DOXYGENDOCDIR@ \
-@HPP_ROS_PREFIX@/share/doc/hpp_ros/doxygen-html/hpp_ros.doxytag=@HPP_ROS_PREFIX@/share/doc/hpp_ros/doxygen-html
+@HPP_MANIPULATION_CORBA_DOXYGENDOCDIR@/hpp-manipulation-corba.doxytag=@HPP_MANIPULATION_CORBA_DOXYGENDOCDIR@
 
 INPUT=@CMAKE_SOURCE_DIR@/include @CMAKE_SOURCE_DIR@/src/hpp/corbaserver/pr2/robot.py
 

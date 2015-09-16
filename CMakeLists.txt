@@ -40,7 +40,8 @@ IF (HPP_DEBUG)
 ENDIF()
 
 ADD_DOC_DEPENDENCY("hpp-core >= 3")
-ADD_REQUIRED_DEPENDENCY("hpp-manipulation")
+ADD_REQUIRED_DEPENDENCY("hpp-manipulation-corba")
+ADD_DOC_DEPENDENCY("hpp-manipulation")
 ADD_REQUIRED_DEPENDENCY("hpp-corbaserver >= 3")
 
 # Create and install executable running the corba server

@@ -27,6 +27,7 @@
 /// from hpp.gepetto import PathPlayer
 /// \endcode
 /// Import various classes.
+/// \code {.py}
 /// class Box (object):
 ///   rootJointType = 'freeflyer'
 ///   packageName = 'hpp_tutorial'
@@ -42,6 +43,7 @@
 ///   urdfSuffix = ""
 ///   srdfSuffix = ""
 /// \endcode
+///
 /// Create classes to load urdf models of objects and environments. These
 /// classes contain information about the installed ROS-packages were urdf
 /// models and collada files can be found. Note that those packages need to
@@ -57,6 +59,8 @@
 /// ps = ProblemSolver (robot)
 /// \endcode
 /// Create a problem solver.
+/// \sa manipulation.problem_solver.ProblemSolver python class.
+///
 /// \code {.py}
 ///r = Viewer (ps)
 /// \endcode
@@ -70,7 +74,7 @@
 /// r.loadEnvironmentModel (Environment, "kitchen_area")
 /// \endcode
 /// Load model of the environment.
-/// \core {.py}
+/// \code {.py}
 /// robot.setJointBounds ("dlr/miiwa_joint_x", [-4, -3])
 /// robot.setJointBounds ("dlr/miiwa_joint_y", [-5, -3])
 /// robot.setJointBounds ("box/base_joint_xyz", [-5.1,-2,-5.2,-2.7,0,3.])
@@ -83,11 +87,13 @@
 /// robot.client.basic.problem.setMaxIterations (40)
 /// \endcode
 /// Set error threshold and maximal number of iterations for non-linear
-/// constraint projection.
+/// constraint resolution.
 /// \code {.py}
 /// ps.selectPathProjector ('Progressive', 0.2)
 /// \endcode
 /// Select strategy to apply non-linear constraints along a path.
+/// \sa hpp::core::PathProjector C++ class.
+///
 /// \code {.py}
 /// # Create lists of joint names - useful to define passive joints.
 /// jointNames = dict ()
@@ -97,7 +103,7 @@
 ///   if n.startswith ("dlr"):
 ///     jointNames['dlr'].append (n)
 /// \endcode
-/// Create a dictonary the values of which are lists of joints.
+/// Create a dictonary the values of which are lists of joint names.
 /// \code {.py}
 /// robotPassiveDof = 'robotPassiveDof'
 /// ps.addPassiveDofs (robotPassiveDof, jointNames['dlr'])
@@ -118,6 +124,7 @@
 /// \endcode
 /// Define initial and goal configurations.
 ///
+/// \code {.py}
 /// # Create constraints to open the gripper
 /// lockHand = ['open_l_jaw', 'open_r_jaw']
 /// ps.createLockedJoint ('open_l_jaw', 'dlr/schunk_wsg50_joint_left_jaw', [0.05,])
@@ -274,10 +281,11 @@
 /// \endcode
 /// Define constraints on transfer paths. The object is hold in the gripper.
 /// Note that parameter \c grasps combined with parameter \c edge adds
-/// constraint defined by the grasps and their complements. For axial handles
+/// constraints defined by the grasps and their complements. For axial handles
 /// for instance, the rotation around z-axis is free to grasp the object, but
 /// once grasped, the rotation is fixed along transfer paths.
 /// \sa hpp::manipulation::AxialHandle.
+///
 /// \code {.py}
 /// res = ps.client.manipulation.problem.applyConstraints \
 ///       (graph.nodes['free_table'], q_init)
@@ -285,7 +293,7 @@
 ///   raise Exception ('Init configuration could not be projected.')
 /// q_init_proj = res [1]
 /// \endcode
-/// Define initial configuration by projection \c q_init on sub-manifold
+/// Define initial configuration by projection of \c q_init on sub-manifold
 /// corresponding to node \c 'free_table'.
 /// \code {.py}
 /// res = ps.client.manipulation.problem.applyConstraints \
@@ -294,7 +302,7 @@
 ///   raise Exception ('Goal configuration could not be projected.')
 /// q_goal_proj = res [1]
 /// \endcode
-/// Define goal configuration by projecting \c q_goal on sub-manifold
+/// Define goal configuration by projection of \c q_goal on sub-manifold
 /// corresponding to node \c 'free_counter'.
 /// \code
 /// r (q_init)
