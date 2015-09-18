@@ -28,7 +28,15 @@
 /// hpp_tutorial_tutorial_1 tutorial 1\endlink replacing \c hppcorbaserver
 /// by \c hpp-manipulation-server.
 ///
-/// \section understanding the script
+/// \section Understanding the script
 ///
 /// See \link hpp_tutorial_script_3 this page \endlink for details about the
 /// instructions of <code>script/tutorial_3.py</code>.
+///
+/// \section Monitoring the constraint graph
+///
+/// In another terminal, type hpp-plot-manipulation-graph, a window appears.
+///
+/// Click on "Refresh" and then on "Statistics" to display the manipulation
+/// graph. Clicking on nodes and edges shows the success rate of the projection
+/// function.
