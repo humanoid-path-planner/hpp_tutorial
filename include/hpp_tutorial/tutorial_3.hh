@@ -30,6 +30,10 @@
 ///
 /// \section Understanding the script
 ///
+/// Copy-paste the content of file
+/// <code><a href="script/tutorial_3.py">script/tutorial_3.py</a></code> in the
+/// python terminal.
+///
 /// See \link hpp_tutorial_script_3 this page \endlink for details about the
 /// instructions of <code>script/tutorial_3.py</code>.
 ///
