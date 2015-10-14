@@ -62,6 +62,8 @@ install(FILES
 install(FILES
   urdf/pr2.urdf
   urdf/box.urdf
+  urdf/cup.urdf
+  urdf/box_color.urdf
   urdf/rod.urdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf
   )
@@ -69,8 +71,13 @@ install(FILES
   srdf/pr2.srdf
   srdf/pr2_manipulation.srdf
   srdf/box.srdf
+  srdf/cup.srdf
   srdf/rod.srdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/srdf
+  )
+install(FILES
+  meshes/box.dae
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/meshes
   )
 install (FILES
   src/hpp/corbaserver/pr2/robot.py

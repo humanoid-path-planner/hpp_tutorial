@@ -5,7 +5,8 @@
     <link name="base_link"/>
   </handle>
   <handle name="handle2" clearance="0.025">
-    <position> 0 0 0 0 0 1 0 </position>
+    <position> 0 0 0
+      0 0 0.7071067811865476 0.7071067811865476 </position>
     <link name="base_link"/>
   </handle>
   <contact name="box_surface">
