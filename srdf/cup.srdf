@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot name="cup">
+  <handle name="handle" clearance="0">
+    <position> 0 0 0 1 0 0 0 </position>
+    <link name="base_link"/>
+  </handle>
+  <contact name="box_surface">
+    <link name="base_link"/>
+    <point>-0.0025 -0.0025 -0.005   -0.0025 0.0025 -0.005   -0.0025 -0.0025 0.005   -0.0025 0.0025 0.005
+           +0.0025 -0.0025 -0.005   +0.0025 0.0025 -0.005   +0.0025 -0.0025 0.005   +0.0025 0.0025 0.005 </point>
+    <triangle> 0 2 1 4 5 6</triangle>
+  </contact>
+</robot>
