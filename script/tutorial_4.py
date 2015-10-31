@@ -65,10 +65,11 @@ ps.createLockedJoint ('open_l_jaw', 'dlr/schunk_wsg50_joint_left_jaw', [0.05,])
 ps.createLockedJoint ('open_r_jaw', 'dlr/schunk_wsg50_joint_right_jaw', [0.05,])
 
 # Create placement constraint for the box
-ps.createPlacementConstraint ('box_placement_table', 'box/box_surface',
-                              'kitchen_area/pancake_table_table_top')
-ps.createPlacementConstraint ('box_placement_platform', 'box/box_surface',
-                              'dlr/platform')
+ps.client.manipulation.problem.createPlacementConstraint \
+  ('box_placement_table', 'box/box_surface',
+   'kitchen_area/pancake_table_table_top')
+ps.client.manipulation.problem.createPlacementConstraint \
+  ('box_placement_platform', 'box/box_surface', 'dlr/platform')
 
 # Create the manipulation graph
 graph = ConstraintGraph (robot, 'graph')
