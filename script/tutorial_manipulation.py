@@ -4,6 +4,7 @@
 from hpp.corbaserver.manipulation.pr2 import Robot
 from hpp.corbaserver.manipulation import ProblemSolver, ConstraintGraph
 from hpp.gepetto.manipulation import Viewer, ViewerFactory
+from hpp.gepetto import PathPlayer
 # 2}}}
 
 # Load PR2 and a box to be manipulated. {{{2
@@ -47,7 +48,6 @@ graph = ConstraintGraph (robot, 'graph')
 
 # Set parameters. {{{2
 robot.client.basic.problem.resetRoadmap ()
-robot.client.basic.problem.selectPathOptimizer ('None')
 robot.client.basic.problem.setErrorThreshold (1e-3)
 robot.client.basic.problem.setMaxIterations (40)
 # 2}}}
@@ -98,8 +98,8 @@ q_goal [rank:rank+4] = [0, 0, 0, 1]
 graph.createGrasp ('l_grasp', 'pr2/l_gripper', 'box/handle', passiveJoints = 'pr2')
 graph.createPreGrasp ('l_pregrasp', 'pr2/l_gripper', 'box/handle')
 
-lockbox = ps.lockFreeFlyerJoint ('box/base_joint', 'box_lock', compType = 'Equality')
-lockpr2 = ps.lockPlanarJoint ('pr2/base_joint', 'pr2_lock', compType = 'Equality')
+lockbox = ps.lockFreeFlyerJoint ('box/base_joint', 'box_lock')
+lockpr2 = ps.lockPlanarJoint ('pr2/base_joint', 'pr2_lock')
 lockboth = lockpr2[:]; lockboth.extend (lockbox)
 
 locklhand = ['l_l_finger','l_r_finger'];
@@ -122,15 +122,15 @@ graph.createLevelSetEdge ('box', 'box', 'keep_grasp_ls', 10)
 # 3}}}
 
 # Set the constraints of the component of the graph. {{{3
-graph.setConstraints (node='box', grasp='l_grasp')
+graph.setConstraints (node='box', grasps=['l_grasp',])
 graph.setConstraints (edge='move_free', lockDof = lockbox)
 graph.setConstraints (edge="ungrasp_e1", lockDof = lockbox)
-graph.setConstraints (node="ungrasp_n0", pregrasp = 'l_pregrasp')
+graph.setConstraints (node="ungrasp_n0", pregrasps = ['l_pregrasp',])
 #graph.setConstraints (edge="ungrasp_e0", lockDof = lockboth)
 graph.setConstraints (edge="ungrasp_e0", lockDof = lockbox)
 #graph.setConstraints (edge="grasp_e1", lockDof = lockboth)
 graph.setConstraints (edge="grasp_e1", lockDof = lockbox)
-graph.setConstraints (node="grasp_n0", pregrasp = 'l_pregrasp')
+graph.setConstraints (node="grasp_n0", pregrasps = ['l_pregrasp',])
 graph.setConstraints (edge="grasp_e0", lockDof = lockbox)
 #graph.client.graph.setLevelSetConstraints  (graph.edges["keep_grasp_ls"], [], lockbox)
 graph.setLevelSetConstraints ("keep_grasp_ls", lockDof = lockbox)
@@ -143,5 +143,8 @@ ps.setInitialConfig (q_init)
 ps.addGoalConfig (q_goal)
 
 # 1}}}
+
+#v = fk.createRealClient ()
+#pp = PathPlayer (robot.client.basic, v)
 
 # vim: foldmethod=marker foldlevel=1
