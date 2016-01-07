@@ -113,27 +113,27 @@ ps.createLockedJoint ('l_r_finger', 'pr2/l_gripper_r_finger_joint', [0.5,])
 graph.createNode (['box', 'free'])
 
 we = dict ()
-we["ungrasp"] = graph.createWaypointEdge ('box', 'free', "ungrasp", nb=1, weight=1)
+# we["ungrasp"] = graph.createWaypointEdge ('box', 'free', "ungrasp", nb=1, weight=1)
 we[  "grasp"] = graph.createWaypointEdge ('free', 'box',   "grasp", nb=1, weight=10)
 
 graph.createEdge ('free', 'free', 'move_free', 1)
 graph.createEdge ('box', 'box', 'keep_grasp', 5)
-graph.createLevelSetEdge ('box', 'box', 'keep_grasp_ls', 10)
+# graph.createLevelSetEdge ('box', 'box', 'keep_grasp_ls', 10)
 # 3}}}
 
 # Set the constraints of the component of the graph. {{{3
-graph.setConstraints (node='box', grasps=['l_grasp',])
+graph.setConstraints (node='box', grasps = ['l_grasp',])
 graph.setConstraints (edge='move_free', lockDof = lockbox)
-graph.setConstraints (edge="ungrasp_e1", lockDof = lockbox)
-graph.setConstraints (node="ungrasp_n0", pregrasps = ['l_pregrasp',])
+# graph.setConstraints (edge="ungrasp_e1", lockDof = lockbox)
+# graph.setConstraints (node="ungrasp_n0", pregrasps = ['l_pregrasp',])
 #graph.setConstraints (edge="ungrasp_e0", lockDof = lockboth)
-graph.setConstraints (edge="ungrasp_e0", lockDof = lockbox)
+# graph.setConstraints (edge="ungrasp_e0", lockDof = lockbox)
 #graph.setConstraints (edge="grasp_e1", lockDof = lockboth)
 graph.setConstraints (edge="grasp_e1", lockDof = lockbox)
 graph.setConstraints (node="grasp_n0", pregrasps = ['l_pregrasp',])
 graph.setConstraints (edge="grasp_e0", lockDof = lockbox)
 #graph.client.graph.setLevelSetConstraints  (graph.edges["keep_grasp_ls"], [], lockbox)
-graph.setLevelSetConstraints ("keep_grasp_ls", lockDof = lockbox)
+# graph.setLevelSetConstraints ("keep_grasp_ls", lockDof = lockbox)
 graph.setConstraints (graph = True, lockDof = locklhand)
 # 3}}}
 
