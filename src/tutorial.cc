@@ -74,9 +74,11 @@ namespace hpp {
 	core::RoadmapPtr_t r (roadmap ());
 	// shoot a valid random configuration
 	core::ConfigurationPtr_t qrand;
+	// Report of configuration validation: unused here
+	core::ValidationReportPtr_t validationReport;
 	do {
 	  qrand = shooter_->shoot ();
-	} while (!configValidations->validate (*qrand));
+	} while (!configValidations->validate (*qrand, validationReport));
 	// Add qrand as a new node
 	core::NodePtr_t newNode = r->addNode (qrand);
 	// try to connect the random configuration to each connected component
@@ -95,7 +97,10 @@ namespace hpp {
 	    core::PathPtr_t localPath = (*sm) (*qnear, *qrand);
 	    // validate local path
 	    core::PathPtr_t validPart;
-	    if (pathValidation->validate (localPath, false, validPart)) {
+	    // report on path validation: unused here
+	    core::PathValidationReportPtr_t report;
+	    if (pathValidation->validate (localPath, false, validPart,
+					  report)) {
 	      // Create node and edges with qrand and the local path
 	      r->addEdge (nearest, newNode, localPath);
 	      r->addEdge (newNode, nearest, localPath->reverse ());
@@ -137,7 +142,8 @@ int main (int argc, const char* argv[])
     hpp::core::ProblemSolver::create ();
   // Add the new planner type in order to be able to select it from python
   // client.
-  problemSolver->addPathPlannerType ("PRM", hpp::tutorial::Planner::create);
+  hpp::core::PathPlannerBuilder_t factory (hpp::tutorial::Planner::create);
+  problemSolver->add ("PRM", factory);
   // Create the CORBA server.
   hpp::corbaServer::Server server (problemSolver, argc, argv, true);
   // Start the CORBA server.

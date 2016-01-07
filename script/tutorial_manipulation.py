@@ -4,6 +4,7 @@
 from hpp.corbaserver.manipulation.pr2 import Robot
 from hpp.corbaserver.manipulation import ProblemSolver, ConstraintGraph
 from hpp.gepetto.manipulation import Viewer, ViewerFactory
+from hpp.gepetto import PathPlayer
 # 2}}}
 
 # Load PR2 and a box to be manipulated. {{{2
@@ -121,15 +122,15 @@ graph.createLevelSetEdge ('box', 'box', 'keep_grasp_ls', 10)
 # 3}}}
 
 # Set the constraints of the component of the graph. {{{3
-graph.setConstraints (node='box', grasp='l_grasp')
+graph.setConstraints (node='box', grasps=['l_grasp',])
 graph.setConstraints (edge='move_free', lockDof = lockbox)
 graph.setConstraints (edge="ungrasp_e1", lockDof = lockbox)
-graph.setConstraints (node="ungrasp_n0", pregrasp = 'l_pregrasp')
+graph.setConstraints (node="ungrasp_n0", pregrasps = ['l_pregrasp',])
 #graph.setConstraints (edge="ungrasp_e0", lockDof = lockboth)
 graph.setConstraints (edge="ungrasp_e0", lockDof = lockbox)
 #graph.setConstraints (edge="grasp_e1", lockDof = lockboth)
 graph.setConstraints (edge="grasp_e1", lockDof = lockbox)
-graph.setConstraints (node="grasp_n0", pregrasp = 'l_pregrasp')
+graph.setConstraints (node="grasp_n0", pregrasps = ['l_pregrasp',])
 graph.setConstraints (edge="grasp_e0", lockDof = lockbox)
 #graph.client.graph.setLevelSetConstraints  (graph.edges["keep_grasp_ls"], [], lockbox)
 graph.setLevelSetConstraints ("keep_grasp_ls", lockDof = lockbox)
@@ -142,5 +143,8 @@ ps.setInitialConfig (q_init)
 ps.addGoalConfig (q_goal)
 
 # 1}}}
+
+#v = fk.createRealClient ()
+#pp = PathPlayer (robot.client.basic, v)
 
 # vim: foldmethod=marker foldlevel=1

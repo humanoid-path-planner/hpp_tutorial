@@ -21,9 +21,9 @@
 ///
 /// \section hpp_tutorial_intro Introduction
 ///
-/// These tutorials explain how to define and solve a path planning problem,
-/// how to display the resulting paths in rviz, and how to implement a new
-/// path planning algorithm.
+/// These tutorials explain how to define and solve a path planning
+/// problem, how to display the resulting paths in gepetto-viewer, and
+/// how to implement a new path planning algorithm.
 ///
 /// \subsection hpp_tutorial_setting_up_environment Setting up your environment
 /// 
@@ -37,6 +37,6 @@
 /// \section hpp_tutorial_tutorials Tutorials
 ///
 /// \li \link hpp_tutorial_tutorial_1 Tutorial 1 \endlink : how to define and
-///     slove a path planning problem
+///     solve a path planning problem
 /// \li \link hpp_tutorial_tutorial_2 Tutorial 2 \endlink : how to implement
 ///     a new path planning algorithm in C++.
