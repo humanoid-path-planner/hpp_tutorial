@@ -46,10 +46,10 @@ graph = ConstraintGraph (robot, 'graph')
 # Initialization. {{{1
 
 # Set parameters. {{{2
-robot.client.basic.problem.resetRoadmap ()
-robot.client.basic.problem.selectPathOptimizer ('None')
-robot.client.basic.problem.setErrorThreshold (1e-3)
-robot.client.basic.problem.setMaxIterations (40)
+ps.clearRoadmap ()
+ps.addPathOptimizer ('None')
+ps.setErrorThreshold (1e-3)
+ps.setMaxIterations (40)
 # 2}}}
 
 # Create lists of joint names - useful to define passive joints. {{{2
@@ -98,8 +98,8 @@ q_goal [rank:rank+4] = [0, 0, 0, 1]
 graph.createGrasp ('l_grasp', 'pr2/l_gripper', 'box/handle', passiveJoints = 'pr2')
 graph.createPreGrasp ('l_pregrasp', 'pr2/l_gripper', 'box/handle')
 
-lockbox = ps.lockFreeFlyerJoint ('box/base_joint', 'box_lock', compType = 'Equality')
-lockpr2 = ps.lockPlanarJoint ('pr2/base_joint', 'pr2_lock', compType = 'Equality')
+lockbox = ps.lockFreeFlyerJoint ('box/base_joint', 'box_lock')
+lockpr2 = ps.lockPlanarJoint ('pr2/base_joint', 'pr2_lock')
 lockboth = lockpr2[:]; lockboth.extend (lockbox)
 
 locklhand = ['l_l_finger','l_r_finger'];
