@@ -63,6 +63,7 @@ install(FILES
   urdf/pr2.urdf
   urdf/box.urdf
   urdf/cup.urdf
+  urdf/door.urdf
   urdf/box_color.urdf
   urdf/rod.urdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf
@@ -73,6 +74,7 @@ install(FILES
   srdf/box.srdf
   srdf/cup.srdf
   srdf/rod.srdf
+  srdf/door.srdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/srdf
   )
 install(FILES

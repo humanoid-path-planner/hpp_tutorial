@@ -10,7 +10,7 @@
     </inertial>
 
     <visual>
-      <origin xyz="1 0.075 0.9" rpy="0 0 0" />
+      <origin xyz="0.9 0.075 0.9" rpy="0 0 0" />
       <geometry>
         <sphere radius="0.01"/>
       </geometry>
@@ -19,14 +19,14 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="1 0.075 0.9" rpy="0 0 0" />
+      <origin xyz="0.9 0.075 0.9" rpy="0 0 0" />
       <geometry>
         <sphere radius="0.01"/>
       </geometry>
     </collision>
 
     <visual>
-      <origin xyz="1 -0.025 0.9" rpy="0 0 0" />
+      <origin xyz="0.9 -0.025 0.9" rpy="0 0 0" />
       <geometry>
         <sphere radius="0.01"/>
       </geometry>
@@ -35,7 +35,7 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="1 -0.025 0.9" rpy="0 0 0" />
+      <origin xyz="0.9 -0.025 0.9" rpy="0 0 0" />
       <geometry>
         <sphere radius="0.01"/>
       </geometry>

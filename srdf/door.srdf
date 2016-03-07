@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <robot name="door">
   <handle name="handle1" clearance="0.025">
-    <position> 1 0.075 0.9 0.7071 0 0 -0.7071 </position>
+    <position> 0.9 0.075 0.9 0.7071 0 0 -0.7071 </position>
     <link name="door_link"/>
   </handle>
   <handle name="handle2" clearance="0.025">
-    <position> 1 -0.025 0.9 0.7071 0 0 0.7071 </position>
+    <position> 0.9 -0.025 0.9 0.7071 0 0 0.7071 </position>
     <link name="door_link"/>
   </handle>
   <disable_collisions link1="door_link"  link2="wall1_link" reason="Default" />
