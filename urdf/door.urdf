@@ -1,0 +1,111 @@
+<robot name="door">
+  <link name="base_link"/>
+  <link name="door_link">
+    <inertial>
+      <origin xyz="0.503 0.0025 1" rpy="0 0 0" />
+      <mass value="0.6"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+	       iyy="0.001" iyz="0.0"
+	       izz="0.001" />
+    </inertial>
+
+    <visual>
+      <origin xyz="1 0.075 0.9" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.01"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="1 0.075 0.9" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.01"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="1 -0.025 0.9" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.01"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="1 -0.025 0.9" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.01"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0.53 0.025 1" rpy="0 0 0" />
+      <geometry>
+        <box size="1.06 0.05 2"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.53 0.025 1" rpy="0 0 0" />
+      <geometry>
+        <box size="1.06 0.05 2"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="door_joint" type="revolute">
+    <limit effort="1" upper="0" lower="-3.14" velocity="1"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <child link="door_link"/>
+    <parent link="base_link"/>
+  </joint>
+  <link name="wall1_link">
+    <visual>
+      <origin xyz="1 0.025 1" rpy="0 0 0" />
+      <geometry>
+        <box size="2 0.05 2"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="1 0.025 1" rpy="0 0 0" />
+      <geometry>
+        <box size="2 0.05 2"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="wall2_link">
+    <visual>
+      <origin xyz="1 0.025 1" rpy="0 0 0" />
+      <geometry>
+        <box size="2 0.05 2"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="1 0.025 1" rpy="0 0 0" />
+      <geometry>
+        <box size="2 0.05 2"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="wall1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-2.01 0 0"/>
+    <child link="wall1_link"/>
+    <parent link="base_link"/>
+  </joint>
+  <joint name="wall2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="1.07 0 0"/>
+    <child link="wall2_link"/>
+    <parent link="base_link"/>
+  </joint>
+</robot>
