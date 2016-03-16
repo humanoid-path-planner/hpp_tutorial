@@ -1,6 +1,6 @@
 //
-// Copyright (c) 2015 CNRS
-// Authors: Florent Lamiraux
+// Copyright (c) 2016 CNRS
+// Authors: Anna Seppala
 //
 //
 // This file is part of hpp_tutorial

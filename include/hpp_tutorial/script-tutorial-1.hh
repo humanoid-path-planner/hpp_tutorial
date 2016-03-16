@@ -133,5 +133,5 @@
 /// Display second path after optimisation.
 ///
 /// If a path optimiser is added before solving, the path is automatically optimised.
-/// In this case, both the unoptimised and the optimised path are added to the path vector.
+/// Just as before, both the unoptimised and the optimised path are added to the path vector.
 

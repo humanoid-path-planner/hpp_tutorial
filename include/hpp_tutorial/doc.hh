@@ -38,6 +38,14 @@
 ///
 /// \section hpp_tutorial_tutorials Tutorials
 ///
+/// Tutorials 1, 3 and 4 are based on an assembly scene with the Fraunhofer IPA robotic arm.
+/// The objective is to reach certain contact points on the car door provided within the robot
+/// package
+/// (<a href="https://github.com/humanoid-path-planner/hpp-dlr-ipa/tree/euroc-c2">
+/// hpp-dlr-ipa</a>)
+/// that should have been automatically downloaded as part of the installation
+/// procedure of HPP. Tutorial 2 provides an example of implementing a custom path planning algorithm.
+///
 /// \li \link hpp_tutorial_tutorial_1 Tutorial 1 \endlink : how to define and
 ///     solve a simple path planning problem with HPP core,
 /// \li \link hpp_tutorial_tutorial_2 Tutorial 2 \endlink : how to implement a new path planning algorithm in C++,

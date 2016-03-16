@@ -21,6 +21,10 @@
 ///
 /// This tutorial explains how to define and solve a manipulation planning
 /// problem. In manipulation planning, a so-called constraint graph is used.
+/// In stead of giving a goal configuration corresponding to when the robotic
+/// arm is in contact with the car door, the contact is created by giving a constraint.
+/// \note In manipulation planning, constraints are given in order to solve a path
+/// planning problem.
 ///
 /// \section starting_the_script Starting the software
 ///

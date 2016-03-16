@@ -1,6 +1,6 @@
 //
-// Copyright (c) 2015 CNRS
-// Authors: Florent Lamiraux
+// Copyright (c) 2016 CNRS
+// Authors: Anna Seppala
 //
 //
 // This file is part of hpp_tutorial
@@ -19,7 +19,10 @@
 
 /// \page hpp_tutorial_tutorial_4 Tutorial 4
 ///
-/// This tutorial is similar to tutorial 3 except that a placement constraint
-/// is defined on a contact surface of the mobile platform.
+/// This tutorial is similar to tutorial 3 except that box-shaped obstacles
+/// are added into the scene to complicate the path planning problem.
 ///
-/// The script corresponding script is <code>script/tutorial_3.py</code>.
+/// See \link hpp_tutorial_script_4 this page \endlink for more information
+/// about how the tutorial differs from the previous one.
+///
+/// The corresponding script is <code>script/tutorial_4.py</code>.
