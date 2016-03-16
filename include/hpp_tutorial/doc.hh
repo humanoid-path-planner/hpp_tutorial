@@ -1,6 +1,6 @@
 //
-// Copyright (c) 2014 CNRS
-// Authors: Florent Lamiraux
+// Copyright (c) 2016 CNRS
+// Authors: Anna Seppala
 //
 //
 // This file is part of hpp_tutorial
@@ -22,8 +22,10 @@
 /// \section hpp_tutorial_intro Introduction
 ///
 /// These tutorials explain
-/// \li how to define and solve a path planning problem, how to display the
-///     resulting paths in gepetto-viewer,
+/// \li how to define and solve a path planning problem with HPP core and HPP manipulastion,
+/// \li how to optimise a solved path,
+/// \li how to implement a new path planning algorithm,
+/// \li how to use gepetto viewer to visualise the problem setting.
 ///
 /// \subsection hpp_tutorial_setting_up_environment Setting up your environment
 ///
@@ -31,12 +33,15 @@
 /// \li \c bash is you default shell script language,
 /// \li the line \code source $DEVEL_DIR/config.sh \endcode is in your .bashrc
 /// file, where \c DEVEL_DIR is the environment variable defined in the
-/// <a href="https://github.com/humanoid-path-planner/hpp-doc/tree/devel">
+/// <a href="https://github.com/humanoid-path-planner/hpp-doc/tree/euroc-c2">
 /// installation instructions</a>.
 ///
 /// \section hpp_tutorial_tutorials Tutorials
 ///
 /// \li \link hpp_tutorial_tutorial_1 Tutorial 1 \endlink : how to define and
-///     solve a path planning problem,
-/// \li \link hpp_tutorial_tutorial_2 Tutorial 3 \endlink : how to define and
-///     solve a manipulation planning problem.
+///     solve a simple path planning problem with HPP core,
+/// \li \link hpp_tutorial_tutorial_2 Tutorial 2 \endlink : how to implement a new path planning algorithm in C++,
+/// \li \link hpp_tutorial_tutorial_3 Tutorial 3 \endlink : how to define and
+///     solve a path planning problem with HPP manipulation,
+/// \li \link hpp_tutorial_tutorial_4 Tutorial 4 \endlink : how to add obstacles
+///     in the above (Tutorial 3) setting.

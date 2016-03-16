@@ -1,6 +1,6 @@
 //
-// Copyright (c) 2014 CNRS
-// Authors: Florent Lamiraux
+// Copyright (c) 2016 CNRS
+// Authors: Anna Seppala
 //
 //
 // This file is part of hpp_tutorial
@@ -20,17 +20,14 @@
 /// \page hpp_tutorial_script_1 Explanation about script/tutorial_1.py
 ///
 /// \code{.py}
-/// from hpp.corbaserver.dlr_miiwa import Robot
-/// robot = Robot ('dlr')
-/// robot.setJointBounds ("miiwa_joint_x", [-4, -3,])
-/// robot.setJointBounds ("miiwa_joint_y", [-6.5, -3,])
+/// from hpp.corbaserver.dlr_ipa import Robot
+/// robot = Robot ('ipa')
 /// \endcode
-/// Import class \c Robot, create an instance and set bounds of
-/// translation degrees of freedom of the base. \c Robot derives from python
-/// class hpp.corbaserver.robot.Robot.
+/// Import class \c Robot and create an instance.
+/// \c Robot derives from python class hpp.corbaserver.robot.Robot.
 /// Note that the constructor of the instance calls idl method
 /// hpp::corbaserver::Robot::loadRobotModel. This triggers the loading of the
-/// urdf/srdf model of the dlr_miiwa robot in \c hppcorbaserver executable.
+/// urdf/srdf model of the Frauenhofer ipa robot in \c hppcorbaserver executable.
 ///
 /// \code{.py}
 /// from hpp.corbaserver import ProblemSolver
@@ -47,43 +44,35 @@
 /// Import class gepetto.viewer.Viewer and create an instance.
 /// This object takes as input the \c ProblemSolver instance that enables the
 /// viewer client to also control \c hppcorbaserver executable in order to
-/// synchronize the models in the graphical interface and in \c hppcorbaserver.
+/// synchronise the models in the graphical interface and in \c hppcorbaserver.
 ///
 /// \code{.py}
-/// r.loadObstacleModel ("hpp_tutorial", "box", 'box')
-/// r.loadObstacleModel ("iai_maps", "kitchen_area", "kitchen")
+/// r.loadObstacleModel ("hpp-dlr-ipa", 'door', 'Door')
 /// \endcode
-/// Load obstacles from urdf file.
+/// Load an obstacle from urdf file.
 /// \note This method loads the objects defined in the urdf file both in
 /// \c hppcorbaserver and in \c gepetto-viewer-server.
 ///
 /// \code{.py}
-/// q_box = (-2.5, -4.0, 0.7555686333723849, 0.7071067811865475, 0., 0.7071067811865475, 0.)
-/// r.moveObstacle ("box/base_link_0", q_box)
+/// q_door = (0.5,1.6,0.8,1,0,0,0)
+/// ps.getObstacleNames(True, False)
+/// r.moveObstacle ("Door/door_frame_0", q_door)
 /// \endcode
-/// Move box to a given configuration. The 7 numbers stand for translation and
+/// Move door to a given configuration. The 7 numbers stand for translation and
 /// unit quaternion. Again this method moves the object in the GUI and in
 /// the algorithmic part.
+/// In order to find the name of the object to be moved, the function getObstacleNames
+/// may be called. The two boolean parameters determine which types of objects are searched
+/// (collision parameters or distance parameters).
+///
 /// \code{.py}
 /// q_init = robot.getCurrentConfig ()
-/// q_init [0:2] = [-3.5, -6]
-/// q_init [2:4] = [0,1]
-/// rank = robot.rankInConfiguration ['schunk_wsg50_joint_left_jaw']
-/// q_init [rank:rank+2] = [0.05, 0.05]
 /// r (q_init)
 /// \endcode
 /// Define and display initial configuration.
-/// \note Initial configuration is built from configuration of the robot at
-/// construction, and by modification of joints retrieved by name. This method
-/// is more robust than specifying a hard-coded configuration vector since the
-/// ordering of joints in the configuration vector is not stable.
 ///
 /// \code{.py}
-/// q_goal = (-3.3668608663093553, -3.8721030610816953, 0.4203599258539973,
-///           -0.9073574448562275, 2.596600874869132, -1.4551576036136797,
-///           -2.594171477219449, -1.3380271850818217, 2.1077576346524514,
-///           -0.645492511677414, -3.03775218971459, 0.05, 0.05,
-///           0.5157503047048388, 1.261014876256842)
+/// q_goal = [0.934, -3.266, -1.212,-0.823, -1.488, 0.269]
 /// r (q_goal)
 /// \endcode
 /// Define and display goal configuration.
@@ -97,15 +86,13 @@
 /// Define initial and goal configurations for the path planning problem.
 ///
 /// \code{.py}
+/// ps.client.problem.getAvailable('PathValidation')
 /// ps.selectPathValidation ("Dichotomy", 0.)
 /// \endcode
 /// Select the method used to check collision checking for paths. "Dichotomy"
 /// is an exact method. See class documentation of
 /// hpp::core::continuousCollisionChecking::Dichotomy.
-/// \code{.py}
-/// ps.addPathOptimizer ("RandomShortcut")
-/// \endcode
-/// Add a path optimizer (hpp::core::RandomShortcut).
+/// The function getAvailable shows all available methods for path validation.
 ///
 /// \code{.py}
 /// ps.solve ()
@@ -125,7 +112,26 @@
 /// Display first path, result of RRT.
 ///
 /// \code{.py}
+/// ps.client.problem.getAvailable('PathOptimizer')
+/// ps.addPathOptimizer ("RandomShortcut")
+/// \endcode
+/// Add a path optimiser (hpp::core::RandomShortcut). Again,
+/// the available optimiser methods may be listed using the
+/// function getAvailable.
+///
+/// \code{.py}
+/// ps.numberPaths()
+/// ps.optimizePath(0)
+/// ps.numberPaths()
+/// \endcode
+/// Show initial number of solved paths, optimise, and show new number of paths.
+/// Optimising a path automatically adds a new path into the path vector.
+///
+/// \code{.py}
 /// pp (1)
 /// \endcode
-/// Display second path after optimization.
+/// Display second path after optimisation.
+///
+/// If a path optimiser is added before solving, the path is automatically optimised.
+/// In this case, both the unoptimised and the optimised path are added to the path vector.
 
