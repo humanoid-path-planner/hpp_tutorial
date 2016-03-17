@@ -104,6 +104,7 @@ install(FILES
 install(FILES
   script/tutorial_1.py
   script/tutorial_3.py
+  script/tutorial_4.py
   DESTINATION
   ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/script
   )
