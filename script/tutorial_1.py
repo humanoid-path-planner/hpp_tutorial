@@ -10,7 +10,7 @@ r = Viewer (ps)
 r.loadObstacleModel ("hpp-dlr-ipa", 'door', 'Door')
 
 q_door = (0.5,1.6,0.8,1,0,0,0)
-ps.getObstacleNames(True, True)
+ps.getObstacleNames(True, False)
 r.moveObstacle ("Door/door_frame_0", q_door)
 
 q_init = robot.getCurrentConfig ()
