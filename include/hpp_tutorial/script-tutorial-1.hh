@@ -20,7 +20,7 @@
 /// \page hpp_tutorial_script_1 Explanation about script/tutorial_1.py
 ///
 /// \code{.py}
-/// from hpp.corbaserver.dlr_ipa import Robot
+/// from hpp.corbaserver.hpp_dlr_ipa import Robot
 /// robot = Robot ('ipa')
 /// \endcode
 /// Import class \c Robot and create an instance.
