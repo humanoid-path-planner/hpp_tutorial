@@ -1,4 +1,4 @@
-from hpp.corbaserver.dlr_ipa import Robot
+from hpp.corbaserver.hpp_dlr_ipa import Robot
 robot = Robot ('ipa')
 
 from hpp.corbaserver import ProblemSolver
