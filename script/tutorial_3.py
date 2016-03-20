@@ -1,19 +1,19 @@
 from math import sqrt, pi
-from hpp.corbaserver.manipulation.hpp_dlr_ipa import Robot
+from hpp.corbaserver.manipulation.hpp_ipa import Robot
 from hpp.corbaserver.manipulation import ProblemSolver, ConstraintGraph
 from hpp.gepetto.manipulation import ViewerFactory
 from hpp.gepetto import PathPlayer
 
 class Door (object):
    rootJointType = 'anchor'
-   packageName = 'hpp-dlr-ipa'
-   meshPackageName = 'hpp-dlr-ipa'
+   packageName = 'hpp-ipa'
+   meshPackageName = 'hpp-ipa'
    urdfName = 'door'
    urdfSuffix = ""
    srdfSuffix = ""
 
-robot = Robot ('dlr-box', 'dlr')
-robot.client.manipulation.robot.setRootJointPosition('dlr', [0,0,0,1,0,0,0])
+robot = Robot ('ipa-box', 'ipa')
+robot.client.manipulation.robot.setRootJointPosition('ipa', [0,0,0,1,0,0,0])
 
 ps = ProblemSolver (robot)
 ps.addPathOptimizer ('Graph-RandomShortcut')
@@ -30,35 +30,35 @@ graph = ConstraintGraph (robot, 'graph')
 
 jointNames = dict ()
 jointNames['all'] = robot.getJointNames ()
-jointNames['dlr'] = list ()
+jointNames['ipa'] = list ()
 for n in jointNames['all']:
-  if n.startswith ("dlr"):
-    jointNames['dlr'].append (n)
+  if n.startswith ("ipa"):
+    jointNames['ipa'].append (n)
     ps.client.manipulation.problem.createLockedJoint (n, n, [0])
 
 lockRobot = jointNames['all'][:]
 robotPassiveDof = 'robotPassiveDof'
-ps.addPassiveDofs (robotPassiveDof, jointNames['dlr'])
+ps.addPassiveDofs (robotPassiveDof, jointNames['ipa'])
 
 q_init = [0, -pi/2, 0, -pi/2, 0, 0, 0, 0, 0, 0]
 r(q_init)
 
 ##-------------------------------------------------------------------------------------
 
-graph.createGrasp ('first', 'dlr/screwdriver', 'door/door_lower_right_corner')
-graph.createPreGrasp ('firstPre', 'dlr/screwdriver', 'door/door_lower_right_corner')
+graph.createGrasp ('first', 'ipa/screwdriver', 'door/door_lower_right_corner')
+graph.createPreGrasp ('firstPre', 'ipa/screwdriver', 'door/door_lower_right_corner')
 ps.client.manipulation.problem.createLockedExtraDof ('extra1', 0, [0])
 
-graph.createGrasp ('second', 'dlr/screwdriver', 'door/window_lower_left_corner')
-graph.createPreGrasp ('secondPre', 'dlr/screwdriver', 'door/window_lower_left_corner')
+graph.createGrasp ('second', 'ipa/screwdriver', 'door/window_lower_left_corner')
+graph.createPreGrasp ('secondPre', 'ipa/screwdriver', 'door/window_lower_left_corner')
 ps.client.manipulation.problem.createLockedExtraDof ('extra2', 1, [0])
 
-graph.createGrasp ('third', 'dlr/screwdriver', 'door/window_lower_right_corner')
-graph.createPreGrasp ('thirdPre', 'dlr/screwdriver', 'door/window_lower_right_corner')
+graph.createGrasp ('third', 'ipa/screwdriver', 'door/window_lower_right_corner')
+graph.createPreGrasp ('thirdPre', 'ipa/screwdriver', 'door/window_lower_right_corner')
 ps.client.manipulation.problem.createLockedExtraDof ('extra3', 2, [0])
 
-graph.createGrasp ('fourth', 'dlr/screwdriver', 'door/door_handle')
-graph.createPreGrasp ('fourthPre', 'dlr/screwdriver', 'door/door_handle')
+graph.createGrasp ('fourth', 'ipa/screwdriver', 'door/door_handle')
+graph.createPreGrasp ('fourthPre', 'ipa/screwdriver', 'door/door_handle')
 ps.client.manipulation.problem.createLockedExtraDof ('extra4', 3, [0])
 
 graph.createNode (['door1','door2','door3','door4','free1',])

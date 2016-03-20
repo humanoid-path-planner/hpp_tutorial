@@ -20,7 +20,7 @@
 /// \page hpp_tutorial_script_1 Explanation about script/tutorial_1.py
 ///
 /// \code{.py}
-/// from hpp.corbaserver.hpp_dlr_ipa import Robot
+/// from hpp.corbaserver.hpp_ipa import Robot
 /// robot = Robot ('ipa')
 /// \endcode
 /// Import class \c Robot and create an instance.
@@ -47,7 +47,7 @@
 /// synchronise the models in the graphical interface and in \c hppcorbaserver.
 ///
 /// \code{.py}
-/// r.loadObstacleModel ("hpp-dlr-ipa", 'door', 'Door')
+/// r.loadObstacleModel ("hpp-ipa", 'door', 'Door')
 /// \endcode
 /// Load an obstacle from urdf file.
 /// \note This method loads the objects defined in the urdf file both in

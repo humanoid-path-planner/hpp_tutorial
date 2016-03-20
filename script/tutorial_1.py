@@ -1,4 +1,4 @@
-from hpp.corbaserver.hpp_dlr_ipa import Robot
+from hpp.corbaserver.hpp_ipa import Robot
 robot = Robot ('ipa')
 
 from hpp.corbaserver import ProblemSolver
@@ -7,7 +7,7 @@ ps = ProblemSolver (robot)
 from hpp.gepetto import Viewer
 r = Viewer (ps)
 
-r.loadObstacleModel ("hpp-dlr-ipa", 'door', 'Door')
+r.loadObstacleModel ("hpp-ipa", 'door', 'Door')
 
 q_door = (0.5,1.6,0.8,1,0,0,0)
 ps.getObstacleNames(True, False)

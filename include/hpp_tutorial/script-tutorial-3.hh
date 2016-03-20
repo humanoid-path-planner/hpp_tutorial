@@ -21,7 +21,7 @@
 ///
 /// \code{.py}
 /// from math import sqrt, pi
-/// from hpp.corbaserver.manipulation.hpp_dlr_ipa import Robot
+/// from hpp.corbaserver.manipulation.hpp_ipa import Robot
 /// from hpp.corbaserver.manipulation import ProblemSolver, ConstraintGraph
 /// from hpp.gepetto.manipulation import ViewerFactory
 /// from hpp.gepetto import PathPlayer
@@ -34,8 +34,8 @@
 /// \code {.py}
 /// class Door (object):
 ///    rootJointType = 'anchor'
-///    packageName = 'hpp-dlr-ipa'
-///    meshPackageName = 'hpp-dlr-ipa'
+///    packageName = 'hpp-ipa'
+///    meshPackageName = 'hpp-ipa'
 ///    urdfName = 'door'
 ///    urdfSuffix = ""
 ///    srdfSuffix = ""
