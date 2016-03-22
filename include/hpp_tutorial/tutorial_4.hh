@@ -25,4 +25,10 @@
 /// See \link hpp_tutorial_script_4 this page \endlink for more information
 /// about how the tutorial differs from the previous one.
 ///
-/// The corresponding script is <code>script/tutorial_4.py</code>.
+/// The corresponding script is <code><a href="script/tutorial_4.py">script/tutorial_4.py</a></code>.
+///
+/// The following video shows a possible solution to the problem to be solved.
+///
+/// \htmlonly
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fkuYEbKX3AY" frameborder="0" allowfullscreen></iframe> 
+  \endhtmlonly
