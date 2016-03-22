@@ -1,0 +1,15 @@
+#!/bin/bash
+set -ev
+
+# Directories.
+root_dir=`pwd`
+build_dir="$root_dir/_travis/build"
+install_dir="$root_dir/_travis/install"
+
+export DEVEL_DIR=$install_dir
+# wget -O $DEVEL_DIR/config.sh https://raw.githubusercontent.com/humanoid-path-planner/hpp-doc/master/doc/config.sh
+source $DEVEL_DIR/config.sh
+
+hppcorbaserver &
+
+python $build_dir/.travis/script.py
