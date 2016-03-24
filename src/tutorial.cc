@@ -24,6 +24,8 @@
 #include <hpp/core/constraint-set.hh>
 #include <hpp/core/path-planner.hh>
 #include <hpp/core/path-validation.hh>
+#include <hpp/core/problem-solver.hh>
+#include <hpp/core/problem.hh>
 #include <hpp/core/roadmap.hh>
 #include <hpp/core/steering-method.hh>
 

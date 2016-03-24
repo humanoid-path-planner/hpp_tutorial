@@ -1,6 +1,6 @@
 //
-// Copyright (c) 2014 CNRS
-// Authors: Florent Lamiraux
+// Copyright (c) 2016 CNRS
+// Authors: Anna Seppala
 //
 //
 // This file is part of hpp_tutorial
@@ -22,6 +22,12 @@
 /// To run the tutorial, open a terminal and open 3 tabs by typing
 /// \c CTRL+SHIFT+T twice. When the terminal is selected, you can select a tab
 /// by typing \c ALT-[1|2|3].
+///
+/// Make sure you run the following command:
+/// \code
+/// source $DEVEL_DIR/config.sh
+/// \endcode
+/// in all three tabs (if it is not already added to your .bashrc).
 ///
 /// \section hpp_tutorial_starting_gui Starting gepetto-viewer-server
 ///
@@ -51,17 +57,30 @@
 /// \endcode
 /// to open an interactive python terminal.
 /// \code
-/// Python 2.7.6 (default, Jun 22 2015, 17:58:13) 
+/// Python 2.7.6 (default, Jun 22 2015, 17:58:13)
 /// [GCC 4.8.2] on linux2
 /// Type "help", "copyright", "credits" or "license" for more information.
-/// >>> 
+/// >>>
 /// \endcode
-/// Copy-paste the content of file
-/// <code><a href="script/tutorial_1.py">script/tutorial_1.py</a></code> in the
+/// Note that for a more interactive experience (with tab completion etc.) you can use IPython
+/// \code
+/// ipython
+/// \endcode
+/// This is recommended as it makes exploring the functionality of the HPP packages easier.
+///
+/// To run the tutorial script, copy-paste the content of file
+/// <code><a href="script/tutorial_1.py">script/tutorial_1.py</a></code> into the
 /// python terminal.
 ///
-/// A window should pop-up, displaying a scene containing the DLR-miiwa robot
+/// A window should pop up, displaying a scene containing the DLR-miiwa robot
 /// in a kitchen environment.
+///
+/// \section hpp_tutorial_python_1 Tutorial
+///
+/// This tutorial shows how to define and solve a very simple path planning problem
+/// with a known goal configuration, and how to optimise the solution.
 ///
 /// See \link hpp_tutorial_script_1 this page \endlink for details about the
 /// instructions of <code>script/tutorial_1.py</code>.
+///
+///

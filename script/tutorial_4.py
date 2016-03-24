@@ -1,168 +1,188 @@
-from math import sqrt
-from hpp.corbaserver.manipulation.dlr_miiwa import Robot
+from math import sqrt, pi
+from hpp.corbaserver.manipulation.hpp_ipa import Robot
 from hpp.corbaserver.manipulation import ProblemSolver, ConstraintGraph
-from hpp.gepetto.manipulation import Viewer
+from hpp.gepetto.manipulation import ViewerFactory
 from hpp.gepetto import PathPlayer
 
+class Door (object):
+   rootJointType = 'anchor'
+   packageName = 'hpp-ipa'
+   meshPackageName = 'hpp-ipa'
+   urdfName = 'door'
+   urdfSuffix = ""
+   srdfSuffix = ""
+
+##-------------------------------------------------------------------------------------
+
 class Box (object):
-  rootJointType = 'freeflyer'
+  rootJointType = 'anchor'
   packageName = 'hpp_tutorial'
   meshPackageName = 'hpp_tutorial'
   urdfName = 'box'
   urdfSuffix = ""
   srdfSuffix = ""
 
-class Environment (object):
-  packageName = 'iai_maps'
-  meshPackageName = 'iai_maps'
-  urdfName = 'kitchen_area'
-  urdfSuffix = ""
-  srdfSuffix = ""
+##-------------------------------------------------------------------------------------
 
-robot = Robot ('dlr-box', 'dlr')
+robot = Robot ('ipa-box', 'ipa')
+robot.client.manipulation.robot.setRootJointPosition('ipa', [0,0,0,1,0,0,0])
+
 ps = ProblemSolver (robot)
+ps.addPathOptimizer ('Graph-RandomShortcut')
 
-r = Viewer (ps)
+r = ViewerFactory (ps)
 
-r.loadObjectModel (Box, 'box')
-r.loadEnvironmentModel (Environment, "kitchen_area")
+r.loadObjectModel (Door, 'door')
+robot.client.manipulation.robot.setRootJointPosition('door', [0.5,1.6,0.8,1,0,0,0])
 
-robot.setJointBounds ("dlr/miiwa_joint_x", [-4, -3])
-robot.setJointBounds ("dlr/miiwa_joint_y", [-7, -3])
-robot.setJointBounds ("box/base_joint_xyz", [-5.1,-2,-7.2,-2.7,0,3.])
+robot.client.basic.robot.setDimensionExtraConfigSpace (4)
+robot.client.basic.robot.setExtraConfigSpaceBounds ([0,1, 0,1, 0,1, 0,1])
 
-robot.client.basic.problem.setErrorThreshold (1e-3)
-robot.client.basic.problem.setMaxIterations (40)
-ps.selectPathProjector ('Progressive', 0.2)
+##-------------------------------------------------------------------------------------
 
-# Create lists of joint names - useful to define passive joints.
+r.loadObjectModel (Box, 'box1')
+robot.client.manipulation.robot.setRootJointPosition('box1', [0.3,1,0.9,1,0,0,0])
+r.loadObjectModel (Box, 'box2')
+robot.client.manipulation.robot.setRootJointPosition('box2', [0.6,1.05,1.0,1,0,0,0])
+r.loadObjectModel (Box, 'box3')
+robot.client.manipulation.robot.setRootJointPosition('box3', [1.1,1,0.9,1,0,0,0])
+r.loadObjectModel (Box, 'box4')
+robot.client.manipulation.robot.setRootJointPosition('box4', [0.9,1.05,1.2,1,0,0,0])
+
+##-------------------------------------------------------------------------------------
+
+graph = ConstraintGraph (robot, 'graph')
+
 jointNames = dict ()
 jointNames['all'] = robot.getJointNames ()
-jointNames['dlr'] = list ()
+jointNames['ipa'] = list ()
 for n in jointNames['all']:
-  if n.startswith ("dlr"):
-    jointNames['dlr'].append (n)
+  if n.startswith ("ipa"):
+    jointNames['ipa'].append (n)
+    ps.client.manipulation.problem.createLockedJoint (n, n, [0])
 
+lockRobot = jointNames['all'][:]
 robotPassiveDof = 'robotPassiveDof'
-ps.addPassiveDofs (robotPassiveDof, jointNames['dlr'])
+ps.addPassiveDofs (robotPassiveDof, jointNames['ipa'])
 
-q_init = robot.getCurrentConfig ()
-q_init [0:2] = [-3.4, -4.2]
-rank = robot.rankInConfiguration ['dlr/schunk_wsg50_joint_left_jaw']
-q_init [rank:rank+2] = [0.05, 0.05]
-rank = robot.rankInConfiguration ['box/base_joint_SO3']
-q_init [rank:rank+4] = [sqrt (2)/2, 0, sqrt (2)/2, 0]
+q_init = [0, -pi/2, 0, -pi/2, 0, 0, 0, 0, 0, 0]
+r(q_init)
+
+##-------------------------------------------------------------------------------------
+
+graph.createGrasp ('first', 'ipa/screwdriver', 'door/door_lower_right_corner')
+graph.createPreGrasp ('firstPre', 'ipa/screwdriver', 'door/door_lower_right_corner')
+ps.client.manipulation.problem.createLockedExtraDof ('extra1', 0, [0])
+
+graph.createGrasp ('second', 'ipa/screwdriver', 'door/window_lower_left_corner')
+graph.createPreGrasp ('secondPre', 'ipa/screwdriver', 'door/window_lower_left_corner')
+ps.client.manipulation.problem.createLockedExtraDof ('extra2', 1, [0])
+
+graph.createGrasp ('third', 'ipa/screwdriver', 'door/window_lower_right_corner')
+graph.createPreGrasp ('thirdPre', 'ipa/screwdriver', 'door/window_lower_right_corner')
+ps.client.manipulation.problem.createLockedExtraDof ('extra3', 2, [0])
+
+graph.createGrasp ('fourth', 'ipa/screwdriver', 'door/door_handle')
+graph.createPreGrasp ('fourthPre', 'ipa/screwdriver', 'door/door_handle')
+ps.client.manipulation.problem.createLockedExtraDof ('extra4', 3, [0])
+
+graph.createNode (['door1','door2','door3','door4','free1',])
+
+graph.createWaypointEdge ('free1', 'door1', "grasp1", nb=1, weight=1)
+graph.createWaypointEdge ('free1', 'door2', "grasp2", nb=1, weight=1)
+graph.createWaypointEdge ('free1', 'door3', "grasp3", nb=1, weight=1)
+graph.createWaypointEdge ('free1', 'door4', "grasp4", nb=1, weight=1)
+
+graph.createEdge ('free1', 'free1', 'move_free1', 0)
+graph.createLevelSetEdge ('door1', 'door1', 'keep_grasp1', 5)
+graph.createLevelSetEdge ('door2', 'door2', 'keep_grasp2', 5)
+graph.createLevelSetEdge ('door3', 'door3', 'keep_grasp3', 5)
+graph.createLevelSetEdge ('door4', 'door4', 'keep_grasp4', 5)
+
+##-------------------------------------------------------------------------------------
+
+graph.setConstraints (edge='move_free1', lockDof=['extra1', 'extra2', 'extra3', 'extra4'])
+
+graph.setConstraints (node='door1', grasps = ['first',])
+graph.setConstraints (edge='keep_grasp1', lockDof=['extra2', 'extra3', 'extra4']+lockRobot)
+graph.setLevelSetConstraints (edge='keep_grasp1', lockDof=['extra1',])
+
+graph.setConstraints (node="grasp1_n0", pregrasps = ['firstPre',])
+graph.setConstraints (edge='grasp1_e0',  lockDof=['extra1','extra2', 'extra3', 'extra4'])
+graph.setConstraints (edge='grasp1_e1',  lockDof=['extra1','extra2', 'extra3', 'extra4'])
+graph.client.graph.setShort (graph.edges["grasp1_e1"], True)
+
+graph.setConstraints (node='door2', grasps = ['second',])
+graph.setConstraints (edge='keep_grasp2', lockDof=['extra1', 'extra3', 'extra4']+lockRobot)
+graph.setLevelSetConstraints (edge='keep_grasp2', lockDof=['extra2',])
+
+graph.setConstraints (node="grasp2_n0", pregrasps = ['secondPre',])
+graph.setConstraints (edge='grasp2_e0', lockDof=['extra1', 'extra2', 'extra3', 'extra4'])
+graph.setConstraints (edge='grasp2_e1', lockDof=['extra1', 'extra2', 'extra3', 'extra4'])
+graph.client.graph.setShort (graph.edges["grasp2_e1"], True)
+
+graph.setConstraints (node='door3', grasps = ['third',])
+graph.setConstraints (edge='keep_grasp3', lockDof=['extra1', 'extra2', 'extra4']+lockRobot)
+graph.setLevelSetConstraints (edge='keep_grasp3', lockDof=['extra3',])
+
+graph.setConstraints (node="grasp3_n0", pregrasps = ['thirdPre',])
+graph.setConstraints (edge='grasp3_e0', lockDof=['extra1', 'extra2', 'extra3', 'extra4'])
+graph.setConstraints (edge='grasp3_e1', lockDof=['extra1', 'extra2', 'extra3', 'extra4'])
+graph.client.graph.setShort (graph.edges["grasp3_e1"], True)
+
+graph.setConstraints (node='door4', grasps = ['fourth',])
+graph.setConstraints (edge='keep_grasp4', lockDof=['extra1', 'extra2', 'extra3']+lockRobot)
+graph.setLevelSetConstraints (edge='keep_grasp4', lockDof=['extra4',])
+
+graph.setConstraints (node="grasp4_n0", pregrasps = ['fourthPre',])
+graph.setConstraints (edge='grasp4_e0', lockDof=['extra1', 'extra2', 'extra3', 'extra4'])
+graph.setConstraints (edge='grasp4_e1', lockDof=['extra1', 'extra2', 'extra3', 'extra4'])
+graph.client.graph.setShort (graph.edges["grasp4_e1"], True)
+
+##-------------------------------------------------------------------------------------
+
 q_goal = q_init [::]
+q_goal [6] = 1
+ps.setInitialConfig (q_init)
+ps.addGoalConfig (q_goal)
 
-q_goal [0:4] = [-3.4, -6.5, 0, 1]
-rank = robot.rankInConfiguration ['box/base_joint_xyz']
-q_init [rank:rank+3] = [-2.5, -4, 0.8]
-q_goal [rank:rank+3] = [-3.4, -6.5, 1.0]
+## 1st contact
+ps.solve ()
 
-# Create constraints to open the gripper
-lockHand = ['open_l_jaw', 'open_r_jaw']
-ps.createLockedJoint ('open_l_jaw', 'dlr/schunk_wsg50_joint_left_jaw', [0.05,])
-ps.createLockedJoint ('open_r_jaw', 'dlr/schunk_wsg50_joint_right_jaw', [0.05,])
+q_goal = q_init[::]
+q_goal [7] = 1
+ps.resetGoalConfigs()
+ps.addGoalConfig (q_goal)
 
-# Create placement constraint for the box
-ps.client.manipulation.problem.createPlacementConstraint \
-  ('box_placement_table', 'box/box_surface',
-   'kitchen_area/pancake_table_table_top')
-ps.client.manipulation.problem.createPlacementConstraint \
-  ('box_placement_platform', 'box/box_surface', 'dlr/platform')
+## 2nd contact
+ps.solve()
 
-# Create the manipulation graph
-graph = ConstraintGraph (robot, 'graph')
-# create grasp between robot gripper and box "handle". 2 constraints are
-# created with name "grasp_box1" and "grasp_box1/complement"
-graph.createGrasp ('grasp_box1', 'dlr/schunk_wsg50', 'box/handle',
-                   robotPassiveDof)
-# create grasp between robot gripper and box "handle2"
-graph.createGrasp ('grasp_box2', 'dlr/schunk_wsg50', 'box/handle2',
-                   robotPassiveDof)
-# create corresponding pre-grasps
-graph.createPreGrasp ('pre_grasp_box1', 'dlr/schunk_wsg50', 'box/handle')
-graph.createPreGrasp ('pre_grasp_box2', 'dlr/schunk_wsg50', 'box/handle2')
+q_goal = q_init[::]
+q_goal [8] = 1
+ps.resetGoalConfigs()
+ps.addGoalConfig (q_goal)
 
+## 3rd contact
+ps.solve()
 
-lockBox = ps.lockFreeFlyerJoint ('box/base_joint', 'box_lock')
+q_goal = q_init[::]
+q_goal [9] = 1
+ps.resetGoalConfigs()
+ps.addGoalConfig (q_goal)
 
-graph.createNode (['hold1', 'hold2', 'free_table', 'free_platform'])
-graph.createEdge ('free_table', 'free_table', 'move_free_table', 1)
-graph.createEdge ('free_platform', 'free_platform', 'move_free_platform', 1)
-graph.createEdge ('hold1', 'hold1', 'keep_grasp1', 1)
-graph.createEdge ('hold2', 'hold2', 'keep_grasp2', 1)
-graph.createWaypointEdge ('free_table', 'hold1', 'approach_box1_table', 1, 10)
-graph.createWaypointEdge ('free_table', 'hold2', 'approach_box2_table', 1, 10)
-graph.createWaypointEdge ('free_platform', 'hold1', 'approach_box1_platform',
-                          1, 10)
-graph.createWaypointEdge ('free_platform', 'hold2', 'approach_box2_platform',
-                          1, 10)
+## 4th contact
+ps.solve()
 
-## Set constraints relative to graph element
-# Gripper should be open all the time
-graph.setConstraints (graph = True, lockDof = lockHand)
+v = r.createRealClient ()
 
-# When not grasped, box should lie on the table
-graph.setConstraints (node = 'free_table',
-                      numConstraints = ['box_placement_table'])
-graph.setConstraints (node = 'free_platform',
-                      numConstraints = ['box_placement_platform'])
-# transfer path: the box should be fixed wrt the gripper
-graph.setConstraints (node = 'hold1', grasps = ['grasp_box1',])
-graph.setConstraints (node = 'hold2', grasps = ['grasp_box2',])
-# transit path: the box should not move
-graph.setConstraints (edge = 'move_free_table', lockDof = lockBox)
-graph.setConstraints (edge = 'move_free_platform',
-                      numConstraints = ['box_placement_platform/complement',])
-# pre-grasps
-graph.setConstraints (edge = 'approach_box1_table_e0', lockDof = lockBox)
-graph.setConstraints (edge = 'approach_box1_table_e1', lockDof = lockBox)
-graph.setConstraints (node = 'approach_box1_table_n0',
-                      pregrasps = ['pre_grasp_box1',])
-graph.setConstraints (edge = 'approach_box1_platform_e0',
-                      numConstraints = ['box_placement_platform',
-                                        'box_placement_platform/complement',])
-graph.setConstraints (edge = 'approach_box1_platform_e1',
-                      numConstraints = ['box_placement_platform',
-                                        'box_placement_platform/complement',])
-graph.setConstraints (node = 'approach_box1_platform_n0',
-                      pregrasps = ['pre_grasp_box1',])
-graph.setConstraints (edge = 'approach_box2_table_e0', lockDof = lockBox)
-graph.setConstraints (edge = 'approach_box2_table_e1', lockDof = lockBox)
-graph.setConstraints (node = 'approach_box2_table_n0',
-                      pregrasps = ['pre_grasp_box2',])
-graph.setConstraints (edge = 'approach_box2_platform_e0',
-                      numConstraints = ['box_placement_platform/complement',])
-graph.setConstraints (edge = 'approach_box2_platform_e1',
-                      numConstraints = ['box_placement_platform/complement',])
-graph.setConstraints (node = 'approach_box2_platform_n0',
-                      pregrasps = ['pre_grasp_box2',])
+pp = PathPlayer (robot.client.basic, v)
+pp (0)
+pp (1)
+pp (3)
+pp (5)
+pp (7)
 
-graph.setConstraints (edge = 'keep_grasp1', grasps = ['grasp_box1',])
-graph.setConstraints (edge = 'keep_grasp2', grasps = ['grasp_box2',])
-
-res = ps.client.manipulation.problem.applyConstraints \
-      (graph.nodes['free_table'], q_init)
-if not res[0]:
-  raise Exception ('Init configuration could not be projected.')
-
-q_init_proj = res [1]
-
-res = ps.client.manipulation.problem.applyConstraints (graph.nodes ['free_platform'], q_goal)
-if not res[0]:
-  raise Exception ('Goal configuration could not be projected.')
-
-q_goal_proj = res [1]
-r (q_init)
-
-ps.setInitialConfig (q_init_proj)
-ps.addGoalConfig (q_goal_proj)
-#ps.solve ()
-
-pp = PathPlayer (robot.client.basic, r)
-#pp (0)
-
-q_rand = robot.shootRandomConfig ()
-#res = ps.client.manipulation.problem.applyConstraintsWithOffset (graph.edges ['approach_box1_platform_e1'], q_goal_proj, q_rand)
-
+## use in separate window to interrupt ps.solve() :
+## from hpp.corbaserver import Client
+## client = Client()
+## client.problem.interruptPathPlanning()
