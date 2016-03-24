@@ -33,7 +33,7 @@
 /// \li \c bash is you default shell script language,
 /// \li the line \code source $DEVEL_DIR/config.sh \endcode is in your .bashrc
 /// file, where \c DEVEL_DIR is the environment variable defined in the
-/// <a href="https://github.com/humanoid-path-planner/hpp-doc/tree/euroc-c2">
+/// <a href="https://github.com/humanoid-path-planner/hpp-doc/tree/euroc-c1">
 /// installation instructions</a>.
 ///
 /// \section hpp_tutorial_tutorials Tutorials
@@ -41,7 +41,7 @@
 /// Tutorials 1, 3 and 4 are based on an assembly scene with the Fraunhofer IPA robotic arm.
 /// The objective is to reach certain contact points on the car door provided within the robot
 /// package
-/// (<a href="https://github.com/humanoid-path-planner/hpp-ipa/tree/euroc-c2">
+/// (<a href="https://github.com/humanoid-path-planner/hpp-ipa/tree/master">
 /// hpp-ipa</a>)
 /// that should have been automatically downloaded as part of the installation
 /// procedure of HPP. Tutorial 2 provides an example of implementing a custom path planning algorithm.
