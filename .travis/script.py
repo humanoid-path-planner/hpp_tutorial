@@ -5,8 +5,8 @@ robot.setJointBounds ("base_joint_xy", [-4, -3, -5, -3])
 from hpp.corbaserver import ProblemSolver
 ps = ProblemSolver (robot)
 
-from hpp.gepetto import Viewer
-r = Viewer (ps)
+from hpp.gepetto import ViewerFactory
+r = ViewerFactory (ps)
 
 q_init = robot.getCurrentConfig ()
 q_goal = q_init [::]
@@ -31,6 +31,8 @@ r.loadObstacleModel ("iai_maps", "kitchen_area", "kitchen")
 ps.setInitialConfig (q_init)
 ps.addGoalConfig (q_goal)
 
+print ps.solve ()
+
 ps.addPathOptimizer ("RandomShortcut")
 
-ps.solve ()
+print ps.optimizePath (0)

@@ -6,10 +6,15 @@ root_dir=`pwd`
 build_dir="$root_dir/_travis/build"
 install_dir="$root_dir/_travis/install"
 
-export DEVEL_DIR=$install_dir
+export DEVEL_DIR="$root_dir/_travis"
 # wget -O $DEVEL_DIR/config.sh https://raw.githubusercontent.com/humanoid-path-planner/hpp-doc/master/doc/config.sh
 source $DEVEL_DIR/config.sh
 
-hppcorbaserver &
+ps -C omniNames
 
-python $build_dir/.travis/script.py
+hppcorbaserver &
+pidhpp=$!
+
+python $root_dir/.travis/script.py
+
+kill $!
