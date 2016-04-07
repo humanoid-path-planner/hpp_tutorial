@@ -1,4 +1,4 @@
-language: cpp
+language: generic
 sudo: required
 dist: trusty
 branches:
@@ -29,6 +29,7 @@ addons:
       - doxygen-latex
       - python-numpy
 before_install:
+- python -c "import numpy.core.numeric"
 - git submodule update --init --recursive
 - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 - sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net --recv-key 0xB01FA116
