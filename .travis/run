@@ -16,5 +16,10 @@ hppcorbaserver &
 pidhpp=$!
 
 python $root_dir/.travis/script.py
+exitcode=$?
 
-kill $!
+kill $pidhpp
+
+if [ ! "$exitcode" -eq "0" ]; then
+  exit 1;
+fi
