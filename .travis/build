@@ -38,7 +38,7 @@ install_eigen3()
     mkdir build
     cd build
     cmake $cmake_args -Dpkg_config_libdir="$install_dir/lib" ..
-    make $make_args install
+    make $make_args install > /dev/null
 }
 
 # 3 mandatory options: url, extracted directory name, tar options
@@ -52,20 +52,7 @@ install_dep_from_tar()
     mkdir build
     cd build
     cmake $cmake_args ..
-    make $make_args install
-}
-
-check_dependency()
-{
-    echo "--> Compiling $1"
-    mkdir -p "$build_dir/$1"
-    cd "$build_dir"
-    $git_clone "git://github.com/$1" "$1"
-    cd "$build_dir/$1"
-    mkdir build
-    cd build
-    cmake $cmake_args ..
-    make $make_args
+    make $make_args install > /dev/null
 }
 
 install_dependency()
@@ -83,7 +70,7 @@ install_dependency()
     mkdir build
     cd build
     cmake $cmake_args ..
-    make $make_args install
+    make $make_args install > /dev/null
 }
 
 # Install dependencies
