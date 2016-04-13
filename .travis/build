@@ -41,13 +41,14 @@ install_eigen3()
     make $make_args install
 }
 
-install_doxygen()
+# 3 mandatory options: url, extracted directory name, tar options
+install_dep_from_tar()
 {
-    echo "--> Compiling Doxygen"
+    echo "--> Compiling $2 from $1"
     mkdir -p "$build_dir"
     cd "$build_dir"
-    wget --quiet -O - "https://github.com/doxygen/doxygen/archive/Release_1_8_10.tar.gz" | tar -xz;
-    cd "$build_dir/doxygen-Release_1_8_10"
+    wget --quiet -O - "$1" | tar $3;
+    cd "$build_dir/$2"
     mkdir build
     cd build
     cmake $cmake_args ..
@@ -91,13 +92,17 @@ install_eigen3
 pkg-config --exists "eigen3 >= 3.2.4" --print-errors
 if [ ! "$?" -eq "0" ]; then echo "Wrong eigen version"; exit 1; fi
 
-install_doxygen
+install_dep_from_tar "https://github.com/roboptim/roboptim-core/releases/download/v3.1/roboptim-core-3.1.tar.bz2" "roboptim-core-3.1" "-xj"
+install_dep_from_tar "https://github.com/roboptim/roboptim-trajectory/releases/download/v3.1/roboptim-trajectory-3.1.tar.bz2" "roboptim-trajectory-3.1" "-xj"
+
+install_dep_from_tar "https://github.com/doxygen/doxygen/archive/Release_1_8_10.tar.gz" "doxygen-Release_1_8_10" "-xz"
 
 wget --quiet -O $DEVEL_DIR/config.sh https://raw.githubusercontent.com/humanoid-path-planner/hpp-doc/master/doc/config.sh
 source $DEVEL_DIR/config.sh
 
 install_dependency humanoid-path-planner/hpp-util               devel
 install_dependency humanoid-path-planner/hpp-fcl                devel
+install_dependency laas/hpp-template-corba                      devel
 
 install_dependency humanoid-path-planner/hpp-model              devel
 install_dependency humanoid-path-planner/qpOASES                master
@@ -106,6 +111,15 @@ install_dependency humanoid-path-planner/hpp-statistics         devel
 install_dependency humanoid-path-planner/hpp-core               devel
 install_dependency humanoid-path-planner/hpp-model-urdf         devel
 install_dependency humanoid-path-planner/hpp-corbaserver        devel
+
+install_dependency humanoid-path-planner/hpp-walkgen              devel
+install_dependency humanoid-path-planner/hpp-wholebody-step       devel
+install_dependency humanoid-path-planner/hpp-wholebody-step-corba devel
+
+install_dependency humanoid-path-planner/hpp-manipulation       devel
+install_dependency humanoid-path-planner/hpp-manipulation-urdf  devel
+install_dependency humanoid-path-planner/hpp-manipulation-corba devel
+
 install_dependency humanoid-path-planner/iai_maps               devel
 
 # Compile and run tests
