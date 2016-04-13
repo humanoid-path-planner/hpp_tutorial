@@ -63,7 +63,11 @@ install_doxygen()
     wget --quiet -O - "ftp://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.11.linux.bin.tar.gz" | tar -xz;
     cd "$build_dir/doxygen-1.8.11"
     ./configure --prefix "$install_dir"
-    make $make_args install > /dev/null
+    {
+      make $make_args install > /dev/null
+    } || {
+      :
+    }
 }
 
 install_dependency()
