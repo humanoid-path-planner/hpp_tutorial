@@ -55,6 +55,17 @@ install_dep_from_tar()
     make $make_args install > /dev/null
 }
 
+install_doxygen()
+{
+    echo "--> Installing Doxygen"
+    mkdir -p "$build_dir"
+    cd "$build_dir"
+    wget --quiet -O - "ftp://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.11.linux.bin.tar.gz" | tar -xz;
+    cd "$build_dir/doxygen-1.8.11"
+    ./configure --prefix="$install_dir"
+    make $make_args install > /dev/null
+}
+
 install_dependency()
 {
     echo "--> Compiling $1"
@@ -82,7 +93,7 @@ if [ ! "$?" -eq "0" ]; then echo "Wrong eigen version"; exit 1; fi
 install_dep_from_tar "https://github.com/roboptim/roboptim-core/releases/download/v3.1/roboptim-core-3.1.tar.bz2" "roboptim-core-3.1" "-xj"
 install_dep_from_tar "https://github.com/roboptim/roboptim-trajectory/releases/download/v3.1/roboptim-trajectory-3.1.tar.bz2" "roboptim-trajectory-3.1" "-xj"
 
-install_dep_from_tar "https://github.com/doxygen/doxygen/archive/Release_1_8_10.tar.gz" "doxygen-Release_1_8_10" "-xz"
+install_doxygen
 
 wget --quiet -O $DEVEL_DIR/config.sh https://raw.githubusercontent.com/humanoid-path-planner/hpp-doc/master/doc/config.sh
 source $DEVEL_DIR/config.sh
