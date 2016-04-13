@@ -3,8 +3,7 @@
 # Import. {{{2
 from hpp.corbaserver.manipulation.pr2 import Robot
 from hpp.corbaserver.manipulation import ProblemSolver, ConstraintGraph
-from hpp.gepetto.manipulation import Viewer, ViewerFactory
-from hpp.gepetto import PathPlayer
+from hpp.gepetto.manipulation import ViewerFactory
 # 2}}}
 
 # Load PR2 and a box to be manipulated. {{{2
@@ -141,6 +140,8 @@ graph.setConstraints (graph = True, lockDof = locklhand)
 
 ps.setInitialConfig (q_init)
 ps.addGoalConfig (q_goal)
+
+print ps.solve()
 
 # 1}}}
 

@@ -6,20 +6,35 @@ root_dir=`pwd`
 build_dir="$root_dir/_travis/build"
 install_dir="$root_dir/_travis/install"
 
+success=1
+
+run_script()
+{
+  $1 &
+  pidhpp=$!
+
+  python "$2"
+  exitcode=$?
+
+  if [ ! "$exitcode" -eq "0" ]; then
+    echo "---- $1: Script $2 failed -----"
+    success=0
+  fi
+
+  kill $pidhpp
+}
+
 export DEVEL_DIR="$root_dir/_travis"
 # wget -O $DEVEL_DIR/config.sh https://raw.githubusercontent.com/humanoid-path-planner/hpp-doc/master/doc/config.sh
 source $DEVEL_DIR/config.sh
 
 ps -C omniNames
 
-hppcorbaserver &
-pidhpp=$!
+run_script hppcorbaserver "$root_dir/script/tutorial_1.py"
+run_script hppcorbaserver "$root_dir/script/tutorial_2.py"
 
-python $root_dir/.travis/script.py
-exitcode=$?
+run_script hpp-manipulation-server "$root_dir/script/tutorial_manipulation.py"
 
-kill $pidhpp
-
-if [ ! "$exitcode" -eq "0" ]; then
+if [ "$success" -eq "0" ]; then
   exit 1;
 fi
