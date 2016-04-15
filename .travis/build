@@ -86,6 +86,22 @@ install_dependency()
     make $make_args install > /dev/null
 }
 
+install_with_autoconf()
+{
+    echo "--> Compiling $1"
+    mkdir -p "$build_dir/$1"
+    cd "$build_dir"
+    branch=$2
+    $git_clone --branch $branch "git://github.com/$1" "$1"
+    cd "$build_dir/$1"
+    $git_submodule
+    ./bootstrap
+    mkdir build
+    cd build
+    ../configure --prefix=${DEVEL_DIR}/install
+    make $make_args install > /dev/null
+}
+
 # Install dependencies
 
 wget --quiet -O $DEVEL_DIR/config.sh https://raw.githubusercontent.com/humanoid-path-planner/hpp-doc/${TRAVIS_BRANCH}/doc/config.sh
@@ -135,6 +151,6 @@ cmake "$root_dir" -DCMAKE_INSTALL_PREFIX="$install_dir"		\
 		  -DCMAKE_INSTALL_PREFIX:STRING="$install_dir"
 make $make_args
 # make $make_args test
-make $make_args install
+make $make_args install > /dev/null
 
-install_dependency humanoid-path-planner/hpp-doc                ${TRAVIS_BRANCH}
+install_with_autoconf humanoid-path-planner/hpp-doc                ${TRAVIS_BRANCH}
