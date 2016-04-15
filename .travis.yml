@@ -28,6 +28,15 @@ addons:
       - python2.7-dev
       - doxygen-latex
       - python-numpy
+      - python-scipy
+      - python-matplotlib
+      - libopenscenegraph-dev
+      - libopenthreads-dev
+      - qt4-dev-tools
+      - libqt4-opengl-dev
+      - libqtgui4
+      - python-tk
+
 before_install:
 - python -c "import numpy.core.numeric"
 - git submodule update --init --recursive
@@ -35,6 +44,7 @@ before_install:
 - sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net --recv-key 0xB01FA116
 - sudo apt-get update -qq
 - sudo apt-get install -qq liburdfdom-dev libassimp-dev ros-indigo-catkin ros-indigo-xacro ros-indigo-kdl-parser ros-indigo-common-msgs ros-indigo-tf ros-indigo-tf-conversions ros-indigo-libccd ros-indigo-octomap ros-indigo-resource-retriever ros-indigo-srdfdom ros-indigo-pr2-robot libomniorb4-dev omniorb-nameserver omniidl omniidl-python
+- sudo apt-get install -qq python-gtk2
 
 script: ./.travis/build
-after_script: ./.travis/run
+after_success: ./.travis/after_success

@@ -124,6 +124,11 @@ install_dependency humanoid-path-planner/hpp-manipulation-corba devel
 
 install_dependency humanoid-path-planner/iai_maps               devel
 
+install_dependency humanoid-path-planner/gepetto-viewer         devel
+install_dependency humanoid-path-planner/gepetto-viewer-corba   devel
+install_dependency humanoid-path-planner/hpp-gui                devel
+install_dependency humanoid-path-planner/hpp-gepetto-viewer     devel
+
 # Compile and run tests
 cd "$build_dir"
 cmake "$root_dir" -DCMAKE_INSTALL_PREFIX="$install_dir"		\
