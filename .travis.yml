@@ -48,3 +48,4 @@ before_install:
 
 script: ./.travis/build
 after_success: ./.travis/after_success
+after_failure: ./.travis/after_failure

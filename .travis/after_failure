@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Set debug mode
+set -x
+set -v
+
+# Display post-failure environment
+echo "Environment:"
+env
+
+# Dump as much log as we can
+find $build_dir -name "*.log" | xargs cat
+
+# End debug mode
+set +v
+set +x
