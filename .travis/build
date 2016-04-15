@@ -10,7 +10,7 @@ export DEVEL_DIR="$root_dir/_travis/"
 # Shortcuts.
 git_clone="git clone --quiet"
 git_submodule="git submodule --quiet update --init"
-git_branch=devel
+git_branch=${TRAVIS_BRANCH}
 
 # Create layout.
 rm -rf "$build_dir" "$install_dir"
@@ -76,11 +76,7 @@ install_dependency()
     echo "--> Compiling $1"
     mkdir -p "$build_dir/$1"
     cd "$build_dir"
-    if [ "$#" -eq "2" ]; then
-      branch=$2
-    else
-      branch=$git_branch
-    fi
+    branch=$2
     $git_clone --branch $branch "git://github.com/$1" "$1"
     cd "$build_dir/$1"
     $git_submodule
@@ -92,44 +88,46 @@ install_dependency()
 
 # Install dependencies
 
+wget --quiet -O $DEVEL_DIR/config.sh https://raw.githubusercontent.com/humanoid-path-planner/hpp-doc/${TRAVIS_BRANCH}/doc/config.sh
+set +ev
+echo "Silently source ${DEVEL_DIR}/config.sh"
+source $DEVEL_DIR/config.sh
+echo "Environment before build:"
+set -ev
+env
+
+install_doxygen
 install_eigen3
-pkg-config --exists "eigen3 >= 3.2.4" --print-errors
-if [ ! "$?" -eq "0" ]; then echo "Wrong eigen version"; exit 1; fi
+
+install_dependency humanoid-path-planner/iai_maps                 ${TRAVIS_BRANCH}
 
 install_dep_from_tar "https://github.com/roboptim/roboptim-core/releases/download/v3.1/roboptim-core-3.1.tar.bz2" "roboptim-core-3.1" "-xj"
 install_dep_from_tar "https://github.com/roboptim/roboptim-trajectory/releases/download/v3.1/roboptim-trajectory-3.1.tar.bz2" "roboptim-trajectory-3.1" "-xj"
 
-install_doxygen
+install_dependency humanoid-path-planner/hpp-util                 ${TRAVIS_BRANCH}
+install_dependency humanoid-path-planner/hpp-fcl                  ${TRAVIS_BRANCH}
+install_dependency laas/hpp-template-corba                        ${TRAVIS_BRANCH}
 
-wget --quiet -O $DEVEL_DIR/config.sh https://raw.githubusercontent.com/humanoid-path-planner/hpp-doc/master/doc/config.sh
-source $DEVEL_DIR/config.sh
+install_dependency humanoid-path-planner/hpp-model                ${TRAVIS_BRANCH}
+install_dependency humanoid-path-planner/qpOASES                  ${TRAVIS_BRANCH}
+install_dependency humanoid-path-planner/hpp-constraints          ${TRAVIS_BRANCH}
+install_dependency humanoid-path-planner/hpp-statistics           ${TRAVIS_BRANCH}
+install_dependency humanoid-path-planner/hpp-core                 ${TRAVIS_BRANCH}
+install_dependency humanoid-path-planner/hpp-model-urdf           ${TRAVIS_BRANCH}
+install_dependency humanoid-path-planner/hpp-corbaserver          ${TRAVIS_BRANCH}
 
-install_dependency humanoid-path-planner/hpp-util               devel
-install_dependency humanoid-path-planner/hpp-fcl                devel
-install_dependency laas/hpp-template-corba                      devel
+install_dependency humanoid-path-planner/hpp-walkgen              ${TRAVIS_BRANCH}
+install_dependency humanoid-path-planner/hpp-wholebody-step       ${TRAVIS_BRANCH}
+install_dependency humanoid-path-planner/hpp-wholebody-step-corba ${TRAVIS_BRANCH}
 
-install_dependency humanoid-path-planner/hpp-model              devel
-install_dependency humanoid-path-planner/qpOASES                master
-install_dependency humanoid-path-planner/hpp-constraints        devel
-install_dependency humanoid-path-planner/hpp-statistics         devel
-install_dependency humanoid-path-planner/hpp-core               devel
-install_dependency humanoid-path-planner/hpp-model-urdf         devel
-install_dependency humanoid-path-planner/hpp-corbaserver        devel
+install_dependency humanoid-path-planner/hpp-manipulation         ${TRAVIS_BRANCH}
+install_dependency humanoid-path-planner/hpp-manipulation-urdf    ${TRAVIS_BRANCH}
+install_dependency humanoid-path-planner/hpp-manipulation-corba   ${TRAVIS_BRANCH}
 
-install_dependency humanoid-path-planner/hpp-walkgen              devel
-install_dependency humanoid-path-planner/hpp-wholebody-step       devel
-install_dependency humanoid-path-planner/hpp-wholebody-step-corba devel
-
-install_dependency humanoid-path-planner/hpp-manipulation       devel
-install_dependency humanoid-path-planner/hpp-manipulation-urdf  devel
-install_dependency humanoid-path-planner/hpp-manipulation-corba devel
-
-install_dependency humanoid-path-planner/iai_maps               devel
-
-install_dependency humanoid-path-planner/gepetto-viewer         devel
-install_dependency humanoid-path-planner/gepetto-viewer-corba   devel
-install_dependency humanoid-path-planner/hpp-gui                devel
-install_dependency humanoid-path-planner/hpp-gepetto-viewer     devel
+install_dependency humanoid-path-planner/gepetto-viewer           ${TRAVIS_BRANCH}
+install_dependency humanoid-path-planner/gepetto-viewer-corba     ${TRAVIS_BRANCH}
+install_dependency humanoid-path-planner/hpp-gui                  ${TRAVIS_BRANCH}
+install_dependency humanoid-path-planner/hpp-gepetto-viewer       ${TRAVIS_BRANCH}
 
 # Compile and run tests
 cd "$build_dir"
@@ -138,3 +136,5 @@ cmake "$root_dir" -DCMAKE_INSTALL_PREFIX="$install_dir"		\
 make $make_args
 # make $make_args test
 make $make_args install
+
+install_dependency humanoid-path-planner/hpp-doc                ${TRAVIS_BRANCH}

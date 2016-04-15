@@ -13,6 +13,10 @@ run_script()
   $1 &
   pidhpp=$!
 
+  # Give some time to the CORBA serve to start.
+  # This should not be required
+  sleep 1s
+
   python "$2"
   exitcode=$?
 
@@ -24,9 +28,97 @@ run_script()
   kill $pidhpp
 }
 
+print_variables()
+{
+  for var in "$@"; do
+    echo "${var}=${!var}"
+  done
+}
+
+abort()
+{
+  echo "abort: $@" | sed '1!s/^[         ]*/             /' >&2
+  exit 1
+}
+
+
+update_documentation()
+{
+  set -ev
+  doc_dir="${install_dir}/share/doc"
+  gh_link="https://humanoid-path-planner.github.io/hpp-doc/api/"
+  gh_url="humanoid-path-planner/hpp-doc.git"
+  remote_url="https://github.com/${gh_url}"
+
+  # If we are on the master branch of humanoid-path-planner and
+  # this is not a pull-request
+  if `test "${TRAVIS_REPO_SLUG}" = "humanoid-path-planner/hpp_tutorial" -a ${TRAVIS_PULL_REQUEST} = false -a ${TRAVIS_BRANCH} = master`; then
+    # Fix the links in the doc
+    cd ${doc_dir}
+    find . -type f -exec sed -i "s|${doc_dir}|${gh_link}|g" {} \;
+
+    # Fetch the old documentation
+    cd ${build_dir}
+    git clone --quiet --branch gh-pages -- $remote_url project \
+      || abort "failed to clone the package repository"
+    cd project \
+      || abort "failed to change directory"
+
+    # Update git config
+    git config user.name  '${GIT_NAME}'
+    git config user.email '${GIT_EMAIL}'
+
+    # Update the documentation.
+    [ -d api ] && ( git rm --quiet -rf api/ || true )
+    cp -r ${doc_dir}/* ${build_dir}/project/api
+    git add api/ \
+      || abort "failed to add the updated documentation to the git index"
+
+    tmp=`mktemp -d` || abort "cannot create the temporary directory"
+    trap "rm -rf -- '$tmp'" EXIT
+
+    doc_version=${TRAVIS_BRANCH}
+    head_commit=`git log --format=oneline HEAD^.. | cut -d' ' -f1`
+    echo -e "[travis-bot] Update $doc_version Doxygen documentation.\n\n
+    Source commit id: $head_commit" > $tmp/commit_msg
+    commit_status=`git status -s`
+
+    # Make sure that there is something to commit.
+    # If this is not the case, the documentation is already
+    # up-to-date and the commit should not be generated.
+    if test -n "$commit_status"; then
+      git commit --quiet -F $tmp/commit_msg \
+        || abort "failed to generate the git commit"
+
+      # Get git read for pushing
+      # git config credentials.helper "store --file=${tmp}/credentials"
+      # echo "https://${GH_TOKEN}:x-oauth-basic@github.com" > "${tmp}/credentials"
+      git remote set-url origin "https://${GH_USERNAME}:${GH_TOKEN}@github.com/${gh_url}"
+
+      echo "* Push the generated commit..."
+      git push origin gh-pages
+
+      echo "Documentation updated with success!"
+    else
+      echo "Github pages documentation is already up-to-date."
+    fi
+
+    # Clean up the tmp directory
+    rm -rf $tmp
+
+    trap - EXIT
+  else
+    echo "Not on the good repository or branch."
+    print_variables TRAVIS_REPO_SLUG TRAVIS_BRANCH TRAVIS_PULL_REQUEST
+  fi
+}
+
 export DEVEL_DIR="$root_dir/_travis"
 # wget -O $DEVEL_DIR/config.sh https://raw.githubusercontent.com/humanoid-path-planner/hpp-doc/master/doc/config.sh
+echo "Silently source ${DEVEL_DIR}/config.sh"
+set +ev
 source $DEVEL_DIR/config.sh
+set -ev
 
 ps -C omniNames
 
@@ -34,6 +126,8 @@ run_script hppcorbaserver "$root_dir/script/tutorial_1.py"
 run_script hppcorbaserver "$root_dir/script/tutorial_2.py"
 
 run_script hpp-manipulation-server "$root_dir/script/tutorial_manipulation.py"
+
+update_documentation
 
 if [ "$success" -eq "0" ]; then
   exit 1;

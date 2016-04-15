@@ -1,6 +1,9 @@
 language: generic
 sudo: required
 dist: trusty
+env:
+  global:
+    secure: l0FlSSzp5ZRQ0cqCajpSMpjn+oUnrHhAm2ZYBYLvup2U+yZWs2VdMuCmQDsOGREjnHC+zwDMUGz9Zpo+WlLL6nEmE1rgz3hmeW020FH/nxEQw34YVGZQs11satFlk97GYusy4mJPd/0qYJPw4HSgCQnD2B2GnmCGronSKfqhNJxoX70OzJ6vOlKejdSRvTvYA32uNKOWjPNNUYlrvoiWmP58r4rDUBCL7PeEhr+Qg7+QWHJWF1Iqm2k2bZyWj7HuxcW4kRs1MJTD8S6qevjElMck1nScSKHw6wYYklQqoz3nAogQlyiCLCMY4D1djdtbQ1uwo7tptpkEMDbiUJqrk+Ewj1XwySbcKZtDNo6K9j9SIdNhUcyUb9q4TMzmvW4uspkdSD5JIZFCBaiAvvk3H67K64W1x/JH0Fnx63Oqtq44dlO53D+LCHKZD2EpRH9EAVs0xphC8huHHUCV5Z+xIrbAIbUwTNkQmauqMEqmuPBz49aMrdmWD4oKR0E+dE4zHJEbV6Y/E3mw441mycc8NVGPwZJAJ6UnniNVakXh4fALbVcnTnFgi+SFnqP+Q1zcL1/Y0+sbRebBpw3dUGHaIr89SCt9b980wsZP36pVAeG9UYOdmBQpcGZpB9UY0k6C/eaQX/PZAcCE/suyGD/anu9jj+BJJ9SExYirJeLs1Es=
 branches:
   only:
   - master
@@ -10,42 +13,41 @@ compiler:
 addons:
   apt:
     packages:
-      - g++
-      - cmake
-      - libboost-dev
-      - libboost-filesystem-dev
-      - libboost-system-dev
-      - git
-      - flex
-      - bison
-      - asciidoc
-      - autoconf
-      - source-highlight
-      - doxygen
-      - libtinyxml-dev
-      - libltdl-dev
-      - liblog4cxx10-dev
-      - python2.7-dev
-      - doxygen-latex
-      - python-numpy
-      - python-scipy
-      - python-matplotlib
-      - libopenscenegraph-dev
-      - libopenthreads-dev
-      - qt4-dev-tools
-      - libqt4-opengl-dev
-      - libqtgui4
-      - python-tk
-
+    - g++
+    - cmake
+    - libboost-dev
+    - libboost-filesystem-dev
+    - libboost-system-dev
+    - git
+    - flex
+    - bison
+    - asciidoc
+    - autoconf
+    - source-highlight
+    - doxygen
+    - libtinyxml-dev
+    - libltdl-dev
+    - liblog4cxx10-dev
+    - python2.7-dev
+    - doxygen-latex
+    - python-numpy
+    - python-scipy
+    - python-matplotlib
+    - libopenscenegraph-dev
+    - libopenthreads-dev
+    - qt4-dev-tools
+    - libqt4-opengl-dev
+    - libqtgui4
+    - python-tk
+    - libassimp-dev
 before_install:
 - python -c "import numpy.core.numeric"
 - git submodule update --init --recursive
 - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 - sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net --recv-key 0xB01FA116
 - sudo apt-get update -qq
-- sudo apt-get install -qq liburdfdom-dev libassimp-dev ros-indigo-catkin ros-indigo-xacro ros-indigo-kdl-parser ros-indigo-common-msgs ros-indigo-tf ros-indigo-tf-conversions ros-indigo-libccd ros-indigo-octomap ros-indigo-resource-retriever ros-indigo-srdfdom ros-indigo-pr2-robot libomniorb4-dev omniorb-nameserver omniidl omniidl-python
+- sudo apt-get install -qq liburdfdom-dev ros-indigo-catkin ros-indigo-xacro ros-indigo-kdl-parser ros-indigo-common-msgs ros-indigo-tf ros-indigo-tf-conversions ros-indigo-libccd ros-indigo-octomap ros-indigo-resource-retriever ros-indigo-srdfdom ros-indigo-pr2-robot libomniorb4-dev omniorb-nameserver omniidl omniidl-python
 - sudo apt-get install -qq python-gtk2
-
 script: ./.travis/build
 after_success: ./.travis/after_success
 after_failure: ./.travis/after_failure
