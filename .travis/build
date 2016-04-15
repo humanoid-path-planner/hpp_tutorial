@@ -8,7 +8,8 @@ install_dir="$root_dir/_travis/install"
 export DEVEL_DIR="$root_dir/_travis/"
 
 # Shortcuts.
-git_clone="git clone --recursive --quiet"
+git_clone="git clone --quiet"
+git_submodule="git submodule --quiet update --init"
 git_branch=devel
 
 # Create layout.
@@ -82,6 +83,7 @@ install_dependency()
     fi
     $git_clone --branch $branch "git://github.com/$1" "$1"
     cd "$build_dir/$1"
+    $git_submodule
     mkdir build
     cd build
     cmake $cmake_args ..
