@@ -3,6 +3,7 @@
 # Import. {{{2
 from hpp.corbaserver.manipulation.pr2 import Robot
 from hpp.corbaserver.manipulation import ProblemSolver, ConstraintGraph
+from hpp.gepetto import PathPlayer
 from hpp.gepetto.manipulation import ViewerFactory
 # 2}}}
 
@@ -115,8 +116,8 @@ we = dict ()
 # we["ungrasp"] = graph.createWaypointEdge ('box', 'free', "ungrasp", nb=1, weight=1)
 we[  "grasp"] = graph.createWaypointEdge ('free', 'box',   "grasp", nb=1, weight=10)
 
-graph.createEdge ('free', 'free', 'move_free', 1)
-graph.createEdge ('box', 'box', 'keep_grasp', 5)
+graph.createEdge ('free', 'free', 'move_free', 1, True)
+graph.createEdge ('box', 'box', 'keep_grasp', 5, True)
 # graph.createLevelSetEdge ('box', 'box', 'keep_grasp_ls', 10)
 # 3}}}
 
@@ -141,11 +142,11 @@ graph.setConstraints (graph = True, lockDof = locklhand)
 ps.setInitialConfig (q_init)
 ps.addGoalConfig (q_goal)
 
-print ps.solve()
+#print ps.solve()
 
 # 1}}}
 
-#v = fk.createRealClient ()
-#pp = PathPlayer (robot.client.basic, v)
+v = fk.createViewer ()
+pp = PathPlayer (robot.client.basic, v)
 
 # vim: foldmethod=marker foldlevel=1
