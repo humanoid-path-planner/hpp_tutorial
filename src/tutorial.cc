@@ -62,7 +62,7 @@ namespace hpp {
       virtual void oneStep ()
       {
 	// Retrieve the robot the problem has been defined for.
-	model::DevicePtr_t robot (problem ().robot ());
+	pinocchio::DevicePtr_t robot (problem ().robot ());
 	// Retrieve the path validation algorithm associated to the problem
 	core::PathValidationPtr_t pathValidation (problem ().pathValidation ());
 	// Retrieve configuration validation methods associated to the problem
