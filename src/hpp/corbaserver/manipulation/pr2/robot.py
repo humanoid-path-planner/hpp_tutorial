@@ -34,7 +34,8 @@ class Robot (Parent):
     #  Information to retrieve urdf and srdf files.
     packageName = "hpp_tutorial"
     meshPackageName = "pr2_description"
-    ##
+    rootJointType = "planar"
+   ##
     #  Information to retrieve urdf and srdf files.
     urdfName = "pr2"
     urdfSuffix = ""
