@@ -1,6 +1,6 @@
 from hpp.corbaserver.pr2 import Robot
 robot = Robot ('pr2')
-robot.setJointBounds ("base_joint_xy", [-4, -3, -5, -3])
+robot.setJointBounds ("root_joint", [-4, -3, -5, -3])
 
 from hpp.corbaserver import ProblemSolver
 ps = ProblemSolver (robot)
@@ -31,14 +31,16 @@ vf.loadObstacleModel ("iai_maps", "kitchen_area", "kitchen")
 ps.setInitialConfig (q_init)
 ps.addGoalConfig (q_goal)
 
-ps.selectPathPlanner ("VisibilityPrmPlanner")
+ps.selectPathPlanner ("PRM")
 ps.addPathOptimizer ("RandomShortcut")
 
-print ps.solve ()
+# print (ps.solve ())
 
+## Uncomment this to connect to a viewer server and play solution paths
+#
+# v = vf.createViewer()
 # from hpp.gepetto import PathPlayer
-# r = vf.createViewer()
-# pp = PathPlayer (robot.client, r)
+# pp = PathPlayer (robot.client, v)
 
 # pp (0)
 # pp (1)

@@ -25,7 +25,7 @@
 /// \code CMakeLists.txt\endcode.
 ///
 /// \section hpp_tutorial_tutorial_2_class_planner Implementation of class Planner
-/// File \c src/tutorial.cc implements class hpp::tutorial::Planner,
+/// File \c src/tutorial.cc implements \c class hpp::tutorial::Planner,
 /// deriving from abstract class hpp::core::PathPlanner. In this section,
 /// we explain some specific parts of the code.
 ///
@@ -36,7 +36,8 @@
 /// for details.
 ///
 /// \code
-/// static PlannerPtr_t create (const core::Problem& problem, const core::RoadmapPtr_t& roadmap)
+///      static PlannerPtr_t create (const core::Problem& problem,
+///                                  const core::RoadmapPtr_t& roadmap)
 /// \endcode
 /// As most classes, hpp::core::PathPlanner and any derived class are
 /// manipulated
@@ -57,7 +58,7 @@
 /// void init (const PlannerWkPtr_t& weak)
 /// \endcode
 /// Method \c init takes as input a weak pointer to a new instance and stores
-/// this weak pointer as a private member. This is enables any object to
+/// this weak pointer as a private member. This enables any object to
 /// create a shared pointer to itself on demand using the following line of code
 /// \code
 /// weakPtr_.lock ();
@@ -81,7 +82,8 @@
 /// adds the constructor of class hpp::tutorial::Planner in the map of the
 /// ProblemSolver instance with key "PRM",
 /// \code
-/// problemSolver->addPathPlannerType ("PRM", hpp::tutorial::Planner::create);
+///  hpp::core::PathPlannerBuilder_t factory (hpp::tutorial::Planner::create);
+///  problemSolver->add ("PRM", factory);
 /// \endcode
 /// creates a CORBA server with the ProblemSolver instance,
 /// \code
@@ -138,6 +140,9 @@
 /// \code
 /// ps.selectPathPlanner ("PRM")
 /// \endcode
+///
+/// \warning Basic PRM is very inefficient. Resolution can take a long time,
+/// especially if you have compiled in debug mode.
 ///
 /// \section hpp_tutorial_tutorial_2_external_package Moving the code into an external package
 ///
