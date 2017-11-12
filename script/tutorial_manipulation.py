@@ -1,8 +1,10 @@
 # Import libraries and load robots. {{{1
 
 # Import. {{{2
+from hpp.gepetto import PathPlayer
 from hpp.corbaserver.manipulation.pr2 import Robot
-from hpp.corbaserver.manipulation import ProblemSolver, ConstraintGraph, Rule
+from hpp.corbaserver.manipulation import ProblemSolver, ConstraintGraph, Rule, \
+  Constraints
 from hpp.gepetto.manipulation import ViewerFactory
 # 2}}}
 
@@ -27,11 +29,11 @@ ps = ProblemSolver (robot)
 ## ViewerFactory is a class that generates Viewer on the go. It means you can
 ## restart the server and regenerate a new windows.
 ## To generate a window:
-## fk.createRealClient ()
-fk = ViewerFactory (ps)
+## vf.createViewer ()
+vf = ViewerFactory (ps)
 
-fk.loadObjectModel (Box, 'box')
-fk.loadEnvironmentModel (Environment, "kitchen_area")
+vf.loadObjectModel (Box, 'box')
+vf.loadEnvironmentModel (Environment, "kitchen_area")
 
 robot.setJointBounds ("pr2/root_joint", [-5,-2,-5.2,-2.7]     )
 robot.setJointBounds ("box/root_joint", [-5.1,-2,-5.2,-2.7,0,1.5])
@@ -82,7 +84,8 @@ graph = ConstraintGraph.buildGenericGraph (robot, "manipulate_box",
         [ Rule([".*"], [".*"], True), ]
         )
         # Allow everything
-graph.setConstraints (graph = True, lockDof = locklhand)
+graph.setConstraints (graph = True, constraints = Constraints \
+                      (lockedJoints = locklhand))
 
 # 2}}}
 
@@ -96,7 +99,7 @@ print ps.solve()
 
 # 1}}}
 
-#v = fk.createRealClient ()
-#pp = PathPlayer (robot.client.basic, v)
+v = vf.createViewer ()
+pp = PathPlayer (v, robot.client.basic)
 
 # vim: foldmethod=marker foldlevel=1
