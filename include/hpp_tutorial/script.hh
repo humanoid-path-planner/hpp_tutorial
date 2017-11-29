@@ -22,7 +22,7 @@
 /// \code
 /// from hpp.corbaserver.pr2 import Robot
 /// robot = Robot ('pr2')
-/// robot.setJointBounds ("base_joint_xy", [-4, -3, -5, -3])
+/// robot.setJointBounds ("root_joint", [-4, -3, -5, -3])
 /// \endcode
 /// Import class pr2.robot.Robot and create an instance and set bounds of
 /// translation degrees of freedom of the base.
@@ -39,10 +39,10 @@
 /// problems.
 ///
 /// \code
-/// from hpp.gepetto import Viewer
-/// r = Viewer (ps)
+/// from hpp.gepetto import ViewerFactory
+/// vf = ViewerFactory (ps)
 /// \endcode
-/// Import class gepetto.viewer.Viewer and create an instance.
+/// Import class gepetto.viewerFactory.ViewerFactory and create an instance.
 /// This object takes as input the \c ProblemSolver instance that enables the
 /// viewer client to also control \c hppcorbaserver executable
 ///
@@ -52,9 +52,9 @@
 /// q_init [0:2] = [-3.2, -4]
 /// rank = robot.rankInConfiguration ['torso_lift_joint']
 /// q_init [rank] = 0.2
-/// r (q_init)
+/// vf (q_init)
 /// \endcode
-/// Define and display initial configuration.
+/// Define initial configuration.
 /// \note Initial configuration is built from configuration of the robot at
 /// construction, and by modification of joints retrieved by name. This method
 /// is more robust than specifying a hard-coded configuration vector since the
@@ -70,14 +70,14 @@
 /// q_goal [rank] = 0.5
 /// rank = robot.rankInConfiguration ['r_elbow_flex_joint']
 /// q_goal [rank] = -0.5
-/// r (q_goal)
+/// vf (q_goal)
 /// \endcode
-/// Define and display goal configuration.
+/// Define goal configuration.
 ///
 /// \code
-/// r.loadObstacleModel ("iai_maps", "kitchen_area", "kitchen")
+/// vf.loadObstacleModel ("iai_maps", "kitchen_area", "kitchen")
 /// \endcode
-/// Load obstacle from urdf file.
+/// Load obstacles from urdf file.
 /// \note this method loads the objects defined in the urdf file both in
 /// hppcorbaserver and in \c gepetto-viewer-server.
 ///
@@ -93,14 +93,16 @@
 /// Add a path optimizer (hpp::core::RandomShortcut).
 ///
 /// \code
-/// ps.solve ()
+/// print (ps.solve ())
 /// \endcode
-/// Solve problem.
+/// Solve problem and print the results.
 ///
 /// \code
+/// v = vf.createViewer()
 /// from hpp.gepetto import PathPlayer
-/// pp = PathPlayer (robot.client, r)
+/// pp = PathPlayer (v)
 /// \endcode
+/// Create the display window.
 /// Import and create an instance of PathPlayer. This class samples a path in
 /// \c hppcorbaserver and displays it in \c gepetto-viewer-server.
 ///
