@@ -4,7 +4,7 @@
 from hpp.gepetto import PathPlayer
 from hpp.corbaserver.manipulation.pr2 import Robot
 from hpp.corbaserver.manipulation import ProblemSolver, ConstraintGraph, Rule, \
-  Constraints
+  Constraints, ConstraintGraphFactory
 from hpp.gepetto.manipulation import ViewerFactory
 # 2}}}
 
@@ -74,23 +74,35 @@ ps.createLockedJoint ('l_r_finger', 'pr2/l_gripper_r_finger_joint', [0.5,])
 # 2}}}
 
 # Create the constraint graph. {{{2
+# Define the set of grippers used for manipulation
+grippers = [ "pr2/l_gripper", ]
+# Define the set of objects that can be manipulated
+objects = [ "box", ]
+# Define the set of handles for each object
+handlesPerObject = [ ["box/handle2", ], ]
+# Define the set of contact surfaces used for each object
+contactSurfacesPerObject = [ ["box/box_surface", ], ]
+# Define the set of contact surfaces of the environment used to put objects
+envContactSurfaces = [ "kitchen_area/pancake_table_table_top", ]
+# Define rules for associating grippers and handles (here all associations are
+# allowed)
+rules = [ Rule([".*"], [".*"], True), ]
 
-graph = ConstraintGraph.buildGenericGraph (robot, "manipulate_box",
-        [ "pr2/l_gripper", ],
-        [ "box", ],
-        [ ["box/handle2", ], ],
-        [ ["box/box_surface", ], ],
-        [ "kitchen_area/pancake_table_table_top", ],
-        [ Rule([".*"], [".*"], True), ]
-        )
-        # Allow everything
-graph.setConstraints (graph = True, constraints = Constraints \
-                      (lockedJoints = locklhand))
+cg = ConstraintGraph (robot, 'graph')
+factory = ConstraintGraphFactory (cg)
+factory.setGrippers (grippers)
+factory.environmentContacts (envContactSurfaces)
+factory.setObjects (objects, handlesPerObject, contactSurfacesPerObject)
+factory.setRules (rules)
+factory.generate ()
+cg.addConstraints (graph = True, constraints = Constraints \
+                   (lockedJoints = locklhand))
+cg.initialize ()
 
 # 2}}}
 
-res, q_init_proj, err = graph.applyNodeConstraints("free", q_init)
-res, q_goal_proj, err = graph.applyNodeConstraints("free", q_goal)
+res, q_init_proj, err = cg.applyNodeConstraints("free", q_init)
+res, q_goal_proj, err = cg.applyNodeConstraints("free", q_goal)
 
 ps.setInitialConfig (q_init_proj)
 
@@ -100,6 +112,7 @@ print ps.solve()
 # 1}}}
 
 v = vf.createViewer ()
+v (q_init_proj)
 pp = PathPlayer (v, robot.client.basic)
 
 # vim: foldmethod=marker foldlevel=1

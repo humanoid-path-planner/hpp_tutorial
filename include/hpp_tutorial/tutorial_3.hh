@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2014 CNRS
+// Copyright (c) 2017 CNRS
 // Authors: Florent Lamiraux
 //
 //
@@ -17,51 +17,44 @@
 // hpp_tutorial  If not, see
 // <http://www.gnu.org/licenses/>.
 
-/// \page hpp_tutorial_tutorial_1 Tutorial 1
+/// \page hpp_tutorial_tutorial_3 Tutorial 3
 ///
 /// To run the tutorial, open a terminal and open 3 tabs by typing
 /// \c CTRL+SHIFT+T twice. When the terminal is selected, you can select a tab
 /// by typing \c ALT-[1|2|3].
 ///
-/// \section hpp_tutorial_1_starting_gui Starting gepetto-gui
+/// \section hpp_tutorial_3_starting_gui Starting gepetto-gui
 ///
 /// In the first tab, type
 /// \code
 /// gepetto-gui
 /// \endcode
 /// A window opens and is ready to display the scene containing the robot. The
-/// robot and environment will appear later.
+/// robot, environment and object will appear later.
 ///
-/// \section hpp_tutorial_1_starting_hppcorbaserver Starting hppcorbaserver
+/// \section hpp_tutorial_3_starting_hpp_manipulation_server Starting hpp-manipulation-server
 ///
 /// In the second tab, type
 /// \code
-/// hppcorbaserver
+/// hpp-manipulation-server
 /// \endcode
-/// See package \c hpp-corbaserver for details.
+/// See package \c hpp-manipulation-corba for details.
 ///
-/// Note that \c gepetto-gui and \c hppcorbaserver executables are
+/// Note that \c gepetto-gui and \c hpp-manipulation-server executables are
 /// completely independent.
 ///
-/// \section hpp_tutorial_1_python Controlling via a python terminal
+/// \section hpp_tutorial_3_python Controlling via a python terminal
 ///
 /// In the third tab, type
 /// \code
-/// python
+/// python -i script tutorial_3.py
 /// \endcode
-/// to open an interactive python terminal.
-/// \code
-/// Python 2.7.3 (default, Feb 27 2014, 20:00:17) 
-/// [GCC 4.6.3] on linux2
-/// Type "help", "copyright", "credits" or "license" for more information.
-/// >>> 
-/// \endcode
-/// Copy-paste the content of file
-/// <code><a href="script/tutorial_1.py">script/tutorial_1.py</a></code> in the
-/// python terminal.
 ///
-/// hpp-gui window should now display a scene containing a PR2 robot in a
+/// This will define and solve a manipulation planning problem. After a while,
+/// hpp-gui window should display a scene containing a PR2 robot in a
 /// kitchen environment.
 ///
-/// See \link hpp_tutorial_1_script this page \endlink for details about the
-/// instructions of <code>script/tutorial_1.py</code>.
+/// type
+/// \code
+/// pp (0)
+/// \endocode to display the (non optimized) solution path.

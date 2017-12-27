@@ -17,7 +17,7 @@
 // hpp_tutorial  If not, see
 // <http://www.gnu.org/licenses/>.
 
-/// \page hpp_tutorial_script Explanation about script/tutorial_1.py
+/// \page hpp_tutorial_1_script Explanation about script/tutorial_1.py
 ///
 /// \code
 /// from hpp.corbaserver.pr2 import Robot

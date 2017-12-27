@@ -39,8 +39,9 @@ IF (HPP_DEBUG)
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DHPP_DEBUG")
 ENDIF()
 
-ADD_DOC_DEPENDENCY("hpp-core >= 3")
-ADD_REQUIRED_DEPENDENCY("hpp-corbaserver >= 3")
+ADD_DOC_DEPENDENCY("hpp-core >= 4")
+ADD_DOC_DEPENDENCY("hpp-corbaserver >= 4")
+ADD_REQUIRED_DEPENDENCY("hpp-manipulation-corba >= 4")
 
 # Create and install executable running the corba server
 ADD_EXECUTABLE (hpp-tutorial-server
