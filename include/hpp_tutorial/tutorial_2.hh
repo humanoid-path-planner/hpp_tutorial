@@ -83,7 +83,7 @@
 /// ProblemSolver instance with key "PRM",
 /// \code
 ///  hpp::core::PathPlannerBuilder_t factory (hpp::tutorial::Planner::create);
-///  problemSolver->add ("PRM", factory);
+///  problemSolver->pathPlanners.add ("PRM", factory);
 /// \endcode
 /// creates a CORBA server with the ProblemSolver instance,
 /// \code
