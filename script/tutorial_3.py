@@ -109,6 +109,9 @@ ps.setInitialConfig (q_init_proj)
 ps.addGoalConfig (q_goal_proj)
 print ps.solve()
 
+ps.setTargetState (graph.nodes["pr2/l_gripper grasps box/handle2"])
+print ps.solve()
+
 # 1}}}
 
 v = vf.createViewer ()
