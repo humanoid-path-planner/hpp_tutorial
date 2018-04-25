@@ -37,6 +37,7 @@ namespace hpp {
     HPP_PREDEF_CLASS (Planner);
     // Planner objects are manipulated only via shared pointers
     typedef boost::shared_ptr <Planner> PlannerPtr_t;
+    typedef core::value_type value_type;
 
     /// Example of path planner
     class Planner : public core::PathPlanner
@@ -91,7 +92,7 @@ namespace hpp {
 	  core::ConnectedComponentPtr_t cc = *itcc;
 	  // except its own connected component of course
 	  if (cc != newNode->connectedComponent ()) {
-	    double d;
+	    value_type d;
 	    // Get nearest node to qrand in connected component
 	    core::NodePtr_t nearest = r->nearestNode (qrand, cc, d);
 	    core::ConfigurationPtr_t qnear = nearest->configuration ();
