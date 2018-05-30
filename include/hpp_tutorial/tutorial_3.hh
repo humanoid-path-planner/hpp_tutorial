@@ -57,4 +57,4 @@
 /// type
 /// \code
 /// pp (0)
-/// \endocode to display the (non optimized) solution path.
+/// \endcode to display the (non optimized) solution path.
