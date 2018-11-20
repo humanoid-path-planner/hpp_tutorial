@@ -1,20 +1,20 @@
 from hpp.corbaserver.robot import Robot
 import omniORB.any
-
+import time
 
 # Take a box with a freeflyer base as robot
-class RobotBox (Robot):
+class RobotRod (Robot):
   rootJointType = 'freeflyer'
   packageName = "hpp_tutorial"
   meshPackageName = "hpp_tutorial"
-  urdfName = 'box'
+  urdfName = 'rod'
   urdfSuffix = ""
   srdfSuffix = ""
   def __init__ (self, robotName, load = True):
         Robot.__init__ (self, robotName, self.rootJointType, load)
         self.tf_root = "base_footprint"
 
-robot = RobotBox("box")
+robot = RobotRod("rod")
 
 robot.setJointBounds ("root_joint", [-7, 6.5, -7, 7,0.4,0.4])
 
@@ -23,7 +23,7 @@ robot.client.robot.setDimensionExtraConfigSpace(6)
 # set the bounds for velocity and acceleration :
 aMax=1.
 vMax=2.
-robot.client.robot.setExtraConfigSpaceBounds([-vMax,vMax,-vMax,vMax,-vMax,vMax,-aMax,aMax,-aMax,aMax,-aMax,aMax])
+robot.client.robot.setExtraConfigSpaceBounds([-vMax,vMax,-vMax,vMax,0,0,-aMax,aMax,-aMax,aMax,0,0])
 
 from hpp.corbaserver import ProblemSolver
 ps = ProblemSolver (robot)
@@ -31,9 +31,10 @@ ps = ProblemSolver (robot)
 ps.client.problem.setParameter("Kinodynamic/velocityBound",omniORB.any.to_any(vMax))
 ps.client.problem.setParameter("Kinodynamic/accelerationBound",omniORB.any.to_any(aMax))
 ps.client.problem.setParameter("PathOptimization/RandomShortcut/NumberOfLoops",omniORB.any.to_any(100))
+# Uncomment the following line if you want to constraint the orientation of the base of the robot to follow the direction of the motion. Note that in this case the initial and final orientation are not considered.
+#ps.client.problem.setParameter("Kinodynamic/forceOrientation",omniORB.any.to_any(True))
 
-
-# The following line constraint the random sampling method to fix all the extraDOF at 0 during sampling. Comment it if you want to sample states with non-null velocity and acceleration.
+# The following line constraint the random sampling method to fix all the extraDOF at 0 during sampling. Comment it if you want to sample states with non-null velocity and acceleration. Note that it increase the complexity of the problem and greatly increase the computation time.
 ps.client.problem.setParameter("ConfigurationShooter/sampleExtraDOF",omniORB.any.to_any(False))
 
 from hpp.gepetto import ViewerFactory
@@ -70,7 +71,7 @@ ps.selectPathPlanner("BiRRTPlanner")
 
 print (ps.solve ())
 
-# display the computed roadmap : 
+# display the computed roadmap. Note that the edges are all represented as straight line and may not show the real motion of the robot between the nodes : 
 v.displayRoadmap("rm")
 
 #Alternatively, use the following line instead of ps.solve() to display the roadmap as it's computed (note that it slow down a lot the computation)
@@ -88,7 +89,7 @@ v.displayPathMap('pm',0)
 from hpp.gepetto import PathPlayer
 pp = PathPlayer (v)
 #play path before optimization
-#pp (0)
+pp (0)
 
 # Display the optimized path, with a color variation depending on the velocity along the path (green for null velocity, red for maximal velocity)
 pp.dt=0.1
