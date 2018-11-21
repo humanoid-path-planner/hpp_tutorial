@@ -1,7 +1,10 @@
 from hpp.corbaserver.robot import Robot
 import time
 
-# Take a box with a freeflyer base as robot
+# This tutorial shows how to use kinodynamic motion planning methods. In the current implementation, only the translation part of a freeflyer is considered by the Kinodynamic methods, all the other degree of freedom use classical geometrical methods. 
+
+
+# Take a rod with a freeflyer base as robot
 class RobotRod (Robot):
   rootJointType = 'freeflyer'
   packageName = "hpp_tutorial"
@@ -17,7 +20,7 @@ robot = RobotRod("rod")
 
 robot.setJointBounds ("root_joint", [-7, 6.5, -7, 7,0.4,0.4])
 
-# Kinodynamic methods need at least 6 extraConfigs, to store the velocity (first 3) and acceleration (last 3) of the root
+# Kinodynamic methods need at least 6 extraConfigs, to store the velocity (first 3) and acceleration (last 3) of the translation of the root
 robot.client.robot.setDimensionExtraConfigSpace(6)
 # set the bounds for velocity and acceleration :
 aMax=1.
