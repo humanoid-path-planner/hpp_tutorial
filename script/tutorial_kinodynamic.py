@@ -1,5 +1,4 @@
 from hpp.corbaserver.robot import Robot
-import omniORB.any
 import time
 
 # Take a box with a freeflyer base as robot
@@ -28,14 +27,14 @@ robot.client.robot.setExtraConfigSpaceBounds([-vMax,vMax,-vMax,vMax,0,0,-aMax,aM
 from hpp.corbaserver import ProblemSolver
 ps = ProblemSolver (robot)
 # define the velocity and acceleration bounds used by the steering method. This bounds will be stastified along the whole trajectory.
-ps.client.problem.setParameter("Kinodynamic/velocityBound",omniORB.any.to_any(vMax))
-ps.client.problem.setParameter("Kinodynamic/accelerationBound",omniORB.any.to_any(aMax))
-ps.client.problem.setParameter("PathOptimization/RandomShortcut/NumberOfLoops",omniORB.any.to_any(100))
+ps.setParameter("Kinodynamic/velocityBound",vMax)
+ps.setParameter("Kinodynamic/accelerationBound",aMax)
+ps.setParameter("PathOptimization/RandomShortcut/NumberOfLoops",100)
 # Uncomment the following line if you want to constraint the orientation of the base of the robot to follow the direction of the motion. Note that in this case the initial and final orientation are not considered.
-#ps.client.problem.setParameter("Kinodynamic/forceOrientation",omniORB.any.to_any(True))
+#ps.setParameter("Kinodynamic/forceOrientation",True)
 
 # The following line constraint the random sampling method to fix all the extraDOF at 0 during sampling. Comment it if you want to sample states with non-null velocity and acceleration. Note that it increase the complexity of the problem and greatly increase the computation time.
-ps.client.problem.setParameter("ConfigurationShooter/sampleExtraDOF",omniORB.any.to_any(False))
+ps.setParameter("ConfigurationShooter/sampleExtraDOF",False)
 
 from hpp.gepetto import ViewerFactory
 vf = ViewerFactory (ps)
