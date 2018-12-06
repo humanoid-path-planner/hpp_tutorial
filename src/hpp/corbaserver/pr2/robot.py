@@ -43,4 +43,3 @@ class Robot (Parent):
 
     def __init__ (self, robotName, load = True):
         Parent.__init__ (self, robotName, self.rootJointType, load)
-        self.tf_root = "base_footprint"
