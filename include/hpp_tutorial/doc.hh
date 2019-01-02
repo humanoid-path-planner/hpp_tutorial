@@ -18,6 +18,7 @@
 // <http://www.gnu.org/licenses/>.
 
 /// \mainpage Tutorials
+/// \anchor hpp_tutorial_documentation
 ///
 /// \par Introduction
 ///

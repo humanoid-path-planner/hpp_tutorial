@@ -22,6 +22,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 SET(CXX_DISABLE_WERROR TRUE)
 INCLUDE(cmake/base.cmake)
 INCLUDE(cmake/python.cmake)
+INCLUDE(cmake/hpp.cmake)
 
 SET(PROJECT_NAME hpp_tutorial)
 SET(PROJECT_DESCRIPTION
@@ -31,13 +32,7 @@ SET(PROJECT_URL "")
 
 FINDPYTHON(2.7 EXACT REQUIRED)
 
-SETUP_PROJECT()
-
-# Activate hpp-util logging if requested
-SET (HPP_DEBUG FALSE CACHE BOOL "trigger hpp-util debug output")
-IF (HPP_DEBUG)
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DHPP_DEBUG")
-ENDIF()
+SETUP_HPP_PROJECT()
 
 ADD_DOC_DEPENDENCY("hpp-core >= 4")
 ADD_DOC_DEPENDENCY("hpp-corbaserver >= 4")
