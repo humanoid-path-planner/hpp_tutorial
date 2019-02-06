@@ -24,16 +24,12 @@ INCLUDE(cmake/base.cmake)
 INCLUDE(cmake/python.cmake)
 INCLUDE(cmake/hpp.cmake)
 
-SET(PROJECT_ORG humanoid-path-planner
 SET(PROJECT_NAME hpp_tutorial)
 SET(PROJECT_DESCRIPTION
   "Tutorial for humanoid path planner platform."
 )
-SET(PROJECT_URL "https://github.com/${PROJECT_ORG}/${PROJECT_NAME}")
 
 FINDPYTHON(2.7 EXACT REQUIRED)
-
-OPTION(INSTALL_DOCUMENTATION "Generate and install the documentation" ON)
 
 SETUP_HPP_PROJECT()
 
