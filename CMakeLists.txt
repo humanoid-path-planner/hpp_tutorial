@@ -32,6 +32,8 @@ SET(PROJECT_URL "")
 
 FINDPYTHON(2.7 EXACT REQUIRED)
 
+OPTION(INSTALL_DOCUMENTATION "Generate and install the documentation" ON)
+
 SETUP_HPP_PROJECT()
 
 ADD_DOC_DEPENDENCY("hpp-core >= 4")
@@ -91,16 +93,18 @@ install (FILES
   DESTINATION ${PYTHON_SITELIB}/hpp/corbaserver/manipulation/pr2)
 
 # Installation for documentation
-install(FILES
-  urdf/pr2.urdf
-  urdf/box.urdf
-  DESTINATION
-  ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/urdf
-  )
-install(FILES
-  script/tutorial_1.py
-  script/tutorial_2.py
-  DESTINATION
-  ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/script
-  )
+IF(INSTALL_DOCUMENTATION)
+  install(FILES
+    urdf/pr2.urdf
+    urdf/box.urdf
+    DESTINATION
+    ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/urdf
+    )
+  install(FILES
+    script/tutorial_1.py
+    script/tutorial_2.py
+    DESTINATION
+    ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/script
+    )
+ENDIF(INSTALL_DOCUMENTATION)
 SETUP_PROJECT_FINALIZE()
