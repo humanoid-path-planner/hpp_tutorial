@@ -41,5 +41,5 @@ class Robot (Parent):
     urdfSuffix = ""
     srdfSuffix = ""
 
-    def __init__ (self, robotName, load = True):
-        Parent.__init__ (self, robotName, self.rootJointType, load)
+    def __init__ (self, robotName, load = True, **kwargs):
+        Parent.__init__ (self, robotName, self.rootJointType, load, **kwargs)
