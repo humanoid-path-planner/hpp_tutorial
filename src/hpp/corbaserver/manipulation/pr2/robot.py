@@ -50,5 +50,5 @@ class Robot (Parent):
     # \param rootJointType type of root joint among ("freeflyer", "planar",
     #        "anchor"),
     def __init__ (self, compositeName, robotName, load = True,
-                  rootJointType = "planar"):
-        Parent.__init__ (self, compositeName, robotName, rootJointType, load)
+                  rootJointType = "planar", **kwargs):
+        Parent.__init__ (self, compositeName, robotName, rootJointType, load, **kwargs)
