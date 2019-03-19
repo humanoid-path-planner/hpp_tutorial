@@ -17,12 +17,13 @@
 // hpp_tutorial  If not, see
 // <http://www.gnu.org/licenses/>.
 
-/// \page hpp_tutorial_tutorial_2 Implementing a new path planning algorithm
+/// \page hpp_tutorial_tutorial_2 Tutorial 2
 ///
-/// The code of this tutorial can be found in
-/// \code src/tutorial.cc.\endcode
+/// <h1>Implementing a new path planning algorithm</h1>
+///
+/// The code of this tutorial can be found in \c src/tutorial.cc.
 /// The compilation and installation instructions can be found in
-/// \code CMakeLists.txt\endcode.
+/// \c CMakeLists.txt.
 ///
 /// \section hpp_tutorial_tutorial_2_class_planner Implementation of class Planner
 /// File \c src/tutorial.cc implements \c class hpp::tutorial::Planner,
@@ -32,7 +33,7 @@
 /// \code HPP_PREDEF_CLASS (Planner);\endcode
 /// is a macro containing the forward declaration of class \c Planner as well as
 /// \c PlannerWkPtr_t for weak pointer to class \c Planner. See
-/// \code hpp/util/pointer.hh\endcode
+/// \c hpp/util/pointer.hh
 /// for details.
 ///
 /// \code

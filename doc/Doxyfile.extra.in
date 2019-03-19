@@ -5,5 +5,3 @@ TAGFILES = @HPP_CORE_DOXYGENDOCDIR@/hpp-core.doxytag=@HPP_CORE_DOXYGENDOCDIR@ \
 INPUT=@CMAKE_SOURCE_DIR@/include @CMAKE_SOURCE_DIR@/src/hpp/corbaserver/pr2/robot.py
 
 IMAGE_PATH     = @CMAKE_SOURCE_DIR@/doc/figures
-HTML_STYLESHEET        =
-GENERATE_TREEVIEW      = NO

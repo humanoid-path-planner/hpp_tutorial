@@ -52,4 +52,3 @@ class Robot (Parent):
     def __init__ (self, compositeName, robotName, load = True,
                   rootJointType = "planar"):
         Parent.__init__ (self, compositeName, robotName, rootJointType, load)
-        self.tf_root = "base_footprint"

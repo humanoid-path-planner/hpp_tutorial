@@ -17,15 +17,16 @@
 // hpp_tutorial  If not, see
 // <http://www.gnu.org/licenses/>.
 
-/// \mainpage
+/// \mainpage Tutorials
+/// \anchor hpp_tutorial_documentation
 ///
-/// \section hpp_tutorial_intro Introduction
+/// \par Introduction
 ///
 /// These tutorials explain how to define and solve a path planning
 /// problem, how to display the resulting paths in gepetto-viewer, and
 /// how to implement a new path planning algorithm.
 ///
-/// \subsection hpp_tutorial_setting_up_environment Setting up your environment
+/// \par Setting up your environment
 /// 
 /// Before starting, make sure that
 /// \li \c bash is you default shell script language,
@@ -34,7 +35,7 @@
 /// <a href="https://github.com/humanoid-path-planner/hpp-doc/tree/ros-hydro">
 /// installation instructions</a>.
 ///
-/// \section hpp_tutorial_tutorials Tutorials
+/// \par Tutorials
 ///
 /// \li \link hpp_tutorial_tutorial_1 Tutorial 1 \endlink : how to define and
 ///     solve a path planning problem
