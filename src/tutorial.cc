@@ -76,12 +76,12 @@ namespace hpp {
 	// Retrieve roadmap of the path planner
 	core::RoadmapPtr_t r (roadmap ());
 	// shoot a valid random configuration
-	core::ConfigurationPtr_t qrand;
+	core::Configuration_t qrand (robot->configSize ());
 	// Report of configuration validation: unused here
 	core::ValidationReportPtr_t validationReport;
 	do {
-	  qrand = shooter_->shoot ();
-	} while (!configValidations->validate (*qrand, validationReport));
+	  shooter_->shoot (qrand);
+	} while (!configValidations->validate (qrand, validationReport));
 	// Add qrand as a new node
 	core::NodePtr_t newNode = r->addNode (qrand);
 	// try to connect the random configuration to each connected component
@@ -97,7 +97,7 @@ namespace hpp {
 	    core::NodePtr_t nearest = r->nearestNode (qrand, cc, d);
 	    core::ConfigurationPtr_t qnear = nearest->configuration ();
 	    // Create local path between qnear and qrand
-	    core::PathPtr_t localPath = (*sm) (*qnear, *qrand);
+	    core::PathPtr_t localPath = (*sm) (*qnear, qrand);
 	    // validate local path
 	    core::PathPtr_t validPart;
 	    // report on path validation: unused here
