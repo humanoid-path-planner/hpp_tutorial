@@ -23,38 +23,48 @@
 /// \c CTRL+SHIFT+T twice. When the terminal is selected, you can select a tab
 /// by typing \c ALT-[1|2|3].
 ///
-/// \section hpp_tutorial_3_starting_gui Starting gepetto-gui
+/// \section hpp_tutorial_3_starting_hpp_manipulation_server Starting hppcorbaserver
 ///
 /// In the first tab, type
+/// \code
+/// hppcorbaserver
+/// \endcode
+/// See package \c hpp-manipulation-corba for details.
+///
+/// \section hpp_tutorial_3_python Controlling via a python terminal
+///
+/// In the second tab, type
+/// \code
+/// cd script
+/// python -i tutorial_3.py
+/// \endcode
+/// The script defines a manipulation planning problem.
+///
+/// \section hpp_tutorial_3_starting_gui Starting gepetto-gui
+///
+/// In the third tab, type
 /// \code
 /// gepetto-gui
 /// \endcode
 /// A window opens and is ready to display the scene containing the robot. The
 /// robot, environment and object will appear later.
 ///
-/// \section hpp_tutorial_3_starting_hpp_manipulation_server Starting hpp-manipulation-server
-///
-/// In the second tab, type
-/// \code
-/// hpp-manipulation-server
-/// \endcode
-/// See package \c hpp-manipulation-corba for details.
-///
-/// Note that \c gepetto-gui and \c hpp-manipulation-server executables are
+/// Note that \c gepetto-gui and \c hppcorbaserver executables are
 /// completely independent.
 ///
 /// \section hpp_tutorial_3_python Controlling via a python terminal
 ///
-/// In the third tab, type
+/// To display the scene, create a client to the viewer in the python terminal.
 /// \code
-/// python -i script tutorial_3.py
+/// >>> v = vf.createViewer ()
+/// \endcode
+/// To solve the problem, type 
+/// \code
+/// >>> ps.solve ()
 /// \endcode
 ///
-/// This will define and solve a manipulation planning problem. After a while,
-/// hpp-gui window should display a scene containing a PR2 robot in a
-/// kitchen environment.
-///
-/// type
+/// and to display the (non optimized) solution path, type
 /// \code
-/// pp (0)
-/// \endcode to display the (non optimized) solution path.
+/// >>> pp = PathPlayer (v)
+/// >>> pp (0)
+/// \endcode 

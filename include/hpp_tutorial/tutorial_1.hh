@@ -23,22 +23,22 @@
 /// \c CTRL+SHIFT+T twice. When the terminal is selected, you can select a tab
 /// by typing \c ALT-[1|2|3].
 ///
-/// \section hpp_tutorial_1_starting_gui Starting gepetto-gui
-///
-/// In the first tab, type
-/// \code
-/// gepetto-gui
-/// \endcode
-/// A window opens and is ready to display the scene containing the robot. The
-/// robot and environment will appear later.
-///
 /// \section hpp_tutorial_1_starting_hppcorbaserver Starting hppcorbaserver
 ///
-/// In the second tab, type
+/// In the first tab, type
 /// \code
 /// hppcorbaserver
 /// \endcode
 /// See package \c hpp-corbaserver for details.
+///
+/// \section hpp_tutorial_1_starting_gui Starting gepetto-gui
+///
+/// In the  second tab, type
+/// \code
+/// gepetto-gui -c basic
+/// \endcode
+/// A window opens and is ready to display the scene containing the robot. The
+/// robot and environment will appear later.
 ///
 /// Note that \c gepetto-gui and \c hppcorbaserver executables are
 /// completely independent.
@@ -47,21 +47,40 @@
 ///
 /// In the third tab, type
 /// \code
-/// python
+/// cd script
+/// python -i tutorial_1.py
 /// \endcode
-/// to open an interactive python terminal.
-/// \code
-/// Python 2.7.3 (default, Feb 27 2014, 20:00:17) 
-/// [GCC 4.6.3] on linux2
-/// Type "help", "copyright", "credits" or "license" for more information.
-/// >>> 
-/// \endcode
-/// Copy-paste the content of file
-/// <code><a href="script/tutorial_1.py">script/tutorial_1.py</a></code> in the
-/// python terminal.
+/// to run the script<code><a href="script/tutorial_1.py">script/tutorial_1.py</a></code> in an interactive python terminal.
 ///
-/// hpp-gui window should now display a scene containing a PR2 robot in a
+/// To display the scene, type
+/// \code
+/// >>> v = vf.createViewer ()
+/// \endcode
+/// gepetto-gui window should now display a scene containing a PR2 robot in a
 /// kitchen environment.
+///
+/// To display initial and goal configurations type the following commands
+/// \code
+/// >>> v (q_init)
+/// >>> v (q_goal)
+/// \endcode
+///
+/// To solve the path planning problem between those configurations, type
+/// \code
+/// >>> ps.solve ()
+/// \endcode
+///
+/// To display the resulting of RRT, type
+/// \code
+/// >>> from hpp.gepetto import PathPlayer
+/// >>> pp = PathPlayer (v)
+/// >>> pp (0)
+/// \endcode
+///
+/// To display an optimized solution,
+/// \code
+/// >>> pp (1)
+/// \endcode
 ///
 /// \section hpp_tutorial_1_script Detailed explanation
 /// This section presents in more details the content of \c script/tutorial_1.py.
@@ -99,7 +118,6 @@
 /// q_init [0:2] = [-3.2, -4]
 /// rank = robot.rankInConfiguration ['torso_lift_joint']
 /// q_init [rank] = 0.2
-/// vf (q_init)
 /// \endcode
 /// Define initial configuration.
 /// \note Initial configuration is built from configuration of the robot at
@@ -117,7 +135,6 @@
 /// q_goal [rank] = 0.5
 /// rank = robot.rankInConfiguration ['r_elbow_flex_joint']
 /// q_goal [rank] = -0.5
-/// vf (q_goal)
 /// \endcode
 /// Define goal configuration.
 ///

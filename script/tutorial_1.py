@@ -13,7 +13,6 @@ q_goal = q_init [::]
 q_init [0:2] = [-3.2, -4]
 rank = robot.rankInConfiguration ['torso_lift_joint']
 q_init [rank] = 0.2
-vf (q_init)
 
 q_goal [0:2] = [-3.2, -4]
 rank = robot.rankInConfiguration ['l_shoulder_lift_joint']
@@ -24,7 +23,6 @@ rank = robot.rankInConfiguration ['r_shoulder_lift_joint']
 q_goal [rank] = 0.5
 rank = robot.rankInConfiguration ['r_elbow_flex_joint']
 q_goal [rank] = -0.5
-vf (q_goal)
 
 vf.loadObstacleModel ("iai_maps", "kitchen_area", "kitchen")
 

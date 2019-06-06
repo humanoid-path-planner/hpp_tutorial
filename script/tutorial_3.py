@@ -4,8 +4,11 @@
 from hpp.gepetto import PathPlayer
 from hpp.corbaserver.manipulation.pr2 import Robot
 from hpp.corbaserver.manipulation import ProblemSolver, ConstraintGraph, Rule, \
-  Constraints, ConstraintGraphFactory
+  Constraints, ConstraintGraphFactory, Client
 from hpp.gepetto.manipulation import ViewerFactory
+from hpp.corbaserver import loadServerPlugin
+loadServerPlugin ("corbaserver", "manipulation-corba.so")
+Client ().problem.resetProblem ()
 # 2}}}
 
 # Load PR2 and a box to be manipulated. {{{2
@@ -107,15 +110,16 @@ res, q_goal_proj, err = cg.applyNodeConstraints("free", q_goal)
 ps.setInitialConfig (q_init_proj)
 
 ps.addGoalConfig (q_goal_proj)
-print ps.solve()
 
-ps.setTargetState (cg.nodes["pr2/l_gripper grasps box/handle2"])
-print ps.solve()
+# print ps.solve()
+
+# ps.setTargetState (cg.nodes["pr2/l_gripper grasps box/handle2"])
+# print ps.solve()
 
 # 1}}}
 
-v = vf.createViewer ()
-v (q_init_proj)
-pp = PathPlayer (v, robot.client.basic)
+# v = vf.createViewer ()
+# v (q_init_proj)
+# pp = PathPlayer (v)
 
 # vim: foldmethod=marker foldlevel=1
