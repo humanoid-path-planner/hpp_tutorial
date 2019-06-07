@@ -1,4 +1,6 @@
                                                                 -*- outline -*-
+* Install tutorial_3.py and refer to it in instructions.
+New in v4.6.1
 * Update tutorial instructions to run gepetto-gui after hppcorbaserver.
 New in v4.6.0
 * Update to API change in hpp-core.

@@ -100,6 +100,7 @@ IF(INSTALL_DOCUMENTATION)
   install(FILES
     script/tutorial_1.py
     script/tutorial_2.py
+    script/tutorial_3.py
     DESTINATION
     ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/script
     )

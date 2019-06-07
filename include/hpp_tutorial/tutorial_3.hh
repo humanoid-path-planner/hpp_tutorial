@@ -38,7 +38,7 @@
 /// cd script
 /// python -i tutorial_3.py
 /// \endcode
-/// The script defines a manipulation planning problem.
+/// Script <code><a href="script/tutorial_3.py">script/tutorial_3.py</a></code> defines a manipulation planning problem.
 ///
 /// \section hpp_tutorial_3_starting_gui Starting gepetto-gui
 ///
