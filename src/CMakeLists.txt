@@ -17,6 +17,19 @@
 # hpp_tutorial  If not, see
 # <http://www.gnu.org/licenses/>.
 
+
+### Tutorial 1
+
+# Create and install executable running the corba server
+ADD_EXECUTABLE (hpp-tutorial-1
+  tutorial_1.cc
+)
+# Link executable with hpp-corbaserver library
+PKG_CONFIG_USE_DEPENDENCY (hpp-tutorial-1 hpp-core)
+# Install executable
+INSTALL (TARGETS hpp-tutorial-1 DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+
 ### Tutorial 2
 
 # Create and install executable running the corba server
