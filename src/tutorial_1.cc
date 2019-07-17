@@ -62,7 +62,13 @@ int main ()
   q_goal[device->getJointByName("r_elbow_flex_joint"   )->rankInConfiguration()] = -0.5;
   ps->addGoalConfig (ConfigurationPtr_t(new Configuration_t(q_goal)));
 
-  bool loaded = plugin::loadPlugin ("spline-gradient-based.so", ps);
+  bool loaded;
+  try {
+    std::string filename = plugin::findPluginLibrary ("spline-gradient-based.so");
+    loaded = plugin::loadPlugin (filename, ps);
+  } catch (const std::invalid_argument&) {
+    loaded = false;
+  }
   if (loaded)
     ps->addPathOptimizer("SplineGradientBased_bezier1");
   else {
