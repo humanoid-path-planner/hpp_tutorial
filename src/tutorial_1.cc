@@ -14,11 +14,13 @@
 // received a copy of the GNU Lesser General Public License along with
 // hpp-core. If not, see <http://www.gnu.org/licenses/>.
 
+#include <hpp/pinocchio/configuration.hh>
 #include <hpp/pinocchio/device.hh>
 #include <hpp/pinocchio/joint.hh>
 #include <hpp/pinocchio/urdf/util.hh>
 
 #include <hpp/core/problem-solver.hh>
+#include <hpp/core/path-vector.hh>
 #include <hpp/core/plugin.hh>
 
 using namespace hpp::pinocchio;
@@ -77,7 +79,20 @@ int main ()
   }
 
   ps->solve();
-  std::cout << "Problem solved.\n";
+  std::cout << "# Solution path.\n";
+
+  std::cout << "path = list ()" << std::endl;
+  PathPtr_t path (ps->paths ().back ());
+  value_type L (path->length ());
+  bool success;
+  Configuration_t q;
+  for (value_type t=0; t<L; t+=.01) {
+    q = path->eval (t, success);
+    assert (success);
+    std::cout << "path.append (" << displayConfig (q) << ")" << std::endl;
+  }
+  q = path->eval (L, success);
+  std::cout << "path.append (" << displayConfig (q) << ")" << std::endl;
 
   return 0;
 }
