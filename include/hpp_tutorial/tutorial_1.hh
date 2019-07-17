@@ -17,7 +17,7 @@
 // hpp_tutorial  If not, see
 // <http://www.gnu.org/licenses/>.
 
-/// \page hpp_tutorial_tutorial_1 Tutorial 1
+/// \page hpp_tutorial_tutorial_1 Tutorial 1 - Python
 ///
 /// To run the tutorial, open a terminal and open 3 tabs by typing
 /// \c CTRL+SHIFT+T twice. When the terminal is selected, you can select a tab
@@ -179,4 +179,20 @@
 /// pp (1)
 /// \endcode
 /// Display second path after optimization.
+
+/// \page hpp_tutorial_tutorial_1_cpp Tutorial 1 - C++
+///
+/// Currently, there is no visualization with the C++ version.
+///
+/// \section hpp_tutorial_tutorial_1_cpp_source Understanding the source code.
+///
+/// Have a look at the file \c src/tutorial_1.cc
+///
+/// \section hpp_tutorial_tutorial_1_cpp_execution Execute the binary.
+///
+/// Compile the code and run the following command in a terminal, type
+/// \code
+/// build-folder/src/hpp-tutorial-1
+/// \endcode
+///
 
