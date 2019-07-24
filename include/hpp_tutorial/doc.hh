@@ -38,7 +38,8 @@
 /// \par Tutorials
 ///
 /// \li \link hpp_tutorial_tutorial_1 Tutorial 1 \endlink : how to define and
-///     solve a path planning problem
+///     solve a path planning problem. A \link hpp_tutorial_tutorial_1_cpp C++
+///     version of Tutorial 1 \endlink without middleware is also available.
 /// \li \link hpp_tutorial_tutorial_2 Tutorial 2 \endlink : how to implement
 ///     a new path planning algorithm in C++.
 /// \li \link hpp_tutorial_tutorial_3 Tutorial 3 \endlink : how to define and

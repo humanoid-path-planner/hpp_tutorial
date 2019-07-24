@@ -37,15 +37,7 @@ ADD_DOC_DEPENDENCY("hpp-core >= 4")
 ADD_DOC_DEPENDENCY("hpp-corbaserver >= 4")
 ADD_REQUIRED_DEPENDENCY("hpp-manipulation-corba >= 4")
 
-# Create and install executable running the corba server
-ADD_EXECUTABLE (hpp-tutorial-server
-  src/tutorial.cc
-)
-# Link executable with hpp-corbaserver library
-PKG_CONFIG_USE_DEPENDENCY (hpp-tutorial-server hpp-corbaserver)
-# Install executable
-INSTALL (TARGETS hpp-tutorial-server DESTINATION ${CMAKE_INSTALL_BINDIR})
-
+ADD_SUBDIRECTORY(src)
 
 SET(CATKIN_PACKAGE_SHARE_DESTINATION
   ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME})

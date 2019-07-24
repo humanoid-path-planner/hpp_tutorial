@@ -26,7 +26,7 @@
 /// \c CMakeLists.txt.
 ///
 /// \section hpp_tutorial_tutorial_2_class_planner Implementation of class Planner
-/// File \c src/tutorial.cc implements \c class hpp::tutorial::Planner,
+/// File \c src/tutorial_2.cc implements \c class hpp::tutorial::Planner,
 /// deriving from abstract class hpp::core::PathPlanner. In this section,
 /// we explain some specific parts of the code.
 ///
@@ -68,7 +68,7 @@
 /// \note Method \c init always calls the parent implementation so that the
 /// parent part of the object also stores a weak pointer to itself.
 ///
-/// \section hpp_tutorial_tutorial_2_hpp_tutorial_server Implementation of executable hpp-tutorial-server
+/// \section hpp_tutorial_tutorial_2_hpp_tutorial_server Implementation of executable hpp-tutorial-2-server
 ///
 /// Now that the new class \c hpp::tutorial::Planner has been implemented, we
 /// are going to use it in a new executable. The new executable is defined by
@@ -117,13 +117,13 @@
 /// ADD_REQUIRED_DEPENDENCY("hpp-corbaserver >= 3")
 ///
 /// # Create and install executable running the corba server
-/// ADD_EXECUTABLE (hpp-tutorial-server
-///   src/tutorial.cc
+/// ADD_EXECUTABLE (hpp-tutorial-2-server
+///   src/tutorial_2.cc
 /// )
 /// # Link executable with hpp-corbaserver library
-/// PKG_CONFIG_USE_DEPENDENCY (hpp-tutorial-server hpp-corbaserver)
+/// PKG_CONFIG_USE_DEPENDENCY (hpp-tutorial-2-server hpp-corbaserver)
 /// # Install executable
-/// INSTALL (TARGETS hpp-tutorial-server DESTINATION ${CMAKE_INSTALL_BINDIR})
+/// INSTALL (TARGETS hpp-tutorial-2-server DESTINATION ${CMAKE_INSTALL_BINDIR})
 /// SETUP_PROJECT_FINALIZE()
 /// \endcode
 ///
@@ -133,7 +133,7 @@
 /// algorithm, you simply need to follow the same steps as in tutorial 1,
 /// except that you should start
 /// \code
-/// hpp-tutorial-server
+/// hpp-tutorial-2-server
 /// \endcode
 /// instead of \c hppcorbaserver and source \c script/tutorial_2.py instead of
 /// \c script/tutorial_1.py, or make sure that you add the following line before
@@ -191,5 +191,5 @@
 /// make install
 /// \endcode
 ///
-/// Executable \c hpp-tutorial-server is installed and can be run from the
+/// Executable \c hpp-tutorial-2-server is installed and can be run from the
 /// terminal.
