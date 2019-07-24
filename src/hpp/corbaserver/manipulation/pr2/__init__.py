@@ -16,4 +16,4 @@
 # hpp-corbaserver.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-from robot import Robot
+from .robot import Robot
