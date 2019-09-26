@@ -22,14 +22,14 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 SET(CXX_DISABLE_WERROR TRUE)
 INCLUDE(cmake/base.cmake)
 INCLUDE(cmake/hpp.cmake)
-INCLUDE(cmake/hpp/python.cmake)
+INCLUDE(cmake/python.cmake)
 
 SET(PROJECT_NAME hpp_tutorial)
 SET(PROJECT_DESCRIPTION
   "Tutorial for humanoid path planner platform."
 )
 
-HPP_FINDPYTHON()
+FINDPYTHON()
 
 SETUP_HPP_PROJECT()
 
