@@ -17,21 +17,19 @@
 # hpp_tutorial  If not, see
 # <http://www.gnu.org/licenses/>.
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+SET(PROJECT_NAME hpp_tutorial)
+SET(PROJECT_DESCRIPTION "Tutorial for humanoid path planner platform.")
 
 SET(CXX_DISABLE_WERROR TRUE)
-INCLUDE(cmake/base.cmake)
 INCLUDE(cmake/hpp.cmake)
 INCLUDE(cmake/python.cmake)
 
-SET(PROJECT_NAME hpp_tutorial)
-SET(PROJECT_DESCRIPTION
-  "Tutorial for humanoid path planner platform."
-)
+COMPUTE_PROJECT_ARGS(PROJECT_ARGS LANGUAGES CXX)
+PROJECT(${PROJECT_NAME} ${PROJECT_ARGS})
 
 FINDPYTHON()
-
-SETUP_HPP_PROJECT()
 
 ADD_DOC_DEPENDENCY("hpp-core >= 4")
 ADD_DOC_DEPENDENCY("hpp-corbaserver >= 4")
@@ -97,5 +95,3 @@ IF(INSTALL_DOCUMENTATION)
     ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/script
     )
 ENDIF(INSTALL_DOCUMENTATION)
-
-SETUP_HPP_PROJECT_FINALIZE()
