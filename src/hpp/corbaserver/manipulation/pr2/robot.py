@@ -32,14 +32,9 @@ from hpp.corbaserver.manipulation.robot import Robot as Parent
 class Robot (Parent):
     ##
     #  Information to retrieve urdf and srdf files.
-    packageName = "hpp_tutorial"
-    meshPackageName = "pr2_description"
+    urdfFilename = "package://hpp_tutorial/urdf/pr2.urdf"
+    srdfFilename = "package://hpp_tutorial/srdf/pr2_manipulation.srdf"
     rootJointType = "planar"
-   ##
-    #  Information to retrieve urdf and srdf files.
-    urdfName = "pr2"
-    urdfSuffix = ""
-    srdfSuffix = "_manipulation"
 
     ## Constructor
     # \param compositeName name of the composite robot that will be built later,
