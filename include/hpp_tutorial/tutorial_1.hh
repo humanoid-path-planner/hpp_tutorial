@@ -139,7 +139,8 @@
 /// Define goal configuration.
 ///
 /// \code
-/// vf.loadObstacleModel ("iai_maps", "kitchen_area", "kitchen")
+/// vf.loadObstacleModel ("package://iai_maps/urdf/kitchen_area.urdf", "kitchen")
+
 /// \endcode
 /// Load obstacles from urdf file.
 /// \note this method loads the objects defined in the urdf file both in
