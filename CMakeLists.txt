@@ -1,6 +1,6 @@
 #
-# Copyright (c) 2014 CNRS
-# Authors: Florent Lamiraux
+# Copyright (c) 2014, 2020 CNRS
+# Authors: Florent Lamiraux,  Guilhem Saurel
 #
 #
 # This file is part of hpp_tutorial
@@ -17,12 +17,14 @@
 # hpp_tutorial  If not, see
 # <http://www.gnu.org/licenses/>.
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
 
 SET(PROJECT_NAME hpp_tutorial)
 SET(PROJECT_DESCRIPTION "Tutorial for humanoid path planner platform.")
 
+SET(PROJECT_USE_CMAKE_EXPORT TRUE)
 SET(CXX_DISABLE_WERROR TRUE)
+
 INCLUDE(cmake/hpp.cmake)
 INCLUDE(cmake/python.cmake)
 
@@ -31,9 +33,7 @@ PROJECT(${PROJECT_NAME} ${PROJECT_ARGS})
 
 FINDPYTHON()
 
-ADD_DOC_DEPENDENCY("hpp-core >= 4")
-ADD_DOC_DEPENDENCY("hpp-corbaserver >= 4")
-ADD_REQUIRED_DEPENDENCY("hpp-manipulation-corba >= 4")
+ADD_PROJECT_DEPENDENCY("hpp-manipulation-corba" REQUIRED)
 
 ADD_SUBDIRECTORY(src)
 
@@ -95,3 +95,6 @@ IF(INSTALL_DOCUMENTATION)
     ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/script
     )
 ENDIF(INSTALL_DOCUMENTATION)
+
+ADD_LIBRARY(${PROJECT_NAME} INTERFACE)
+INSTALL(TARGETS ${PROJECT_NAME} EXPORT ${TARGETS_EXPORT_NAME} DESTINATION lib)
