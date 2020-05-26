@@ -9,5 +9,6 @@
   <maintainer email="hpp@laas.fr">Florent Lamiraux</maintainer>
   <license>LGPL v2</license>
   <build_depend>hpp-corbaserver</build_depend>
+  <build_depend>hpp-manipulation-corba</build_depend>
   <exec_depend>iai_maps</exec_depend>
 </package>
