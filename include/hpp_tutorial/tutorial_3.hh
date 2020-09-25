@@ -58,6 +58,9 @@
 /// \code
 /// >>> v = vf.createViewer ()
 /// \endcode
+/// The robot and environment should appear in the viewer. If the viewer
+/// window is black, select the window and hit space.
+///
 /// To solve the problem, type 
 /// \code
 /// >>> ps.solve ()
@@ -68,3 +71,15 @@
 /// >>> pp = PathPlayer (v)
 /// >>> pp (0)
 /// \endcode 
+///
+/// \section hpp_tutorial_3_optimization Optimizing the solution path
+///
+/// To optimize the solution path, select a path optimizer:
+/// \code
+/// >>> ps.addPathOptimizer('Graph-RandomShortcut')
+/// >>> ps.optimizePath(0)
+/// \endcode
+/// To display the solution:
+/// \code
+/// >>> pp(1)
+/// \endcode
