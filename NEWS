@@ -1,4 +1,7 @@
                                                                 -*- outline -*-
+New In v4.10.1
+* Improve tutorial_3.py.
+New in v4.10.0
 * Install tutorial_3.py and refer to it in instructions.
 New in v4.6.1
 * Update tutorial instructions to run gepetto-gui after hppcorbaserver.
