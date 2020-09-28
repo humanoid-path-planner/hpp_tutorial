@@ -1,6 +1,7 @@
 # Import libraries and load robots. {{{1
 
 # Import. {{{2
+from math import sqrt
 from hpp.gepetto import PathPlayer
 from hpp.corbaserver.manipulation.pr2 import Robot
 from hpp.corbaserver.manipulation import ProblemSolver, ConstraintGraph, Rule, \
@@ -62,12 +63,15 @@ q_init [0:2] = [-3.2, -4]
 rank = robot.rankInConfiguration ['pr2/torso_lift_joint']
 q_init [rank] = 0.2
 rank = robot.rankInConfiguration ['box/root_joint']
-q_init [rank:rank+3] = [-2.5, -4, 0.8]
+q_init [rank:rank+3] = [-2.5, -4, 0.746]
+
+# Put box in right orientation
+q_init[rank+3:rank+7] = [0, -sqrt(2)/2, 0, sqrt(2)/2]
 
 q_goal = q_init [::]
 q_goal [0:2] = [-3.2, -4]
 rank = robot.rankInConfiguration ['box/root_joint']
-q_goal [rank:rank+3] = [-3.5, -4, 0.8]
+q_goal [rank:rank+3] = [-2.5, -4.5, 0.746]
 # 2}}}
 
 # Create the constraints. {{{2
@@ -99,17 +103,13 @@ factory.setObjects (objects, handlesPerObject, contactSurfacesPerObject)
 factory.setRules (rules)
 factory.generate ()
 cg.addConstraints (graph = True, constraints = Constraints \
-                   (lockedJoints = locklhand))
+                   (numConstraints = locklhand))
 cg.initialize ()
 
 # 2}}}
 
-res, q_init_proj, err = cg.applyNodeConstraints("free", q_init)
-res, q_goal_proj, err = cg.applyNodeConstraints("free", q_goal)
-
-ps.setInitialConfig (q_init_proj)
-
-ps.addGoalConfig (q_goal_proj)
+ps.setInitialConfig (q_init)
+ps.addGoalConfig (q_goal)
 
 # print ps.solve()
 
