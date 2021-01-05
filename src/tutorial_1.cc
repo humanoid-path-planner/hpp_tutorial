@@ -34,7 +34,7 @@ int main ()
   DevicePtr_t device = ps->createRobot ("pr2");
   hpp::pinocchio::urdf::loadRobotModel (device,
       "planar", "hpp_tutorial", "pr2", "", "");
-  device->controlComputation ((Computation_t)(JOINT_POSITION || JACOBIAN));
+  device->controlComputation ((Computation_t)(JOINT_POSITION | JACOBIAN));
   ps->robot (device);
 
   device->rootJoint()->lowerBound (0, -4);
