@@ -36,7 +36,7 @@ namespace hpp {
     // forward declaration of class Planner
     HPP_PREDEF_CLASS (Planner);
     // Planner objects are manipulated only via shared pointers
-    typedef boost::shared_ptr <Planner> PlannerPtr_t;
+    typedef shared_ptr <Planner> PlannerPtr_t;
     typedef core::value_type value_type;
 
     /// Example of path planner
