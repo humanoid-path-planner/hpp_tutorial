@@ -44,7 +44,7 @@ namespace hpp {
     {
     public:
       /// Create an instance and return a shared pointer to the instance
-      static PlannerPtr_t create (const core::Problem& problem,
+      static PlannerPtr_t create (const core::ProblemConstPtr_t& problem,
 				  const core::RoadmapPtr_t& roadmap)
       {
 	Planner* ptr = new Planner (problem, roadmap);
@@ -63,16 +63,16 @@ namespace hpp {
       virtual void oneStep ()
       {
 	// Retrieve the robot the problem has been defined for.
-	pinocchio::DevicePtr_t robot (problem ().robot ());
+	pinocchio::DevicePtr_t robot (problem()->robot ());
 	// Retrieve the path validation algorithm associated to the problem
-	core::PathValidationPtr_t pathValidation (problem ().pathValidation ());
+	core::PathValidationPtr_t pathValidation (problem()->pathValidation ());
 	// Retrieve configuration validation methods associated to the problem
 	core::ConfigValidationsPtr_t configValidations
-	  (problem ().configValidations ());
+	  (problem()->configValidations ());
 	// Retrieve the steering method
-	core::SteeringMethodPtr_t sm (problem ().steeringMethod ());
+	core::SteeringMethodPtr_t sm (problem()->steeringMethod ());
 	// Retrieve the constraints the robot is subject to
-	core::ConstraintSetPtr_t constraints (problem ().constraints ());
+	core::ConstraintSetPtr_t constraints (problem()->constraints ());
 	// Retrieve roadmap of the path planner
 	core::RoadmapPtr_t r (roadmap ());
 	// shoot a valid random configuration
@@ -114,11 +114,11 @@ namespace hpp {
     protected:
       /// Protected constructor
       /// Users need to call Planner::create in order to create instances.
-      Planner (const core::Problem& problem,
+      Planner (const core::ProblemConstPtr_t& problem,
 	       const core::RoadmapPtr_t& roadmap) :
 	core::PathPlanner (problem, roadmap),
 	shooter_ (core::configurationShooter::Uniform::create
-                  (problem.robot ()))
+                  (problem->robot()))
       {
       }
       /// Store weak pointer to itself
