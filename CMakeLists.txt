@@ -49,6 +49,7 @@ install(FILES
   urdf/box.urdf
   urdf/cup.urdf
   urdf/door.urdf
+  urdf/kitchen_area.urdf
   urdf/box_color.urdf
   urdf/rod.urdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf
@@ -58,6 +59,7 @@ install(FILES
   srdf/pr2_manipulation.srdf
   srdf/box.srdf
   srdf/cup.srdf
+  srdf/kitchen_area.srdf
   srdf/rod.srdf
   srdf/door.srdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/srdf
@@ -78,6 +80,27 @@ install (FILES
   src/hpp/corbaserver/manipulation/pr2/robot.py
   src/hpp/corbaserver/manipulation/pr2/__init__.py
   DESTINATION ${PYTHON_SITELIB}/hpp/corbaserver/manipulation/pr2)
+
+INSTALL(FILES
+  Media/models/meshes/glasses/__Color_A05_4.png
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/Media/models/meshes/glasses
+)
+
+INSTALL(FILES
+  Media/materials/textures/ganz_rechts_neben_kuecheninsel.png
+  Media/materials/textures/hinter_shopschraenken_an_saeule.png
+  Media/materials/textures/wallpaper_ai_unihb.png
+  Media/materials/textures/stove.png
+  Media/materials/textures/ganz_links_vorn_bei_biolab.png
+  Media/materials/textures/wallpaper2.png
+  Media/materials/textures/ganz_links_neben_roboterplakat.png
+  Media/materials/textures/auf_saeule_bei_shop.png
+  Media/materials/textures/wallpaper_project_logos.png
+  Media/materials/textures/wallpaper.png
+  Media/materials/textures/sink.png
+  Media/materials/textures/mittig_neben_roboterplakat.png
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/Media/materials/textures
+)
 
 # Installation for documentation
 IF(INSTALL_DOCUMENTATION)
