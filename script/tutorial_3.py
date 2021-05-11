@@ -16,14 +16,12 @@ Client ().problem.resetProblem ()
 class Box (object):
   rootJointType = 'freeflyer'
   packageName = 'hpp_tutorial'
-  meshPackageName = 'hpp_tutorial'
   urdfName = 'box'
   urdfSuffix = ""
   srdfSuffix = ""
 
 class Environment (object):
-  packageName = 'iai_maps'
-  meshPackageName = 'iai_maps'
+  packageName = 'hpp_tutorial'
   urdfName = 'kitchen_area'
   urdfSuffix = ""
   srdfSuffix = ""
