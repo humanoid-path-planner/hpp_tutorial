@@ -52,6 +52,7 @@ install(FILES
   urdf/kitchen_area.urdf
   urdf/box_color.urdf
   urdf/rod.urdf
+  urdf/table.urdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf
   )
 install(FILES
@@ -62,6 +63,7 @@ install(FILES
   srdf/kitchen_area.srdf
   srdf/rod.srdf
   srdf/door.srdf
+  srdf/table.srdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/srdf
   )
 install(FILES

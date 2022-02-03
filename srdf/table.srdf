@@ -1,0 +1,16 @@
+<robot name="table">
+  <contact name="pancake_table_table_top">
+    <link name="pancake_table_table_top_link"/>
+    <!-- Box size: size_x * size_y * size_z
+              x             y            z     -->
+    <point>
+        0.8  0.3  0.0125
+        0.8  -0.3  0.0125
+        -0.8  0.3  0.0125
+        -0.8  -0.3  0.0125
+      </point>
+    <shape>
+        4 0 2 3 1
+      </shape>
+  </contact>
+</robot>
