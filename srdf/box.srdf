@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <robot name="box">
   <handle name="handle" clearance="0.025">
-    <position> 0 0 0 1 0 0 0 </position>
+    <position xyz="0 0 0" wxyz="1 0 0 0" />
     <link name="base_link"/>
   </handle>
   <handle name="handle2" clearance="0.025">
-    <position> 0 0 0
-      0 0 0.7071067811865476 0.7071067811865476 </position>
+    <position xyz="0 0 0"
+      wxyz="0 0 0.7071067811865476 0.7071067811865476" />
     <link name="base_link"/>
   </handle>
   <contact name="box_surface">
