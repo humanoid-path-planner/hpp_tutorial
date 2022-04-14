@@ -1,6 +1,6 @@
 # Import libraries and load robots. {{{1
 
-# Import. {{{2
+# Import.
 from math import sqrt
 from hpp.gepetto import PathPlayer
 from hpp.corbaserver.manipulation.pr2 import Robot
@@ -10,9 +10,8 @@ from hpp.gepetto.manipulation import ViewerFactory
 from hpp.corbaserver import loadServerPlugin
 loadServerPlugin ("corbaserver", "manipulation-corba.so")
 Client ().problem.resetProblem ()
-# 2}}}
 
-# Load PR2 and a box to be manipulated. {{{2
+# Load PR2 and a box to be manipulated.
 class Box (object):
   rootJointType = 'freeflyer'
   packageName = 'hpp_tutorial'
@@ -39,19 +38,15 @@ vf.loadEnvironmentModel (Environment, "kitchen_area")
 
 robot.setJointBounds ("pr2/root_joint", [-5,-2,-5.2,-2.7]     )
 robot.setJointBounds ("box/root_joint", [-5.1,-2,-5.2,-2.7,0,1.5])
-# 2}}}
 
-# 1}}}
+# Initialization.
 
-# Initialization. {{{1
-
-# Set parameters. {{{2
+# Set parameters.
 # robot.client.basic.problem.resetRoadmap ()
 ps.setErrorThreshold (1e-3)
 ps.setMaxIterProjection (40)
-# 2}}}
 
-# Generate initial and goal configuration. {{{2
+# Generate initial and goal configuration.
 q_init = robot.getCurrentConfig ()
 rank = robot.rankInConfiguration ['pr2/l_gripper_l_finger_joint']
 q_init [rank] = 0.5
@@ -70,15 +65,13 @@ q_goal = q_init [::]
 q_goal [0:2] = [-3.2, -4]
 rank = robot.rankInConfiguration ['box/root_joint']
 q_goal [rank:rank+3] = [-2.5, -4.5, 0.746]
-# 2}}}
 
-# Create the constraints. {{{2
+# Create the constraints.
 locklhand = ['l_l_finger','l_r_finger'];
 ps.createLockedJoint ('l_l_finger', 'pr2/l_gripper_l_finger_joint', [0.5,])
 ps.createLockedJoint ('l_r_finger', 'pr2/l_gripper_r_finger_joint', [0.5,])
-# 2}}}
 
-# Create the constraint graph. {{{2
+# Create the constraint graph.
 # Define the set of grippers used for manipulation
 grippers = [ "pr2/l_gripper", ]
 # Define the set of objects that can be manipulated
@@ -104,20 +97,17 @@ cg.addConstraints (graph = True, constraints = Constraints \
                    (numConstraints = locklhand))
 cg.initialize ()
 
-# 2}}}
-
 ps.setInitialConfig (q_init)
 ps.addGoalConfig (q_goal)
 
-# print ps.solve()
+# uncomment to solve
+# ps.solve()
 
-# ps.setTargetState (cg.nodes["pr2/l_gripper grasps box/handle2"])
-# print ps.solve()
+# Path optimization uncomment to optimize
+#
+# ps.loadPlugin('manipulation-spline-gradient-based.so')
+# ps.addPathOptimizer('SplineGradientBased_bezier1')
+# ps.optimizePath(0)
 
-# 1}}}
-
+# display in gepetto-gui
 # v = vf.createViewer ()
-# v (q_init_proj)
-# pp = PathPlayer (v)
-
-# vim: foldmethod=marker foldlevel=1
