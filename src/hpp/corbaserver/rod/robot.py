@@ -18,19 +18,20 @@
 
 from hpp.corbaserver.robot import Robot as Parent
 
-##
-#  Rod robot in hpp
-#
-#  This class implements a client to the corba server implemented in
-#  hpp-corbaserver. It derive from class hpp.corbaserver.robot.Robot.
-#
-#  This class is also used to initialize a client to rviz in order to
-#  display configurations of the PR2 robot.
-#
-#  At creation of an instance, the urdf and srdf files are loaded using
-#  idl interface hpp::corbaserver::Robot::loadRobotModel.
-class Robot (Parent):
-    ##
+
+class Robot(Parent):
+    """
+    Rod robot in hpp
+
+    This class implements a client to the corba server implemented in
+    hpp-corbaserver. It derive from class hpp.corbaserver.robot.Robot.
+
+    This class is also used to initialize a client to rviz in order to
+    display configurations of the PR2 robot.
+
+    At creation of an instance, the urdf and srdf files are loaded using
+    idl interface hpp::corbaserver::Robot::loadRobotModel."""
+
     #  Information to retrieve urdf and srdf files.
     packageName = "hpp_tutorial"
     meshPackageName = "hpp_tutorial"
@@ -41,6 +42,6 @@ class Robot (Parent):
     urdfSuffix = ""
     srdfSuffix = ""
 
-    def __init__ (self, robotName, load = True):
-        Parent.__init__ (self, robotName, self.rootJointType, load)
+    def __init__(self, robotName, load=True):
+        Parent.__init__(self, robotName, self.rootJointType, load)
         self.tf_root = "base_link"

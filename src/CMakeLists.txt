@@ -36,4 +36,3 @@ ADD_EXECUTABLE(hpp-tutorial-2-server tutorial_2.cc)
 TARGET_LINK_LIBRARIES(hpp-tutorial-2-server hpp-corbaserver::hpp-corbaserver)
 # Install executable
 INSTALL(TARGETS hpp-tutorial-2-server DESTINATION ${CMAKE_INSTALL_BINDIR})
-

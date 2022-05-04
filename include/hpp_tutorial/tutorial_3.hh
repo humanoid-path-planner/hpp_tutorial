@@ -23,7 +23,8 @@
 /// \c CTRL+SHIFT+T twice. When the terminal is selected, you can select a tab
 /// by typing \c ALT-[1|2|3].
 ///
-/// \section hpp_tutorial_3_starting_hpp_manipulation_server Starting hppcorbaserver
+/// \section hpp_tutorial_3_starting_hpp_manipulation_server Starting
+/// hppcorbaserver
 ///
 /// In the first tab, type
 /// \code
@@ -38,7 +39,8 @@
 /// cd script
 /// python -i tutorial_3.py
 /// \endcode
-/// Script <code><a href="script/tutorial_3.py">script/tutorial_3.py</a></code> defines a manipulation planning problem.
+/// Script <code><a href="script/tutorial_3.py">script/tutorial_3.py</a></code>
+/// defines a manipulation planning problem.
 ///
 /// \section hpp_tutorial_3_starting_gui Starting gepetto-gui
 ///
@@ -61,7 +63,7 @@
 /// The robot and environment should appear in the viewer. If the viewer
 /// window is black, select the window and hit space.
 ///
-/// To solve the problem, type 
+/// To solve the problem, type
 /// \code
 /// >>> ps.solve ()
 /// \endcode
@@ -70,7 +72,7 @@
 /// \code
 /// >>> pp = PathPlayer (v)
 /// >>> pp (0)
-/// \endcode 
+/// \endcode
 ///
 /// \section hpp_tutorial_3_optimization Optimizing the solution path
 ///

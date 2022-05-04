@@ -25,10 +25,10 @@
 /// The compilation and installation instructions can be found in
 /// \c CMakeLists.txt.
 ///
-/// \section hpp_tutorial_tutorial_2_class_planner Implementation of class Planner
-/// File \c src/tutorial_2.cc implements \c class hpp::tutorial::Planner,
-/// deriving from abstract class hpp::core::PathPlanner. In this section,
-/// we explain some specific parts of the code.
+/// \section hpp_tutorial_tutorial_2_class_planner Implementation of class
+/// Planner File \c src/tutorial_2.cc implements \c class
+/// hpp::tutorial::Planner, deriving from abstract class hpp::core::PathPlanner.
+/// In this section, we explain some specific parts of the code.
 ///
 /// \code HPP_PREDEF_CLASS (Planner);\endcode
 /// is a macro containing the forward declaration of class \c Planner as well as
@@ -48,7 +48,7 @@
 /// protected.
 /// \note method \c create calls protected method \c init that is explained
 ///       later on.
-/// 
+///
 /// \code
 /// virtual void oneStep ()
 /// \endcode
@@ -64,11 +64,12 @@
 /// \code
 /// weakPtr_.lock ();
 /// \endcode
-/// which is the shared pointer equivalent to \c this when using simple pointers.
-/// \note Method \c init always calls the parent implementation so that the
-/// parent part of the object also stores a weak pointer to itself.
+/// which is the shared pointer equivalent to \c this when using simple
+/// pointers. \note Method \c init always calls the parent implementation so
+/// that the parent part of the object also stores a weak pointer to itself.
 ///
-/// \section hpp_tutorial_tutorial_2_hpp_tutorial_server Implementation of executable hpp-tutorial-2-server
+/// \section hpp_tutorial_tutorial_2_hpp_tutorial_server Implementation of
+/// executable hpp-tutorial-2-server
 ///
 /// Now that the new class \c hpp::tutorial::Planner has been implemented, we
 /// are going to use it in a new executable. The new executable is defined by
@@ -127,7 +128,8 @@
 /// SETUP_PROJECT_FINALIZE()
 /// \endcode
 ///
-/// \section hpp_tutorial_tutorial_2_running Running the server and solving a problem.
+/// \section hpp_tutorial_tutorial_2_running Running the server and solving a
+/// problem.
 ///
 /// To run your executable and solve a problem with your path planning
 /// algorithm, you simply need to follow the same steps as in tutorial 1,
@@ -145,7 +147,8 @@
 /// \warning Basic PRM is very inefficient. Resolution can take a long time,
 /// especially if you have compiled in debug mode.
 ///
-/// \section hpp_tutorial_tutorial_2_external_package Moving the code into an external package
+/// \section hpp_tutorial_tutorial_2_external_package Moving the code into an
+/// external package
 ///
 /// To implement the above executable in an external package, you should do the
 /// following steps.
@@ -155,33 +158,21 @@
 /// \endcode
 /// \li create a file \c README.md describing the new package
 /// \code
-/// echo "Implementation of a new path planning algorithm embedded in a CORBA server" > my-hpp-project/README.md
-/// \endcode
-/// \li create an empty \c Doxyfile.extra.in file
-/// \code
-/// mkdir my-hpp-project/doc; touch my-hpp-project/doc/Doxyfile.extra.in
-/// \endcode
-/// \li copy the above \c cmake code into \c my-hpp-project/CMakeLists.txt, after replacing names by the names you have chosen,
-/// \li copy file \c src/tutorial.cc into \c my-hpp-project/src
-/// \code
-/// mkdir my-hpp-project/src
-/// cp hpp_tutorial/src/tutorial.cc my-hpp-project/src/.
-/// \endcode
-/// Go into the project directory and initialize git.
-/// \code
-/// cd my-hpp-project; git init; git add .
-/// \endcode
-/// Import the cmake git sub-module
-/// \code
-/// git submodule add git://github.com/jrl-umi3218/jrl-cmakemodules.git cmake
-/// \endcode
-/// Commit this first version.
-/// \code
-/// git commit -m "My first hpp project"
-/// \endcode
+/// echo "Implementation of a new path planning algorithm embedded in a CORBA
+/// server" > my-hpp-project/README.md \endcode \li create an empty \c
+/// Doxyfile.extra.in file \code mkdir my-hpp-project/doc; touch
+/// my-hpp-project/doc/Doxyfile.extra.in \endcode \li copy the above \c cmake
+/// code into \c my-hpp-project/CMakeLists.txt, after replacing names by the
+/// names you have chosen, \li copy file \c src/tutorial.cc into \c
+/// my-hpp-project/src \code mkdir my-hpp-project/src cp
+/// hpp_tutorial/src/tutorial.cc my-hpp-project/src/. \endcode Go into the
+/// project directory and initialize git. \code cd my-hpp-project; git init; git
+/// add . \endcode Import the cmake git sub-module \code git submodule add
+/// git://github.com/jrl-umi3218/jrl-cmakemodules.git cmake \endcode Commit this
+/// first version. \code git commit -m "My first hpp project" \endcode
 ///
-/// \subsection hpp_tutorial_tutorial_2_external_package_installation Installation
-/// The package is ready for installation. Create a build directory
+/// \subsection hpp_tutorial_tutorial_2_external_package_installation
+/// Installation The package is ready for installation. Create a build directory
 /// \code
 /// mkdir build; cd build
 /// \endcode

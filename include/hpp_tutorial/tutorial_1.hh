@@ -50,7 +50,9 @@
 /// cd script
 /// python -i tutorial_1.py
 /// \endcode
-/// to run the script<code><a href="script/tutorial_1.py">script/tutorial_1.py</a></code> in an interactive python terminal.
+/// to run the script<code><a
+/// href="script/tutorial_1.py">script/tutorial_1.py</a></code> in an
+/// interactive python terminal.
 ///
 /// To display the scene, type
 /// \code
@@ -83,7 +85,8 @@
 /// \endcode
 ///
 /// \section hpp_tutorial_1_script Detailed explanation
-/// This section presents in more details the content of \c script/tutorial_1.py.
+/// This section presents in more details the content of \c
+/// script/tutorial_1.py.
 ///
 /// \code
 /// from hpp.corbaserver.pr2 import Robot
@@ -139,7 +142,8 @@
 /// Define goal configuration.
 ///
 /// \code
-/// vf.loadObstacleModel ("package://hpp_tutorial/urdf/kitchen_area.urdf", "kitchen")
+/// vf.loadObstacleModel ("package://hpp_tutorial/urdf/kitchen_area.urdf",
+/// "kitchen")
 
 /// \endcode
 /// Load obstacles from urdf file.
@@ -196,4 +200,3 @@
 /// build-folder/src/hpp-tutorial-1
 /// \endcode
 ///
-

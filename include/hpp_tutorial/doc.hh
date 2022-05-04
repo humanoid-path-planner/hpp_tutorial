@@ -27,7 +27,7 @@
 /// how to implement a new path planning algorithm.
 ///
 /// \par Setting up your environment
-/// 
+///
 /// Before starting, make sure that
 /// \li \c bash is you default shell script language,
 /// \li the line \code source $DEVEL_DIR/config.sh \endcode is in your .bashrc

@@ -18,32 +18,37 @@
 
 from hpp.corbaserver.manipulation.robot import Robot as Parent
 
-##
-#  Control of robot PR2 in hpp
-#
-#  This class implements a client to the corba server implemented in
-#  hpp-corbaserver. It derive from class hpp.corbaserver.robot.Robot.
-#
-#  This class is also used to initialize a client to rviz in order to
-#  display configurations of the PR2 robot.
-#
-#  At creation of an instance, the urdf and srdf files are loaded using
-#  idl interface hpp::corbaserver::Robot::loadRobotModel.
-class Robot (Parent):
-    ##
+
+class Robot(Parent):
+    """
+    Control of robot PR2 in hpp
+
+    This class implements a client to the corba server implemented in
+    hpp-corbaserver. It derive from class hpp.corbaserver.robot.Robot.
+
+    This class is also used to initialize a client to rviz in order to
+    display configurations of the PR2 robot.
+
+    At creation of an instance, the urdf and srdf files are loaded using
+    idl interface hpp::corbaserver::Robot::loadRobotModel.
+    """
+
     #  Information to retrieve urdf and srdf files.
     urdfFilename = "package://hpp_tutorial/urdf/pr2.urdf"
     srdfFilename = "package://hpp_tutorial/srdf/pr2_manipulation.srdf"
     rootJointType = "planar"
 
-    ## Constructor
-    # \param compositeName name of the composite robot that will be built later,
-    # \param robotName name of the first robot that is loaded now,
-    # \param load whether to actually load urdf files. Set to no if you only
-    #        want to initialize a corba client to an already initialized
-    #        problem.
-    # \param rootJointType type of root joint among ("freeflyer", "planar",
-    #        "anchor"),
-    def __init__ (self, compositeName, robotName, load = True,
-                  rootJointType = "planar", **kwargs):
-        Parent.__init__ (self, compositeName, robotName, rootJointType, load, **kwargs)
+    def __init__(
+        self, compositeName, robotName, load=True, rootJointType="planar", **kwargs
+    ):
+        """
+        Constructor
+        \\param compositeName name of the composite robot that will be built later,
+        \\param robotName name of the first robot that is loaded now,
+        \\param load whether to actually load urdf files. Set to no if you only
+               want to initialize a corba client to an already initialized
+               problem.
+        \\param rootJointType type of root joint among ("freeflyer", "planar",
+               "anchor"),
+        """
+        Parent.__init__(self, compositeName, robotName, rootJointType, load, **kwargs)
