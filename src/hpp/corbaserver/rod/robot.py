@@ -36,7 +36,7 @@ class Robot(Parent):
     packageName = "hpp_tutorial"
     meshPackageName = "hpp_tutorial"
     rootJointType = "planar"
-    ##
+
     #  Information to retrieve urdf and srdf files.
     urdfName = "rod"
     urdfSuffix = ""
