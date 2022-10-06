@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <package format='2'>
   <name>hpp_tutorial</name>
-  <version>4.13.0</version>
+  <version>4.14.0</version>
   <description>
     Tutorial for Humanoid path planner platform
   </description>
