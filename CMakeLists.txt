@@ -26,9 +26,11 @@ include(cmake/python.cmake)
 compute_project_args(PROJECT_ARGS LANGUAGES CXX)
 project(${PROJECT_NAME} ${PROJECT_ARGS})
 
-findpython()
-
 add_project_dependency("hpp-manipulation-corba" REQUIRED)
+
+if(NOT FINDPYTHON_ALREADY_CALLED)
+  findpython()
+endif()
 
 add_subdirectory(src)
 
