@@ -110,7 +110,7 @@ class Planner : public core::PathPlanner {
         }
       }
     }
-    for(auto de : delayedEdges){
+    for (auto de : delayedEdges) {
       r->addEdge(std::get<0>(de), std::get<1>(de), std::get<2>(de));
       r->addEdge(std::get<1>(de), std::get<0>(de), std::get<2>(de)->reverse());
     }
