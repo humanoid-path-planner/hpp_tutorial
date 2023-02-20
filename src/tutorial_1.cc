@@ -42,8 +42,8 @@ int main() {
 
   // Add obstacle
   DevicePtr_t obstacle = Device::create("kitchen");
-  hpp::pinocchio::urdf::loadUrdfModel(obstacle, "anchor", "iai_maps",
-                                      "kitchen_area");
+  hpp::pinocchio::urdf::loadModel(obstacle, 0, "", "anchor",
+      "package://hpp_tutorial/urdf/kitchen_area.urdf", "");
   obstacle->controlComputation(JOINT_POSITION);
   ps->addObstacle(obstacle, true, true);
 
