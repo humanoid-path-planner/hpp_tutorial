@@ -58,6 +58,8 @@ class Planner : public core::PathPlanner {
   ///
   /// We will see how to implement a basic PRM algorithm.
   virtual void oneStep() {
+    using core::NodePtr_t;
+    using core::PathPtr_t;
     // Retrieve the robot the problem has been defined for.
     pinocchio::DevicePtr_t robot(problem()->robot());
     // Retrieve the path validation algorithm associated to the problem
@@ -79,31 +81,38 @@ class Planner : public core::PathPlanner {
       shooter_->shoot(qrand);
     } while (!configValidations->validate(qrand, validationReport));
     // Add qrand as a new node
-    core::NodePtr_t newNode = r->addNode(qrand);
+    NodePtr_t newNode = r->addNode(qrand);
     // try to connect the random configuration to each connected component
     // of the roadmap.
-    for (core::ConnectedComponents_t::const_iterator itcc =
-             r->connectedComponents().begin();
-         itcc != r->connectedComponents().end(); ++itcc) {
-      core::ConnectedComponentPtr_t cc = *itcc;
+
+    // Modifying the connected components of the graph while making a loop
+    // over all of them is not correct. We therefore record the edges to
+    // to insert and add them after the loop.
+    typedef std::tuple<NodePtr_t, NodePtr_t, PathPtr_t> DelayedEdge_t;
+    typedef std::vector<DelayedEdge_t> DelayedEdges_t;
+    DelayedEdges_t delayedEdges;
+    for (auto cc : r->connectedComponents()) {
       // except its own connected component of course
       if (cc != newNode->connectedComponent()) {
         value_type d;
         // Get nearest node to qrand in connected component
-        core::NodePtr_t nearest = r->nearestNode(qrand, cc, d);
+        NodePtr_t nearest = r->nearestNode(qrand, cc, d);
         core::ConfigurationPtr_t qnear = nearest->configuration();
         // Create local path between qnear and qrand
-        core::PathPtr_t localPath = (*sm)(*qnear, qrand);
+        PathPtr_t localPath = (*sm)(*qnear, qrand);
         // validate local path
-        core::PathPtr_t validPart;
+        PathPtr_t validPart;
         // report on path validation: unused here
         core::PathValidationReportPtr_t report;
         if (pathValidation->validate(localPath, false, validPart, report)) {
           // Create node and edges with qrand and the local path
-          r->addEdge(nearest, newNode, localPath);
-          r->addEdge(newNode, nearest, localPath->reverse());
+          delayedEdges.push_back(DelayedEdge_t(nearest, newNode, localPath));
         }
       }
+    }
+    for(auto de : delayedEdges){
+      r->addEdge(std::get<0>(de), std::get<1>(de), std::get<2>(de));
+      r->addEdge(std::get<1>(de), std::get<0>(de), std::get<2>(de)->reverse());
     }
   }
 

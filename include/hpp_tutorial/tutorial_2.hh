@@ -21,7 +21,7 @@
 ///
 /// <h1>Implementing a new path planning algorithm</h1>
 ///
-/// The code of this tutorial can be found in \c src/tutorial.cc.
+/// The code of this tutorial can be found in \c src/tutorial_2.cc.
 /// The compilation and installation instructions can be found in
 /// \c CMakeLists.txt.
 ///
