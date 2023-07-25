@@ -44,3 +44,5 @@
 ///     a new path planning algorithm in C++.
 /// \li \link hpp_tutorial_tutorial_3 Tutorial 3 \endlink : how to define and
 ///     solve a manipulation planning problem.
+/// \li \link hpp_tutorial_tutorial_4 Tutorial 4 \endlink: how to plan
+///     end-effector trajectoties
