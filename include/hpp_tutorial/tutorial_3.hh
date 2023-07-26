@@ -23,7 +23,8 @@
 /// \c CTRL+SHIFT+T twice. When the terminal is selected, you can select a tab
 /// by typing \c ALT-[1|2|3].
 ///
-/// \section hpp_tutorial_3_starting_hpp_manipulation_server Starting hppcorbaserver
+/// \section hpp_tutorial_3_starting_hpp_manipulation_server Starting
+/// hppcorbaserver
 ///
 /// In the first tab, type
 /// \code

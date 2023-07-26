@@ -25,7 +25,8 @@
 /// \c CTRL+SHIFT+T twice. When the terminal is selected, you can select a tab
 /// by typing \c ALT-[1|2|3].
 ///
-/// \section hpp_tutorial_4_starting_hpp_manipulation_server Starting hppcorbaserver
+/// \section hpp_tutorial_4_starting_hpp_manipulation_server Starting
+/// hppcorbaserver
 ///
 /// In the first tab, type
 /// \code
@@ -138,7 +139,8 @@
 /// \code
 /// ## Create a constraint graph with one node for each grasp
 /// cg = ConstraintGraph(robot, "graph")
-/// cg.createNode(["ur10e/gripper grasps handle1", "ur10e/gripper grasps handle2"])
+/// cg.createNode(["ur10e/gripper grasps handle1", "ur10e/gripper grasps
+/// handle2"])
 /// cg.addConstraints(node = "ur10e/gripper grasps handle1", constraints = \
 ///     Constraints(numConstraints = ["ur10e/gripper grasps handle1"]))
 /// cg.addConstraints(node = "ur10e/gripper grasps handle2", constraints = \
@@ -164,30 +166,34 @@
 /// We create several CORBA objects:
 /// \li the current manipulation planning problem \c cmp,
 /// \li the robot stored in this problem \c crobot,
-/// \li a steering method \c csm of type hpp::manipulation::steeringMethod::EndEffectorTrajectory
+/// \li a steering method \c csm of type
+/// hpp::manipulation::steeringMethod::EndEffectorTrajectory
 ///
 /// \code
 /// ## Create an EndEffectorTrajectory steering method
 /// cmp = wd(ps.client.basic.problem.getProblem())
 /// crobot = wd(cmp.robot())
 /// cproblem = wd(ps.client.basic.problem.createProblem(crobot))
-/// csm = wd(ps.client.basic.problem.createSteeringMethod("EndEffectorTrajectory", cproblem))
-/// \endcode
+/// csm =
+/// wd(ps.client.basic.problem.createSteeringMethod("EndEffectorTrajectory",
+/// cproblem)) \endcode
 ///
 /// Then we create a \link hpp::core::ConstraintSet ContraintSet \endlink
 /// containing an empty \link hpp::core::ConfigProjector ConfigProjector
-/// \endlink that we pass to the problem. We set  \link hpp::manipulation::steeringMethod::EndEffectorTrajectory \c csm \endlink as the steering method of the
-/// problem. Note that the last line passes the \link hpp::core::ConstraintSet
-/// ContraintSet \endlink of the problem to
-/// the steering method. The order is important here since at construction the
+/// \endlink that we pass to the problem. We set  \link
+/// hpp::manipulation::steeringMethod::EndEffectorTrajectory \c csm \endlink as
+/// the steering method of the problem. Note that the last line passes the \link
+/// hpp::core::ConstraintSet ContraintSet \endlink of the problem to the
+/// steering method. The order is important here since at construction the
 /// problem is given an empty \link hpp::core::ConstraintSet ContraintSet
 /// \endlink and setting the steering method of
 /// the problem passes the \link hpp::core::ConstraintSet ContraintSet \endlink
 /// of the problem to the steering method.
 ///
 /// \code
-/// cs = wd(ps.client.basic.problem.createConstraintSet(crobot, "sm-constraints"))
-/// cp = wd(ps.client.basic.problem.createConfigProjector(crobot, "cp", 1e-4, 40))
+/// cs = wd(ps.client.basic.problem.createConstraintSet(crobot,
+/// "sm-constraints")) cp =
+/// wd(ps.client.basic.problem.createConfigProjector(crobot, "cp", 1e-4, 40))
 /// cs.addConstraint(cp)
 /// cproblem.setConstraints(cs)
 /// cproblem.setSteeringMethod(csm)
@@ -195,8 +201,8 @@
 ///
 /// We need to create a time varying constraint for the end-effector. For that,
 /// we create a new grasp between the gripper and the first handle. Note that
-/// we cannot use the previously created identical grasp, since the comparison type
-/// of this one should be \c Equality.
+/// we cannot use the previously created identical grasp, since the comparison
+/// type of this one should be \c Equality.
 ///
 /// \code
 /// # Create a new grasp constraint for the steering method right hand side
@@ -274,7 +280,9 @@
 /// After connecting and refreshing \c gepetto-gui, you should be able to
 /// display the path. Notice that the path is discontinuous.
 ///
-/// To get a continuous path, we need to use the \link hpp::manipulation::pathPlanner::EndEffectorTrajectory EndEffectorTrajectory path planner \endlink.
+/// To get a continuous path, we need to use the \link
+/// hpp::manipulation::pathPlanner::EndEffectorTrajectory EndEffectorTrajectory
+/// path planner \endlink.
 ///
 /// \code
 /// ## Using EndEffectorTrajectory path planner
