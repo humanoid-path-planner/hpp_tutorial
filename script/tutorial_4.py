@@ -8,7 +8,28 @@ from hpp.rostools import process_xacro, retrieve_resource
 Robot.urdfString = process_xacro\
     ("package://hpp_tutorial/urdf/ur10e.urdf.xacro",
      "transmission_hw_interface:=hardware_interface/PositionJointInterface")
-Robot.srdfString = ""
+# Deactivate collision checking between consecutive links
+Robot.srdfString = """
+<robot name="ur10e">
+  <disable_collisions link1="shoulder_link"
+     link2="upper_arm_link" reason=""/>
+  <disable_collisions link1="upper_arm_link"
+		      link2="forearm_link" reason=""/>
+
+  <disable_collisions link1="wrist_1_link"
+		      link2="wrist_2_link" reason=""/>
+  <disable_collisions link1="wrist_2_link"
+		      link2="wrist_3_link" reason=""/>
+  <disable_collisions link1="shoulder_link"
+		      link2="forearm_link" reason=""/>
+  <disable_collisions link1="wrist_1_link"
+		      link2="wrist_3_link" reason=""/>
+  <disable_collisions link1="base_link_inertia"
+		      link2="shoulder_link" reason=""/>
+  <disable_collisions link1="forearm_link"
+		      link2="wrist_1_link" reason=""/>
+</robot>
+"""
 loadServerPlugin ("corbaserver", "manipulation-corba.so")
 newProblem()
 
@@ -45,9 +66,12 @@ cg.initialize()
 ## Generate one configuration satisfying each constraint
 q0 = 6*[0.]
 res, q1, err = cg.applyNodeConstraints("ur10e/gripper grasps handle1", q0)
-# Use q1 to generate q2 to minimize the probability of discontinuities
-res, q2, err = cg.applyNodeConstraints("ur10e/gripper grasps handle2", q1)
-
+res, q2, err = cg.applyNodeConstraints("ur10e/gripper grasps handle2", q0)
+# Check that configurations are collision free
+res, msg = robot.isConfigValid(q1)
+assert(res)
+res, msg = robot.isConfigValid(q2)
+assert(res)
 ## Create an EndEffectorTrajectory steering method
 cmp = wd(ps.client.basic.problem.getProblem())
 crobot = wd(cmp.robot())
@@ -57,7 +81,8 @@ csm = wd(ps.client.basic.problem.createSteeringMethod("EndEffectorTrajectory",
 cs = wd(ps.client.basic.problem.createConstraintSet(crobot, "sm-constraints"))
 cp = wd(ps.client.basic.problem.createConfigProjector(crobot, "cp", 1e-4, 40))
 cs.addConstraint(cp)
-csm.setConstraints(cs)
+cproblem.setConstraints(cs)
+cproblem.setSteeringMethod(csm)
 
 # Create a new grasp constraint for the steering method right hand side
 # The previously created one has EqualToZero as comparison types.
@@ -79,7 +104,19 @@ csm.trajectory(p, True)
 
 ## Call steering method
 p1 = wd(csm.call(q1,q2))
-ps.client.basic.problem.addPath(p1.asVector())
+if p1:
+    ps.client.basic.problem.addPath(p1.asVector())
 
-# Right now, path projectors do not work with EndEffectorTrajectory steering
-# method
+# Notice that the path is discontinuous.
+
+## Using EndEffectorTrajectory path planner
+cdistance = wd(cproblem.getDistance())
+croadmap = wd(ps.client.basic.problem.createRoadmap(cdistance, crobot))
+cplanner = wd(ps.client.basic.problem.createPathPlanner(
+    "EndEffectorTrajectory", cproblem, croadmap))
+cproblem.setInitConfig(q1)
+cproblem.addGoalConfig(q2)
+
+p2 = wd(cplanner.solve())
+if p2:
+    ps.client.basic.problem.addPath(p2)

@@ -72,7 +72,28 @@
 /// Robot.urdfString = process_xacro\
 ///     ("package://hpp_tutorial/urdf/ur10e.urdf.xacro",
 ///      "transmission_hw_interface:=hardware_interface/PositionJointInterface")
-/// Robot.srdfString = ""
+/// # Deactivate collision checking between consecutive links
+/// Robot.srdfString = """
+/// <robot name="ur10e">
+///   <disable_collisions link1="shoulder_link"
+///      link2="upper_arm_link" reason=""/>
+///   <disable_collisions link1="upper_arm_link"
+/// 		      link2="forearm_link" reason=""/>
+///
+///   <disable_collisions link1="wrist_1_link"
+/// 		      link2="wrist_2_link" reason=""/>
+///   <disable_collisions link1="wrist_2_link"
+/// 		      link2="wrist_3_link" reason=""/>
+///   <disable_collisions link1="shoulder_link"
+/// 		      link2="forearm_link" reason=""/>
+///   <disable_collisions link1="wrist_1_link"
+/// 		      link2="wrist_3_link" reason=""/>
+///   <disable_collisions link1="base_link_inertia"
+/// 		      link2="shoulder_link" reason=""/>
+///   <disable_collisions link1="forearm_link"
+/// 		      link2="wrist_1_link" reason=""/>
+/// </robot>
+/// """
 /// loadServerPlugin ("corbaserver", "manipulation-corba.so")
 /// newProblem()
 ///
@@ -92,7 +113,7 @@
 /// ## Add a gripper to the robot
 /// robot.client.manipulation.robot.addGripper\
 ///     ('ur10e/wrist_3_link', 'ur10e/gripper', [0,0,.1,0.5,0.5,0.5,-0.5], 0.1)
-/// 
+///
 /// ## Create two handles
 /// robot.client.manipulation.robot.addHandle\
 ///     ('ur10e/base_link', 'handle1', [.8, -.4, .5, 0, 0, 0, 1], .1, 6*[True])
@@ -125,20 +146,22 @@
 /// cg.initialize()
 ///\endcode
 ///
-/// Then, we compute the initial and goal configurations by numerical inverse
-/// kinematics. Note that the solver for \f$\mathbf{q}_2\f$ is initialized
-/// with \f$\mathbf{q}_1\f$ in order to minimize the probability that
-/// the path between them is discontinuous.
+/// We compute the initial and goal configurations by numerical inverse
+/// kinematics.
 ///
 /// \code
 /// ## Generate one configuration satisfying each constraint
 /// q0 = 6*[0.]
 /// res, q1, err = cg.applyNodeConstraints("ur10e/gripper grasps handle1", q0)
-/// # Use q1 to generate q2 to minimize the probability of discontinuities
-/// res, q2, err = cg.applyNodeConstraints("ur10e/gripper grasps handle2", q1)
+/// res, q2, err = cg.applyNodeConstraints("ur10e/gripper grasps handle2", q0)
+/// # Check that configurations are collision free
+/// res, msg = robot.isConfigValid(q1)
+/// assert(res)
+/// res, msg = robot.isConfigValid(q2)
+/// assert(res)
 /// \endcode
 ///
-/// Then we create several CORBA objects:
+/// We create several CORBA objects:
 /// \li the current manipulation planning problem \c cmp,
 /// \li the robot stored in this problem \c crobot,
 /// \li a steering method \c csm of type hpp::manipulation::steeringMethod::EndEffectorTrajectory
@@ -153,13 +176,21 @@
 ///
 /// Then we create a \link hpp::core::ConstraintSet ContraintSet \endlink
 /// containing an empty \link hpp::core::ConfigProjector ConfigProjector
-/// \endlink that we pass to the steering method:
+/// \endlink that we pass to the problem. We set  \link hpp::manipulation::steeringMethod::EndEffectorTrajectory \c csm \endlink as the steering method of the
+/// problem. Note that the last line passes the \link hpp::core::ConstraintSet
+/// ContraintSet \endlink of the problem to
+/// the steering method. The order is important here since at construction the
+/// problem is given an empty \link hpp::core::ConstraintSet ContraintSet
+/// \endlink and setting the steering method of
+/// the problem passes the \link hpp::core::ConstraintSet ContraintSet \endlink
+/// of the problem to the steering method.
 ///
 /// \code
 /// cs = wd(ps.client.basic.problem.createConstraintSet(crobot, "sm-constraints"))
 /// cp = wd(ps.client.basic.problem.createConfigProjector(crobot, "cp", 1e-4, 40))
 /// cs.addConstraint(cp)
-/// csm.setConstraints(cs)
+/// cproblem.setConstraints(cs)
+/// cproblem.setSteeringMethod(csm)
 /// \endcode
 ///
 /// We need to create a time varying constraint for the end-effector. For that,
@@ -177,7 +208,8 @@
 /// \endcode
 ///
 /// We insert this constraint into the \link hpp::core::ConfigProjector
-/// ConfigProjector \endlink of the \link hpp::core::Problem problem \endlink.
+/// ConfigProjector \endlink of the \link hpp::core::Problem problem \endlink
+/// (and thus of the steering method)
 ///
 /// \code
 /// tc = wd(ps.client.basic.problem.getConstraint("end-effector-tc"))
@@ -235,8 +267,28 @@
 /// \code
 /// ## Call steering method
 /// p1 = wd(csm.call(q1,q2))
-/// ps.client.basic.problem.addPath(p1.asVector())
+/// if p1:
+///    ps.client.basic.problem.addPath(p1.asVector())
 ///\endcode
 ///
 /// After connecting and refreshing \c gepetto-gui, you should be able to
-/// display the path.
+/// display the path. Notice that the path is discontinuous.
+///
+/// To get a continuous path, we need to use the \link hpp::manipulation::pathPlanner::EndEffectorTrajectory EndEffectorTrajectory path planner \endlink.
+///
+/// \code
+/// ## Using EndEffectorTrajectory path planner
+/// cdistance = wd(cproblem.getDistance())
+/// croadmap = wd(ps.client.basic.problem.createRoadmap(cdistance, crobot))
+/// cplanner = wd(ps.client.basic.problem.createPathPlanner(
+///     "EndEffectorTrajectory", cproblem, croadmap))
+/// cproblem.setInitConfig(q1)
+/// cproblem.addGoalConfig(q2)
+///
+/// p2 = wd(cplanner.solve())
+/// if p2:
+///     ps.client.basic.problem.addPath(p2)
+///\endcode
+///
+/// Notice that the path satisfies the end-effector time-varying constraint, but
+/// does not end at \f$\mathbf{q}_2\f$.
