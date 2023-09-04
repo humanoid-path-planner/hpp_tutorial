@@ -134,6 +134,10 @@ cplanner = wd(
         "EndEffectorTrajectory", cproblem, croadmap
     )
 )
+cplanner.setNRandomConfig(0)
+cplanner.maxIterations(1)
+cplanner.setNDiscreteSteps(20)
+
 cproblem.setInitConfig(q1)
 cproblem.addGoalConfig(q2)
 
