@@ -290,6 +290,10 @@
 /// croadmap = wd(ps.client.basic.problem.createRoadmap(cdistance, crobot))
 /// cplanner = wd(ps.client.basic.problem.createPathPlanner(
 ///     "EndEffectorTrajectory", cproblem, croadmap))
+/// cplanner.setNRandomConfig(0)
+/// cplanner.maxIterations(1)
+/// cplanner.setNDiscreteSteps(20)
+///
 /// cproblem.setInitConfig(q1)
 /// cproblem.addGoalConfig(q2)
 ///
@@ -298,5 +302,15 @@
 ///     ps.client.basic.problem.addPath(p2)
 ///\endcode
 ///
+/// We set the number of random configurations to 0 in order to force the
+/// planner to start from \c q1. Otherwise, in case of failure to plan a
+/// continuous path starting from \c q1, the planner would generate random
+/// initial configurations that satisfy the constraints at the beginning.
+/// To be consistent, we set the maximal number of iterations to 1 since new
+/// iterations would simply retry to start from \c q1. We set the number of
+/// steps at which a configuration is computed for the corresponding pose of the
+/// end effector to 20.
+///
 /// Notice that the path satisfies the end-effector time-varying constraint, but
-/// does not end at \f$\mathbf{q}_2\f$.
+/// does not end at \f$\mathbf{q}_2\f$ since the final configuration is
+/// completely determined by the initial one.
