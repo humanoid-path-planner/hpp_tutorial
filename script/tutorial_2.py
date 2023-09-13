@@ -31,7 +31,7 @@ ps.setInitialConfig(q_init)
 ps.addGoalConfig(q_goal)
 
 loaded = ps.client.problem.loadPlugin("tutorial-2.so")
-assert(loaded)
+assert loaded
 
 ps.selectPathPlanner("TutorialPRM")
 ps.addPathOptimizer("RandomShortcut")
