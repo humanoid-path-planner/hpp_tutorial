@@ -22,12 +22,12 @@
 #include <hpp/core/constraint-set.hh>
 #include <hpp/core/path-planner.hh>
 #include <hpp/core/path-validation.hh>
+#include <hpp/core/plugin.hh>
 #include <hpp/core/problem-solver.hh>
 #include <hpp/core/problem.hh>
 #include <hpp/core/roadmap.hh>
 #include <hpp/core/steering-method.hh>
 #include <hpp/util/pointer.hh>
-#include <hpp/core/plugin.hh>
 
 namespace hpp {
 namespace tutorial {
@@ -137,14 +137,15 @@ class Planner : public core::PathPlanner {
 };  // class Planner
 
 class Plugin : public core::ProblemSolverPlugin {
-public:
+ public:
   Plugin() : ProblemSolverPlugin("TutorialPlugin", "0.0") {}
-protected:
+
+ protected:
   virtual bool impl_initialize(core::ProblemSolverPtr_t ps) {
     ps->pathPlanners.add("TutorialPRM", Planner::create);
     return true;
   }
-}; // class Plugin
+};  // class Plugin
 }  // namespace tutorial
 }  // namespace hpp
 
