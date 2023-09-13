@@ -167,7 +167,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/base_v0/caster.stl"/>
       </geometry>
-      <material name="Caster"/>
     </visual>
   </link>
   <transmission name="fl_caster_rotation_trans" type="SimpleTransmission">
@@ -196,7 +195,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/base_v0/wheel.stl"/>
       </geometry>
-      <material name="Wheel_l"/>
     </visual>
   </link>
   <gazebo reference="fl_caster_l_wheel_link">
@@ -232,7 +230,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/base_v0/wheel.stl"/>
       </geometry>
-      <material name="Wheel_r"/>
     </visual>
   </link>
   <gazebo reference="fl_caster_r_wheel_link">
@@ -273,7 +270,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/base_v0/caster.stl"/>
       </geometry>
-      <material name="Caster"/>
     </visual>
   </link>
   <transmission name="fr_caster_rotation_trans" type="SimpleTransmission">
@@ -302,7 +298,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/base_v0/wheel.stl"/>
       </geometry>
-      <material name="Wheel_l"/>
     </visual>
   </link>
   <gazebo reference="fr_caster_l_wheel_link">
@@ -338,7 +333,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/base_v0/wheel.stl"/>
       </geometry>
-      <material name="Wheel_r"/>
     </visual>
   </link>
   <gazebo reference="fr_caster_r_wheel_link">
@@ -379,7 +373,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/base_v0/caster.stl"/>
       </geometry>
-      <material name="Caster"/>
     </visual>
   </link>
   <transmission name="bl_caster_rotation_trans" type="SimpleTransmission">
@@ -408,7 +401,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/base_v0/wheel.stl"/>
       </geometry>
-      <material name="Wheel_l"/>
     </visual>
   </link>
   <gazebo reference="bl_caster_l_wheel_link">
@@ -444,7 +436,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/base_v0/wheel.stl"/>
       </geometry>
-      <material name="Wheel_r"/>
     </visual>
   </link>
   <gazebo reference="bl_caster_r_wheel_link">
@@ -485,7 +476,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/base_v0/caster.stl"/>
       </geometry>
-      <material name="Caster"/>
     </visual>
   </link>
   <transmission name="br_caster_rotation_trans" type="SimpleTransmission">
@@ -514,7 +504,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/base_v0/wheel.stl"/>
       </geometry>
-      <material name="Wheel_l"/>
     </visual>
   </link>
   <gazebo reference="br_caster_l_wheel_link">
@@ -550,7 +539,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/base_v0/wheel.stl"/>
       </geometry>
-      <material name="Wheel_r"/>
     </visual>
   </link>
   <gazebo reference="br_caster_r_wheel_link">
@@ -1379,7 +1367,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/shoulder_v0/upper_arm_roll.stl"/>
       </geometry>
-      <material name="RollLinks"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -1511,7 +1498,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/upper_arm_v0/forearm_roll.stl"/>
       </geometry>
-      <material name="RollLinks"/>
     </visual>
     <!-- TODO: collision tag should be optional -->
     <collision>
@@ -1674,7 +1660,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/forearm_v0/wrist_roll.stl"/>
       </geometry>
-      <material name="RollLinks"/>
     </visual>
   </link>
   <gazebo reference="r_forearm_link">
@@ -2246,7 +2231,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/shoulder_v0/upper_arm_roll.stl"/>
       </geometry>
-      <material name="RollLinks"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -2378,7 +2362,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/upper_arm_v0/forearm_roll.stl"/>
       </geometry>
-      <material name="RollLinks"/>
     </visual>
     <!-- TODO: collision tag should be optional -->
     <collision>
@@ -2541,7 +2524,6 @@
       <geometry>
         <mesh filename="package://pr2_description/meshes/forearm_v0/wrist_roll.stl"/>
       </geometry>
-      <material name="RollLinks"/>
     </visual>
   </link>
   <gazebo reference="l_forearm_link">
