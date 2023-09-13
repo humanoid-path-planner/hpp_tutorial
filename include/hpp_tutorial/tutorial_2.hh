@@ -17,16 +17,20 @@
 // hpp_tutorial  If not, see
 // <http://www.gnu.org/licenses/>.
 
-/// \page hpp_tutorial_tutorial_2 Tutorial 2
+/// \page hpp_tutorial_tutorial_2 Tutorial 2 - Plugin
 ///
-/// <h1>Implementing a new path planning algorithm</h1>
+/// In this tutorial, we are going to implement a new path planning algorithm
+/// within a plugin.
+///
+/// \section hpp_tutorial_tutorial_2_implementation Implementing a new path planning algorithm in a plugin
 ///
 /// The code of this tutorial can be found in \c src/tutorial_2.cc.
 /// The compilation and installation instructions can be found in
-/// \c CMakeLists.txt.
+/// \c src/CMakeLists.txt.
 ///
-/// \section hpp_tutorial_tutorial_2_class_planner Implementation of class
-/// Planner File \c src/tutorial_2.cc implements \c class
+/// \subsection hpp_tutorial_tutorial_2_class_planner Implementation of class Planner
+///
+///File \c src/tutorial_2.cc implements \c class
 /// hpp::tutorial::Planner, deriving from abstract class hpp::core::PathPlanner.
 /// In this section, we explain some specific parts of the code.
 ///
@@ -68,119 +72,59 @@
 /// pointers. \note Method \c init always calls the parent implementation so
 /// that the parent part of the object also stores a weak pointer to itself.
 ///
-/// \section hpp_tutorial_tutorial_2_hpp_tutorial_server Implementation of
-/// executable hpp-tutorial-2-server
+/// \subsection hpp_tutorial_tutorial_2_plugin Implementation of plugin tutorial-2.so
 ///
 /// Now that the new class \c hpp::tutorial::Planner has been implemented, we
-/// are going to use it in a new executable. The new executable is defined by
+/// are going to add it via a plugin.
+///
 /// \code
-/// int main (int argc, const char* argv[])
+/// class Plugin : public core::ProblemSolverPlugin {
+/// public:
+///   Plugin() : ProblemSolverPlugin("TutorialPlugin", "0.0") {}
+/// protected:
+///   virtual bool impl_initialize(core::ProblemSolverPtr_t ps) {
+///     ps->pathPlanners.add("TutorialPRM", Planner::create);
+///     return true;
+///   }
+/// }; // class Plugin
 /// \endcode
-/// This executable creates an instance of hpp::core::ProblemSolver,
+/// class \c hpp::tutorial::Plugin derives from abstract class
+/// \c hpp::core::ProblemSolverPlugin. Upon loading of the plugin by
+/// \c hppcorbaserver, method \c impl_initialize is called. This method register
+/// our new path planning class with key "TutorialPRM"
+///
 /// \code
-/// hpp::core::ProblemSolverPtr_t problemSolver =
-///   hpp::core::ProblemSolver::create ();
+/// HPP_CORE_DEFINE_PLUGIN(hpp::tutorial::Plugin)
 /// \endcode
-/// adds the constructor of class hpp::tutorial::Planner in the map of the
-/// ProblemSolver instance with key "PRM",
-/// \code
-///  hpp::core::PathPlannerBuilder_t factory (hpp::tutorial::Planner::create);
-///  problemSolver->pathPlanners.add ("PRM", factory);
-/// \endcode
-/// creates a CORBA server with the ProblemSolver instance,
-/// \code
-/// hpp::corbaServer::Server server (problemSolver, argc, argv, true);
-///\endcode
-/// starts the CORBA server, and
-/// \code
-/// server.startCorbaServer ();
-/// \endcode
-/// process client requests forever.
-/// \code
-/// server.processRequest (true);
-/// \endcode
+/// This macro register the new plugin.
 ///
 /// \section hpp_tutorial_tutorial_2_CMakeLists Compilation and installation
 ///
-/// The compilation and installation is done in file \c CMakeLists.txt by
+/// The compilation and installation is done in file \c src/CMakeLists.txt by
 /// the following lines
 /// \code
-/// CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
-/// INCLUDE(cmake/base.cmake)
-///
-/// SET(PROJECT_NAME hpp_tutorial)
-/// SET(PROJECT_DESCRIPTION
-///   "Tutorial for humanoid path planner platform."
-/// )
-/// SET(PROJECT_URL "")
-///
-/// SETUP_PROJECT()
-/// ADD_REQUIRED_DEPENDENCY("hpp-corbaserver >= 3")
-///
-/// # Create and install executable running the corba server
-/// ADD_EXECUTABLE (hpp-tutorial-2-server
-///   src/tutorial_2.cc
-/// )
-/// # Link executable with hpp-corbaserver library
-/// PKG_CONFIG_USE_DEPENDENCY (hpp-tutorial-2-server hpp-corbaserver)
-/// # Install executable
-/// INSTALL (TARGETS hpp-tutorial-2-server DESTINATION ${CMAKE_INSTALL_BINDIR})
-/// SETUP_PROJECT_FINALIZE()
+/// ## Tutorial 2
+/// include(${HPP_CORE_CMAKE_PLUGIN})
+/// # Create and install the plugin
+/// hpp_add_plugin(tutorial-2 SOURCES tutorial_2.cc LINK_DEPENDENCIES
+///   hpp-corbaserver::hpp-corbaserver)
 /// \endcode
+/// These two lines declare a new plugin the source file of which is
+/// tutorial-2.cc and install this plugin into lib/hppPlugins subdirectory
+/// of the installation prefix.
 ///
-/// \section hpp_tutorial_tutorial_2_running Running the server and solving a
-/// problem.
+/// \section hpp_tutorial_tutorial_2_running Using the plugin and solving a problem.
 ///
-/// To run your executable and solve a problem with your path planning
-/// algorithm, you simply need to follow the same steps as in tutorial 1,
-/// except that you should start
+/// To solve a problem with the new path planning
+/// algorithm, we simply need to follow the same steps as in tutorial 1,
+/// except that we should  source \c script/tutorial_2.py instead of
+/// \c script/tutorial_1.py
+///
 /// \code
-/// hpp-tutorial-2-server
+/// loaded = ps.client.problem.loadPlugin("tutorial-2.so")
+/// assert(loaded)
+///
+/// ps.selectPathPlanner("TutorialPRM")
 /// \endcode
-/// instead of \c hppcorbaserver and source \c script/tutorial_2.py instead of
-/// \c script/tutorial_1.py, or make sure that you add the following line before
-/// solving the problem
-/// \code
-/// ps.selectPathPlanner ("PRM")
-/// \endcode
+/// The above lines load the plugin and select the new path planner.
 ///
-/// \warning Basic PRM is very inefficient. Resolution can take a long time,
-/// especially if you have compiled in debug mode.
-///
-/// \section hpp_tutorial_tutorial_2_external_package Moving the code into an
-/// external package
-///
-/// To implement the above executable in an external package, you should do the
-/// following steps.
-/// \li create a new directory in \c src, for instance
-/// \code
-/// mkdir my-hpp-project
-/// \endcode
-/// \li create a file \c README.md describing the new package
-/// \code
-/// echo "Implementation of a new path planning algorithm embedded in a CORBA
-/// server" > my-hpp-project/README.md \endcode \li create an empty \c
-/// Doxyfile.extra.in file \code mkdir my-hpp-project/doc; touch
-/// my-hpp-project/doc/Doxyfile.extra.in \endcode \li copy the above \c cmake
-/// code into \c my-hpp-project/CMakeLists.txt, after replacing names by the
-/// names you have chosen, \li copy file \c src/tutorial.cc into \c
-/// my-hpp-project/src \code mkdir my-hpp-project/src cp
-/// hpp_tutorial/src/tutorial.cc my-hpp-project/src/. \endcode Go into the
-/// project directory and initialize git. \code cd my-hpp-project; git init; git
-/// add . \endcode Import the cmake git sub-module \code git submodule add
-/// git://github.com/jrl-umi3218/jrl-cmakemodules.git cmake \endcode Commit this
-/// first version. \code git commit -m "My first hpp project" \endcode
-///
-/// \subsection hpp_tutorial_tutorial_2_external_package_installation
-/// Installation The package is ready for installation. Create a build directory
-/// \code
-/// mkdir build; cd build
-/// \endcode
-/// configure and install
-/// \code
-/// cmake -DCMAKE_INSTALL_PREFIX=${DEVEL_DIR}/install ..
-/// make install
-/// \endcode
-///
-/// Executable \c hpp-tutorial-2-server is installed and can be run from the
-/// terminal.

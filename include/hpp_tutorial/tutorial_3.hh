@@ -17,7 +17,7 @@
 // hpp_tutorial  If not, see
 // <http://www.gnu.org/licenses/>.
 
-/// \page hpp_tutorial_tutorial_3 Tutorial 3
+/// \page hpp_tutorial_tutorial_3 Tutorial 3 - manipulation
 ///
 /// To run the tutorial, open a terminal and open 3 tabs by typing
 /// \c CTRL+SHIFT+T twice. When the terminal is selected, you can select a tab

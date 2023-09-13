@@ -17,7 +17,7 @@
 // hpp_tutorial  If not, see
 // <http://www.gnu.org/licenses/>.
 
-/// \page hpp_tutorial_tutorial_4 Tutorial 4
+/// \page hpp_tutorial_tutorial_4 Tutorial 4 - inverse kinematics
 ///
 /// To run this tutorial, you need to install package \c ur_description.
 ///

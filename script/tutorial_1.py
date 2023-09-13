@@ -31,6 +31,11 @@ ps.setInitialConfig(q_init)
 ps.addGoalConfig(q_goal)
 
 ps.addPathOptimizer("RandomShortcut")
+loaded = ps.client.problem.loadPlugin("spline-gradient-based.so")
+if loaded:
+    ps.addPathOptimizer("SplineGradientBased_bezier1")
+else:
+    print("Could not load spline-gradient-based.so")
 
 # print (ps.solve ())
 
@@ -40,5 +45,6 @@ ps.addPathOptimizer("RandomShortcut")
 # from hpp.gepetto import PathPlayer
 # pp = PathPlayer (v)
 
-# pp (0)
-# pp (1)
+# pp(0)
+# pp(1)
+# pp(2)

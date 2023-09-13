@@ -50,7 +50,7 @@
 /// cd script
 /// python -i tutorial_1.py
 /// \endcode
-/// to run the script<code><a
+/// to run the script <code><a
 /// href="script/tutorial_1.py">script/tutorial_1.py</a></code> in an
 /// interactive python terminal.
 ///
@@ -76,12 +76,13 @@
 /// \code
 /// >>> from hpp.gepetto import PathPlayer
 /// >>> pp = PathPlayer (v)
-/// >>> pp (0)
+/// >>> pp(0)
 /// \endcode
 ///
-/// To display an optimized solution,
+/// To display an optimized solutions,
 /// \code
-/// >>> pp (1)
+/// >>> pp(1)
+/// >>> pp(2)
 /// \endcode
 ///
 /// \section hpp_tutorial_1_script Detailed explanation
@@ -159,7 +160,20 @@
 /// \code
 /// ps.addPathOptimizer ("RandomShortcut")
 /// \endcode
-/// Add a path optimizer (hpp::core::RandomShortcut).
+/// Add a path optimizer (hpp::core::pathOptimization::RandomShortcut).
+///
+/// \code
+/// loaded = ps.client.problem.loadPlugin("spline-gradient-based.so")
+/// if loaded:
+///     ps.addPathOptimizer("SplineGradientBased_bezier1")
+/// else:
+///     print("Could not load spline-gradient-based.so")
+/// \endcode
+/// Load a plugin that implements another path optimizer
+/// (hpp::core::pathOptimization::SplineGradientBasedAbstract) and add the path
+/// optimizer. The two selected path optimizers will be called in sequence.
+/// Note that in this example, the second path optimizer will not improve the
+/// result of the first one.
 ///
 /// \code
 /// print (ps.solve ())
@@ -175,23 +189,27 @@
 /// Import and create an instance of PathPlayer. This class samples a path in
 /// \c hppcorbaserver and displays it in \c gepetto-viewer-server.
 ///
+/// \note Paths can be displayed in \c gepetto-gui after installing \c hpp-gui
+/// package and loading plugin \c hppwidgetsplugin.
+///
 /// \code
-/// pp (0)
+/// pp(0)
 /// \endcode
 /// Display first path, result of RRT.
 ///
 /// \code
-/// pp (1)
+/// pp(1)
 /// \endcode
-/// Display second path after optimization.
+/// Display second path after optimization by random shortcut algorithm.
+///
+/// \code
+/// pp(2)
+/// \endcode
+/// Display third path after optimization by spline gradient based algorithm.
 
 /// \page hpp_tutorial_tutorial_1_cpp Tutorial 1 - C++
 ///
 /// Currently, there is no visualization with the C++ version.
-///
-/// \section hpp_tutorial_tutorial_1_cpp_source Understanding the source code.
-///
-/// Have a look at the file \c src/tutorial_1.cc
 ///
 /// \section hpp_tutorial_tutorial_1_cpp_execution Execute the binary.
 ///
@@ -199,4 +217,27 @@
 /// \code
 /// build-folder/src/hpp-tutorial-1
 /// \endcode
+///
+/// \section hpp_tutorial_tutorial_1_cpp_source Understanding the source code.
+///
+/// Have a look at the file \c src/tutorial_1.cc. It contains the C++ code that
+/// defines and solves the same path planning problem as \c tutorial_1.py.
+///
+/// \code
+///   ProblemSolverPtr_t ps = ProblemSolver::create();
+/// \endcode
+///
+/// Class hpp::core::ProblemSolver is a container class that stores
+/// \li a robot,
+/// \li objstacles,
+/// \li various types of path planning algorithms (hpp::core::PathPlanner),
+/// \li various types of path optimizers (hpp::core::PathOptimizer),
+/// \li various types of configuration shooter
+///     (hpp::core::ConfigurationShooter),
+/// \li various types of steering methods (hpp::core::SteeringMethod),
+/// \li various types of path validation methods
+///     (hpp::core::PathValidation)
+/// \li various types of path projection algorithms (hpp::core::PathProjector)
+/// \li various types of metrics defined on the configuration space
+///     (hpp::core::Distance).
 ///
