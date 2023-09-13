@@ -76,11 +76,11 @@ int main() {
   } catch (const std::invalid_argument&) {
     loaded = false;
   }
+  ps->addPathOptimizer("RandomShortcut");
   if (loaded)
     ps->addPathOptimizer("SplineGradientBased_bezier1");
   else {
     std::cerr << "Could not load spline-gradient-based.so" << std::endl;
-    ps->addPathOptimizer("RandomShortcut");
   }
 
   ps->solve();

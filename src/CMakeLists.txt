@@ -12,7 +12,7 @@
 # details.  You should have received a copy of the GNU Lesser General Public
 # License along with hpp_tutorial  If not, see <http://www.gnu.org/licenses/>.
 
-# Tutorial 1
+## Tutorial 1 - C++
 
 # Create and install executable running the corba server
 add_executable(hpp-tutorial-1 tutorial_1.cc)
@@ -21,11 +21,8 @@ target_link_libraries(hpp-tutorial-1 hpp-core::hpp-core)
 # Install executable
 install(TARGETS hpp-tutorial-1 DESTINATION ${CMAKE_INSTALL_BINDIR})
 
-# Tutorial 2
-
-# Create and install executable running the corba server
-add_executable(hpp-tutorial-2-server tutorial_2.cc)
-# Link executable with hpp-corbaserver library
-target_link_libraries(hpp-tutorial-2-server hpp-corbaserver::hpp-corbaserver)
-# Install executable
-install(TARGETS hpp-tutorial-2-server DESTINATION ${CMAKE_INSTALL_BINDIR})
+## Tutorial 2
+include(${HPP_CORE_CMAKE_PLUGIN})
+# Create and install the plugin
+hpp_add_plugin(tutorial-2 SOURCES tutorial_2.cc LINK_DEPENDENCIES
+  hpp-corbaserver::hpp-corbaserver)

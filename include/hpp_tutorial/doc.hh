@@ -37,12 +37,12 @@
 ///
 /// \par Tutorials
 ///
-/// \li \link hpp_tutorial_tutorial_1 Tutorial 1 \endlink : how to define and
-///     solve a path planning problem. A \link hpp_tutorial_tutorial_1_cpp C++
-///     version of Tutorial 1 \endlink without middleware is also available.
-/// \li \link hpp_tutorial_tutorial_2 Tutorial 2 \endlink : how to implement
+/// \li \link hpp_tutorial_tutorial_1 Tutorial 1 (python)\endlink: how to
+///     define and solve a path planning problem using CORBA.
+/// \li \link hpp_tutorial_tutorial_1_cpp Tutorial 1 (C++)\endlink how to
+///     define and solve the same path planning problem without middleware.
+/// \li \link hpp_tutorial_tutorial_2 Tutorial 2 - plugin\endlink : how to implement
 ///     a new path planning algorithm in C++.
-/// \li \link hpp_tutorial_tutorial_3 Tutorial 3 \endlink : how to define and
-///     solve a manipulation planning problem.
-/// \li \link hpp_tutorial_tutorial_4 Tutorial 4 \endlink: how to plan
+/// \li \link hpp_tutorial_tutorial_3 Tutorial 3 - manipulation \endlink : how to define and solve a manipulation planning problem.
+/// \li \link hpp_tutorial_tutorial_4 Tutorial 4 - inverse kinematics \endlink: how to plan
 ///     end-effector trajectoties

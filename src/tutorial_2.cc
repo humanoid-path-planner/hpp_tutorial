@@ -27,8 +27,7 @@
 #include <hpp/core/roadmap.hh>
 #include <hpp/core/steering-method.hh>
 #include <hpp/util/pointer.hh>
-
-#include "hpp/corbaserver/server.hh"
+#include <hpp/core/plugin.hh>
 
 namespace hpp {
 namespace tutorial {
@@ -136,24 +135,17 @@ class Planner : public core::PathPlanner {
   /// weak pointer to itself
   PlannerWkPtr_t weakPtr_;
 };  // class Planner
+
+class Plugin : public core::ProblemSolverPlugin {
+public:
+  Plugin() : ProblemSolverPlugin("TutorialPlugin", "0.0") {}
+protected:
+  virtual bool impl_initialize(core::ProblemSolverPtr_t ps) {
+    ps->pathPlanners.add("TutorialPRM", Planner::create);
+    return true;
+  }
+}; // class Plugin
 }  // namespace tutorial
 }  // namespace hpp
 
-// main function of the corba server
-int main(int argc, const char* argv[]) {
-  // create a ProblemSolver instance.
-  // This class is a container that does the interface between hpp-core library
-  // and component to be running in a middleware like CORBA or ROS.
-  hpp::core::ProblemSolverPtr_t problemSolver =
-      hpp::core::ProblemSolver::create();
-  // Add the new planner type in order to be able to select it from python
-  // client.
-  hpp::core::PathPlannerBuilder_t factory(hpp::tutorial::Planner::create);
-  problemSolver->pathPlanners.add("PRM", factory);
-  // Create the CORBA server.
-  hpp::corbaServer::Server server(problemSolver, argc, argv, true);
-  // Start the CORBA server.
-  server.startCorbaServer();
-  // Wait for CORBA requests.
-  server.processRequest(true);
-}
+HPP_CORE_DEFINE_PLUGIN(hpp::tutorial::Plugin)
