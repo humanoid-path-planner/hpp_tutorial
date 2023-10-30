@@ -1,15 +1,16 @@
-from hpp.corbaserver import loadServerPlugin, wrap_delete as wd
+from hpp.corbaserver import loadServerPlugin
+from hpp.corbaserver import wrap_delete as wd
 from hpp.corbaserver.manipulation import (
     ConstraintGraph,
     Constraints,
-    newProblem,
     ProblemSolver,
     Robot,
+    newProblem,
 )
 from hpp.gepetto.manipulation import ViewerFactory
-from hpp.rostools import process_xacro, retrieve_resource
+from hpp.rostools import process_xacro
 
-## Load robot from processing of a xacro file
+# Load robot from processing of a xacro file
 Robot.urdfString = process_xacro(
     "package://hpp_tutorial/urdf/ur10e.urdf.xacro",
     "transmission_hw_interface:=hardware_interface/PositionJointInterface",
@@ -20,20 +21,20 @@ Robot.srdfString = """
   <disable_collisions link1="shoulder_link"
      link2="upper_arm_link" reason=""/>
   <disable_collisions link1="upper_arm_link"
-		      link2="forearm_link" reason=""/>
+              link2="forearm_link" reason=""/>
 
   <disable_collisions link1="wrist_1_link"
-		      link2="wrist_2_link" reason=""/>
+              link2="wrist_2_link" reason=""/>
   <disable_collisions link1="wrist_2_link"
-		      link2="wrist_3_link" reason=""/>
+              link2="wrist_3_link" reason=""/>
   <disable_collisions link1="shoulder_link"
-		      link2="forearm_link" reason=""/>
+              link2="forearm_link" reason=""/>
   <disable_collisions link1="wrist_1_link"
-		      link2="wrist_3_link" reason=""/>
+              link2="wrist_3_link" reason=""/>
   <disable_collisions link1="base_link_inertia"
-		      link2="shoulder_link" reason=""/>
+              link2="shoulder_link" reason=""/>
   <disable_collisions link1="forearm_link"
-		      link2="wrist_1_link" reason=""/>
+              link2="wrist_1_link" reason=""/>
 </robot>
 """
 loadServerPlugin("corbaserver", "manipulation-corba.so")
@@ -43,12 +44,12 @@ robot = Robot("robot", "ur10e", rootJointType="anchor")
 ps = ProblemSolver(robot)
 vf = ViewerFactory(ps)
 
-## Add a gripper to the robot
+# Add a gripper to the robot
 robot.client.manipulation.robot.addGripper(
     "ur10e/wrist_3_link", "ur10e/gripper", [0, 0, 0.1, 0.5, 0.5, 0.5, -0.5], 0.1
 )
 
-## Create two handles
+# Create two handles
 robot.client.manipulation.robot.addHandle(
     "ur10e/base_link", "handle1", [0.8, -0.4, 0.5, 0, 0, 0, 1], 0.1, 6 * [True]
 )
@@ -56,7 +57,7 @@ robot.client.manipulation.robot.addHandle(
     "ur10e/base_link", "handle2", [0.8, 0.4, 0.5, 0, 0, 0, 1], 0.1, 6 * [True]
 )
 
-## Create grasp constraints
+# Create grasp constraints
 robot.client.manipulation.problem.createGrasp(
     "ur10e/gripper grasps handle1", "ur10e/gripper", "handle1"
 )
@@ -64,7 +65,7 @@ robot.client.manipulation.problem.createGrasp(
     "ur10e/gripper grasps handle2", "ur10e/gripper", "handle2"
 )
 
-## Create a constraint graph with one node for each grasp
+# Create a constraint graph with one node for each grasp
 cg = ConstraintGraph(robot, "graph")
 cg.createNode(["ur10e/gripper grasps handle1", "ur10e/gripper grasps handle2"])
 
@@ -78,7 +79,7 @@ cg.addConstraints(
 )
 cg.initialize()
 
-## Generate one configuration satisfying each constraint
+# Generate one configuration satisfying each constraint
 q0 = 6 * [0.0]
 res, q1, err = cg.applyNodeConstraints("ur10e/gripper grasps handle1", q0)
 res, q2, err = cg.applyNodeConstraints("ur10e/gripper grasps handle2", q0)
@@ -87,7 +88,7 @@ res, msg = robot.isConfigValid(q1)
 assert res
 res, msg = robot.isConfigValid(q2)
 assert res
-## Create an EndEffectorTrajectory steering method
+# Create an EndEffectorTrajectory steering method
 cmp = wd(ps.client.basic.problem.getProblem())
 crobot = wd(cmp.robot())
 cproblem = wd(ps.client.basic.problem.createProblem(crobot))
@@ -119,14 +120,14 @@ p = wd(csm.makePiecewiseLinearTrajectory([rhs1, rhs2], 6 * [1.0]))
 # Set this path as the time-varying right hand side of the constraint
 csm.trajectory(p, True)
 
-## Call steering method
+# Call steering method
 p1 = wd(csm.call(q1, q2))
 if p1:
     ps.client.basic.problem.addPath(p1.asVector())
 
 # Notice that the path is discontinuous.
 
-## Using EndEffectorTrajectory path planner
+# Using EndEffectorTrajectory path planner
 cdistance = wd(cproblem.getDistance())
 croadmap = wd(ps.client.basic.problem.createRoadmap(cdistance, crobot))
 cplanner = wd(
