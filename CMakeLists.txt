@@ -12,7 +12,7 @@
 # details.  You should have received a copy of the GNU Lesser General Public
 # License along with hpp_tutorial  If not, see <http://www.gnu.org/licenses/>.
 
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.10)
 
 set(PROJECT_NAME hpp_tutorial)
 set(PROJECT_DESCRIPTION "Tutorial for humanoid path planner platform.")
@@ -27,6 +27,7 @@ compute_project_args(PROJECT_ARGS LANGUAGES CXX)
 project(${PROJECT_NAME} ${PROJECT_ARGS})
 
 add_project_dependency("hpp-manipulation-corba" REQUIRED)
+add_project_dependency("hpp-python" REQUIRED)
 
 if(NOT FINDPYTHON_ALREADY_CALLED)
   findpython()
