@@ -17,7 +17,10 @@
 // hpp_tutorial  If not, see
 // <http://www.gnu.org/licenses/>.
 
-/// \page hpp_tutorial_tutorial_1 Tutorial 1 - Python
+/// \page hpp_tutorial_tutorial_1_python Tutorial 1 - Python modules
+///
+///
+/// \page hpp_tutorial_tutorial_1 Tutorial 1 - Python/CORBA
 ///
 /// To run the tutorial, open a terminal and open 3 tabs by typing
 /// \c CTRL+SHIFT+T twice. When the terminal is selected, you can select a tab
