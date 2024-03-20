@@ -53,7 +53,7 @@ int main() {
   q_init.head<2>() << -3.2, -4;
   q_init[device->getJointByName("torso_lift_joint")->rankInConfiguration()] =
       0.2;
-  ps->initConfig(ConfigurationPtr_t(new Configuration_t(q_init)));
+  ps->initConfig(q_init);
 
   Configuration_t q_goal(q_init);
   q_goal.head<2>() << -3.2, -4;
@@ -66,7 +66,7 @@ int main() {
              ->rankInConfiguration()] = 0.5;
   q_goal[device->getJointByName("r_elbow_flex_joint")->rankInConfiguration()] =
       -0.5;
-  ps->addGoalConfig(ConfigurationPtr_t(new Configuration_t(q_goal)));
+  ps->addGoalConfig(q_goal);
 
   bool loaded;
   try {
