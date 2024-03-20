@@ -96,9 +96,9 @@ class Planner : public core::PathPlanner {
         value_type d;
         // Get nearest node to qrand in connected component
         NodePtr_t nearest = r->nearestNode(qrand, cc, d);
-        core::ConfigurationPtr_t qnear = nearest->configuration();
+        core::Configuration_t qnear = nearest->configuration();
         // Create local path between qnear and qrand
-        PathPtr_t localPath = (*sm)(*qnear, qrand);
+        PathPtr_t localPath = (*sm)(qnear, qrand);
         // validate local path
         PathPtr_t validPart;
         // report on path validation: unused here
