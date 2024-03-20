@@ -37,7 +37,8 @@
 ///
 /// \par Tutorials
 ///
-/// \li \link hpp_tutorial_tutorial_1_python (python) Tutorial 1 (python)\endlink:
+/// \li \link hpp_tutorial_tutorial_1_python (python) Tutorial 1
+/// (python)\endlink:
 ///     how to define and solve a path planning problem using python modules.
 /// \li \link hpp_tutorial_tutorial_1 Tutorial 1 (python/CORBA)\endlink: how to
 ///     define and solve a path planning problem using CORBA.
