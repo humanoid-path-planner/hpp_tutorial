@@ -8,35 +8,11 @@ from hpp.corbaserver.manipulation import (
     newProblem,
 )
 from hpp.gepetto.manipulation import ViewerFactory
-from hpp.rostools import process_xacro
 
-# Load robot from processing of a xacro file
-Robot.urdfString = process_xacro(
-    "package://hpp_tutorial/urdf/ur10e.urdf.xacro",
-    "transmission_hw_interface:=hardware_interface/PositionJointInterface",
-)
-# Deactivate collision checking between consecutive links
-Robot.srdfString = """
-<robot name="ur10e">
-  <disable_collisions link1="shoulder_link"
-     link2="upper_arm_link" reason=""/>
-  <disable_collisions link1="upper_arm_link"
-              link2="forearm_link" reason=""/>
+# Specify path for robot urdf and srdf files
+Robot.urdfFilename = "package://example-robot-data/robots/ur_description/urdf/ur10_robot.urdf"
+Robot.srdfFilename = "package://example-robot-data/robots/ur_description/srdf/ur5.srdf"
 
-  <disable_collisions link1="wrist_1_link"
-              link2="wrist_2_link" reason=""/>
-  <disable_collisions link1="wrist_2_link"
-              link2="wrist_3_link" reason=""/>
-  <disable_collisions link1="shoulder_link"
-              link2="forearm_link" reason=""/>
-  <disable_collisions link1="wrist_1_link"
-              link2="wrist_3_link" reason=""/>
-  <disable_collisions link1="base_link_inertia"
-              link2="shoulder_link" reason=""/>
-  <disable_collisions link1="forearm_link"
-              link2="wrist_1_link" reason=""/>
-</robot>
-"""
 loadServerPlugin("corbaserver", "manipulation-corba.so")
 newProblem()
 
@@ -46,7 +22,7 @@ vf = ViewerFactory(ps)
 
 # Add a gripper to the robot
 robot.client.manipulation.robot.addGripper(
-    "ur10e/wrist_3_link", "ur10e/gripper", [0, 0, 0.1, 0.5, 0.5, 0.5, -0.5], 0.1
+    "ur10e/wrist_3_link", "ur10e/gripper", [0, 0.137, 0, 0.5, 0.5, 0.5, 0.5], 0.1
 )
 
 # Create two handles
@@ -80,14 +56,19 @@ cg.addConstraints(
 cg.initialize()
 
 # Generate one configuration satisfying each constraint
-q0 = 6 * [0.0]
-res, q1, err = cg.applyNodeConstraints("ur10e/gripper grasps handle1", q0)
-res, q2, err = cg.applyNodeConstraints("ur10e/gripper grasps handle2", q0)
-# Check that configurations are collision free
-res, msg = robot.isConfigValid(q1)
-assert res
-res, msg = robot.isConfigValid(q2)
-assert res
+found = False
+while not found:
+    q0 = robot.shootRandomConfig()
+    res, q1, err = cg.applyNodeConstraints("ur10e/gripper grasps handle1", q0)
+    if not res: continue
+    res, msg = robot.isConfigValid(q1)
+    if not res: continue
+    res, q2, err = cg.applyNodeConstraints("ur10e/gripper grasps handle2", q1)
+    if not res: continue
+    res, msg = robot.isConfigValid(q2)
+    if not res: continue
+    found = True
+
 # Create an EndEffectorTrajectory steering method
 cmp = wd(ps.client.basic.problem.getProblem())
 crobot = wd(cmp.robot())

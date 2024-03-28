@@ -152,16 +152,19 @@
 /// kinematics.
 ///
 /// \code
-/// ## Generate one configuration satisfying each constraint
-/// q0 = 6*[0.]
-/// res, q1, err = cg.applyNodeConstraints("ur10e/gripper grasps handle1", q0)
-/// res, q2, err = cg.applyNodeConstraints("ur10e/gripper grasps handle2", q0)
-/// # Check that configurations are collision free
-/// res, msg = robot.isConfigValid(q1)
-/// assert(res)
-/// res, msg = robot.isConfigValid(q2)
-/// assert(res)
-/// \endcode
+/// # Generate one configuration satisfying each constraint
+/// found = False
+/// while not found:
+///     q0 = robot.shootRandomConfig()
+///     res, q1, err = cg.applyNodeConstraints("ur10e/gripper grasps handle1", q0)
+///     if not res: continue
+///     res, msg = robot.isConfigValid(q1)
+///     if not res: continue
+///     res, q2, err = cg.applyNodeConstraints("ur10e/gripper grasps handle2", q1)
+///     if not res: continue
+///     res, msg = robot.isConfigValid(q2)
+///     if not res: continue
+///     found = True
 ///
 /// We create several CORBA objects:
 /// \li the current manipulation planning problem \c cmp,
@@ -278,9 +281,9 @@
 ///\endcode
 ///
 /// After connecting and refreshing \c gepetto-gui, you should be able to
-/// display the path. Notice that the path is discontinuous.
+/// display the path. Notice that the path might be discontinuous.
 ///
-/// To get a continuous path, we need to use the \link
+/// To get a continuous path for sure, we need to use the \link
 /// hpp::manipulation::pathPlanner::EndEffectorTrajectory EndEffectorTrajectory
 /// path planner \endlink.
 ///
@@ -312,5 +315,5 @@
 /// end effector to 20.
 ///
 /// Notice that the path satisfies the end-effector time-varying constraint, but
-/// does not end at \f$\mathbf{q}_2\f$ since the final configuration is
-/// completely determined by the initial one.
+/// does not necessarily end at \f$\mathbf{q}_2\f$ since the final
+/// configuration is completely determined by the initial one.
