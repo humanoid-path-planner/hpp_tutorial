@@ -10,7 +10,9 @@ from hpp.corbaserver.manipulation import (
 from hpp.gepetto.manipulation import ViewerFactory
 
 # Specify path for robot urdf and srdf files
-Robot.urdfFilename = "package://example-robot-data/robots/ur_description/urdf/ur10_robot.urdf"
+Robot.urdfFilename = (
+    "package://example-robot-data/robots/ur_description/urdf/ur10_robot.urdf"
+)
 Robot.srdfFilename = "package://example-robot-data/robots/ur_description/srdf/ur5.srdf"
 
 loadServerPlugin("corbaserver", "manipulation-corba.so")
@@ -60,13 +62,17 @@ found = False
 while not found:
     q0 = robot.shootRandomConfig()
     res, q1, err = cg.applyNodeConstraints("ur10e/gripper grasps handle1", q0)
-    if not res: continue
+    if not res:
+        continue
     res, msg = robot.isConfigValid(q1)
-    if not res: continue
+    if not res:
+        continue
     res, q2, err = cg.applyNodeConstraints("ur10e/gripper grasps handle2", q1)
-    if not res: continue
+    if not res:
+        continue
     res, msg = robot.isConfigValid(q2)
-    if not res: continue
+    if not res:
+        continue
     found = True
 
 # Create an EndEffectorTrajectory steering method

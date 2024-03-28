@@ -156,15 +156,11 @@
 /// found = False
 /// while not found:
 ///     q0 = robot.shootRandomConfig()
-///     res, q1, err = cg.applyNodeConstraints("ur10e/gripper grasps handle1", q0)
-///     if not res: continue
-///     res, msg = robot.isConfigValid(q1)
-///     if not res: continue
-///     res, q2, err = cg.applyNodeConstraints("ur10e/gripper grasps handle2", q1)
-///     if not res: continue
-///     res, msg = robot.isConfigValid(q2)
-///     if not res: continue
-///     found = True
+///     res, q1, err = cg.applyNodeConstraints("ur10e/gripper grasps handle1",
+///     q0) if not res: continue res, msg = robot.isConfigValid(q1) if not res:
+///     continue res, q2, err = cg.applyNodeConstraints("ur10e/gripper grasps
+///     handle2", q1) if not res: continue res, msg = robot.isConfigValid(q2) if
+///     not res: continue found = True
 ///
 /// We create several CORBA objects:
 /// \li the current manipulation planning problem \c cmp,

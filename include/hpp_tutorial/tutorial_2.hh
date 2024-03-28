@@ -22,13 +22,15 @@
 /// In this tutorial, we are going to implement a new path planning algorithm
 /// within a plugin.
 ///
-/// \section hpp_tutorial_tutorial_2_implementation Implementing a new path planning algorithm in a plugin
+/// \section hpp_tutorial_tutorial_2_implementation Implementing a new path
+/// planning algorithm in a plugin
 ///
 /// The code of this tutorial can be found in \c src/tutorial_2.cc.
 /// The compilation and installation instructions can be found in
 /// \c src/CMakeLists.txt.
 ///
-/// \subsection hpp_tutorial_tutorial_2_class_planner Implementation of class Planner
+/// \subsection hpp_tutorial_tutorial_2_class_planner Implementation of class
+/// Planner
 ///
 /// File \c src/tutorial_2.cc implements \c class
 /// hpp::tutorial::Planner, deriving from abstract class hpp::core::PathPlanner.
@@ -72,7 +74,8 @@
 /// pointers. \note Method \c init always calls the parent implementation so
 /// that the parent part of the object also stores a weak pointer to itself.
 ///
-/// \subsection hpp_tutorial_tutorial_2_plugin Implementation of plugin tutorial-2.so
+/// \subsection hpp_tutorial_tutorial_2_plugin Implementation of plugin
+/// tutorial-2.so
 ///
 /// Now that the new class \c hpp::tutorial::Planner has been implemented, we
 /// are going to add it via a plugin.
@@ -113,7 +116,8 @@
 /// tutorial-2.cc and install this plugin into lib/hppPlugins subdirectory
 /// of the installation prefix.
 ///
-/// \section hpp_tutorial_tutorial_2_running Using the plugin and solving a problem.
+/// \section hpp_tutorial_tutorial_2_running Using the plugin and solving a
+/// problem.
 ///
 /// To solve a problem with the new path planning
 /// algorithm, we simply need to follow the same steps as in tutorial 1,

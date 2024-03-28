@@ -50,14 +50,9 @@ install(
         urdf/table.urdf
         urdf/ur10e.urdf.xacro
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf)
-install(
-  FILES srdf/box.srdf
-        srdf/cup.srdf
-        srdf/kitchen_area.srdf
-        srdf/rod.srdf
-        srdf/door.srdf
-        srdf/table.srdf
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/srdf)
+install(FILES srdf/box.srdf srdf/cup.srdf srdf/kitchen_area.srdf srdf/rod.srdf
+              srdf/door.srdf srdf/table.srdf
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/srdf)
 install(FILES meshes/box.dae
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/meshes)
 install(FILES src/hpp/corbaserver/pr2/robot.py
