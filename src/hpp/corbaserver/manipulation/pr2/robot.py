@@ -34,8 +34,8 @@ class Robot(Parent):
     """
 
     #  Information to retrieve urdf and srdf files.
-    urdfFilename = "package://hpp_tutorial/urdf/pr2.urdf"
-    srdfFilename = "package://hpp_tutorial/srdf/pr2_manipulation.srdf"
+    urdfFilename = "package://example-robot-data/robots/pr2_description/urdf/pr2.urdf"
+    srdfFilename = "package://example-robot-data/robots/pr2_description/srdf/pr2_manipulation.srdf"
     rootJointType = "planar"
 
     def __init__(

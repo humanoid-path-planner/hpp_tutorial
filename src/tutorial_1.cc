@@ -30,7 +30,7 @@ int main() {
 
   // Create robot
   DevicePtr_t device = ps->createRobot("pr2");
-  hpp::pinocchio::urdf::loadRobotModel(device, "planar", "hpp_tutorial", "pr2",
+  hpp::pinocchio::urdf::loadRobotModel(device, "planar", "example-robot-data/robots/pr2_description", "pr2",
                                        "", "");
   device->controlComputation((Computation_t)(JOINT_POSITION | JACOBIAN));
   ps->robot(device);

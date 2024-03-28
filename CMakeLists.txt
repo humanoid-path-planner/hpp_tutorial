@@ -27,6 +27,8 @@ compute_project_args(PROJECT_ARGS LANGUAGES CXX)
 project(${PROJECT_NAME} ${PROJECT_ARGS})
 
 add_project_dependency("hpp-manipulation-corba" REQUIRED)
+add_project_dependency("example-robot-data" REQUIRED)
+add_project_dependency("hpp-gepetto-viewer" REQUIRED)
 
 if(NOT FINDPYTHON_ALREADY_CALLED)
   findpython()
@@ -39,8 +41,7 @@ set(CATKIN_PACKAGE_SHARE_DESTINATION
 
 install(FILES package.xml DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 install(
-  FILES urdf/pr2.urdf
-        urdf/box.urdf
+  FILES urdf/box.urdf
         urdf/cup.urdf
         urdf/door.urdf
         urdf/kitchen_area.urdf
@@ -50,9 +51,7 @@ install(
         urdf/ur10e.urdf.xacro
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf)
 install(
-  FILES srdf/pr2.srdf
-        srdf/pr2_manipulation.srdf
-        srdf/box.srdf
+  FILES srdf/box.srdf
         srdf/cup.srdf
         srdf/kitchen_area.srdf
         srdf/rod.srdf
@@ -93,7 +92,7 @@ install(
 # Installation for documentation
 if(INSTALL_DOCUMENTATION)
   install(
-    FILES urdf/pr2.urdf urdf/box.urdf
+    FILES urdf/box.urdf
     DESTINATION
       ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/doxygen-html/urdf)
   install(
