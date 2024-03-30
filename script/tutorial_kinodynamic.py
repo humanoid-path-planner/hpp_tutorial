@@ -1,7 +1,6 @@
-from hpp.corbaserver.robot import Robot
-from hpp.gepetto import PathPlayer
-from hpp.gepetto import ViewerFactory
 from hpp.corbaserver import ProblemSolver
+from hpp.corbaserver.robot import Robot
+from hpp.gepetto import PathPlayer, ViewerFactory
 
 # This tutorial shows how to use kinodynamic motion planning methods.
 # In the current implementation, only the translation part of a freeflyer is considered

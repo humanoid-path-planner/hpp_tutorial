@@ -2,18 +2,19 @@
 
 # Import.
 from math import sqrt
-from hpp.gepetto import PathPlayer  # noqa: F401
-from hpp.corbaserver.manipulation.pr2 import Robot
-from hpp.corbaserver.manipulation import (
-    ProblemSolver,
-    ConstraintGraph,
-    Rule,
-    Constraints,
-    ConstraintGraphFactory,
-    Client,
-)
-from hpp.gepetto.manipulation import ViewerFactory
+
 from hpp.corbaserver import loadServerPlugin
+from hpp.corbaserver.manipulation import (
+    Client,
+    ConstraintGraph,
+    ConstraintGraphFactory,
+    Constraints,
+    ProblemSolver,
+    Rule,
+)
+from hpp.corbaserver.manipulation.pr2 import Robot
+from hpp.gepetto import PathPlayer  # noqa: F401
+from hpp.gepetto.manipulation import ViewerFactory
 
 loadServerPlugin("corbaserver", "manipulation-corba.so")
 Client().problem.resetProblem()
@@ -21,7 +22,7 @@ Client().problem.resetProblem()
 # Load PR2 and a box to be manipulated.
 
 
-class Box(object):
+class Box:
     rootJointType = "freeflyer"
     packageName = "hpp_tutorial"
     urdfName = "box"
@@ -29,7 +30,7 @@ class Box(object):
     srdfSuffix = ""
 
 
-class Environment(object):
+class Environment:
     packageName = "hpp_tutorial"
     urdfName = "kitchen_area"
     urdfSuffix = ""
