@@ -1,5 +1,5 @@
-from hpp.corbaserver.pr2 import Robot
 from hpp.corbaserver import ProblemSolver
+from hpp.corbaserver.pr2 import Robot
 from hpp.gepetto import ViewerFactory
 
 robot = Robot("pr2")
