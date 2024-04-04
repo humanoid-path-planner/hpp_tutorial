@@ -79,7 +79,6 @@ install(
         urdf/box_color.urdf
         urdf/rod.urdf
         urdf/table.urdf
-        urdf/ur10e.urdf.xacro
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf)
 install(
   FILES srdf/box.srdf
