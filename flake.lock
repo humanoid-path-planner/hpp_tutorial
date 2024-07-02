@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1719745305,
-        "narHash": "sha256-xwgjVUpqSviudEkpQnioeez1Uo2wzrsMaJKJClh+Bls=",
+        "lastModified": 1719877454,
+        "narHash": "sha256-g5N1yyOSsPNiOlFfkuI/wcUjmtah+nxdImJqrSATjOU=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "c3c5ecc05edc7dafba779c6c1a61cd08ac6583e9",
+        "rev": "4e3583423212f9303aa1a6337f8dffb415920e4f",
         "type": "github"
       },
       "original": {
@@ -177,16 +177,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1719739587,
-        "narHash": "sha256-+iM/dyYHHenn49+TpA6uYKuQtewnxLvvs+xiJ0KbqC0=",
+        "lastModified": 1719772816,
+        "narHash": "sha256-HxQlm5TA0c9ureS93a5mVAWJN9t3K/LAHGF2pmutzUo=",
         "owner": "humanoid-path-planner",
         "repo": "hpp-gepetto-viewer",
-        "rev": "8f75c80874d4714eb08a2f9bbf72227f921f297a",
+        "rev": "76c53185f17c701f25c7ea86f269aab9c8e7e2d9",
         "type": "github"
       },
       "original": {
         "owner": "humanoid-path-planner",
-        "ref": "release/5.1.0",
         "repo": "hpp-gepetto-viewer",
         "type": "github"
       }
@@ -233,16 +232,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1719745657,
-        "narHash": "sha256-hDd/Bh3hgjjAMKC9iAYZ/B5pQ9wNWu3jRXnlTNSe0HQ=",
+        "lastModified": 1719773112,
+        "narHash": "sha256-QTD+aXURL+dCG3ZbFH4Q2X6TQhOP8sq11xkWtKCM5EU=",
         "owner": "humanoid-path-planner",
         "repo": "hpp-manipulation-corba",
-        "rev": "b43531f81a5ab993a1dd1f512076ff7d41123b39",
+        "rev": "2095617a8d31310c4d5b6b9fb7ff30311f9af16e",
         "type": "github"
       },
       "original": {
         "owner": "humanoid-path-planner",
-        "ref": "release/5.1.0",
         "repo": "hpp-manipulation-corba",
         "type": "github"
       }

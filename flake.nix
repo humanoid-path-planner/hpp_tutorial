@@ -13,7 +13,7 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     hpp-gepetto-viewer = {
-      url = "github:humanoid-path-planner/hpp-gepetto-viewer/release/5.1.0";
+      url = "github:humanoid-path-planner/hpp-gepetto-viewer";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -21,7 +21,7 @@
       };
     };
     hpp-manipulation-corba = {
-      url = "github:humanoid-path-planner/hpp-manipulation-corba/release/5.1.0";
+      url = "github:humanoid-path-planner/hpp-manipulation-corba";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
