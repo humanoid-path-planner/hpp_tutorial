@@ -1,31 +1,11 @@
 {
   description = "Tutorial for humanoid path planner platform";
 
-  nixConfig = {
-    extra-substituters = [ "https://gepetto.cachix.org" ];
-    extra-trusted-public-keys = [ "gepetto.cachix.org-1:toswMl31VewC0jGkN6+gOelO2Yom0SOHzPwJMY2XiDY=" ];
-  };
-
   inputs = {
-    nixpkgs.url = "github:nim65s/nixpkgs/gepetto";
+    nixpkgs.url = "github:gepetto/nixpkgs";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-    hpp-gepetto-viewer = {
-      url = "github:humanoid-path-planner/hpp-gepetto-viewer";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        hpp-corbaserver.follows = "hpp-manipulation-corba/hpp-corbaserver";
-      };
-    };
-    hpp-manipulation-corba = {
-      url = "github:humanoid-path-planner/hpp-manipulation-corba";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
     };
   };
 
@@ -47,14 +27,28 @@
           ...
         }:
         {
-          packages = {
-            inherit (pkgs) cachix;
-            default = pkgs.callPackage ./. {
-              hpp-gepetto-viewer = inputs.hpp-gepetto-viewer.packages.${system}.default;
-              hpp-manipulation-corba = inputs.hpp-manipulation-corba.packages.${system}.default;
-            };
-          };
           devShells.default = pkgs.mkShell { inputsFrom = [ self'.packages.default ]; };
+          packages = {
+            default = self'.packages.hpp-tutorial;
+            hpp-tutorial = pkgs.python3Packages.hpp-tutorial.overrideAttrs (_: {
+              src = pkgs.lib.fileset.toSource {
+                root = ./.;
+                fileset = pkgs.lib.fileset.unions [
+                  ./CMakeLists.txt
+                  ./doc
+                  ./include
+                  ./Media
+                  ./meshes
+                  ./package.xml
+                  ./rviz
+                  ./script
+                  ./src
+                  ./srdf
+                  ./urdf
+                ];
+              };
+            });
+          };
         };
     };
 }
